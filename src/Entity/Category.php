@@ -25,7 +25,7 @@ class Category
     private $Name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Certification::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Certification::class, mappedBy="category",cascade={"All"})
      */
     private $certifications;
 

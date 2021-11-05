@@ -35,7 +35,7 @@ class WhiteTest
     private $Time;
 
     /**
-     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="whiteTest")
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="whiteTest",cascade={"All"})
      */
     private $questions;
 

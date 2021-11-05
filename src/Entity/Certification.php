@@ -40,7 +40,7 @@ class Certification
     private $Picture;
 
     /**
-     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="certification")
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="certification",cascade={"All"})
      */
     private $documents;
 
