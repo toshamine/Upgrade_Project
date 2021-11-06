@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<title>WhiteTest index</title>
+
+{% block body %}
+    <h1>WhiteTest index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Limit_Time</th>
+                <th>Time</th>
+                <th>questions</th>
+                <th>actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for white_test in white_tests %}
+            <tr>
+                <td>{{ white_test.id }}</td>
+                <td>{{ white_test.Date ? white_test.Date|date('Y-m-d') : '' }}</td>
+                <td>{{ white_test.LimitTime ? white_test.LimitTime|date('H:i:s') : '' }}</td>
+                <td>{{ white_test.Time ? white_test.Time|date('H:i:s') : '' }}</td>
+                <td>{{ white_test.nbquestion }}</td>
+                <td>
+                    <a href="{{ path('passerWT',{'id': white_test.id}) }}">Pass</a>
+                    <a href="{{ path('white_test_show', {'id': white_test.id}) }}">show</a>
+                    <a href="{{ path('white_test_edit', {'id': white_test.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('white_test_new',{id:1}) }}">Create new</a>
+{% endblock %}

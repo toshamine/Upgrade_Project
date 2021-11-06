@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<title>Question</title>
+
+{% block body %}
+    <h1>Question</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ question.id }}</td>
+            </tr>
+            <tr>
+                <th>Answer</th>
+                <td>{{ question.Answer }}</td>
+            </tr>
+            <tr>
+                <th>Question</th>
+                <td>{{ question.Question }}</td>
+            </tr>
+            <tr>
+                <th>ChoiceA</th>
+                <td>{{ question.ChoiceA }}</td>
+            </tr>
+            <tr>
+                <th>ChoiceB</th>
+                <td>{{ question.ChoiceB }}</td>
+            </tr>
+            <tr>
+                <th>ChoiceC</th>
+                <td>{{ question.ChoiceC }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('question_crud_index') }}">back to list</a>
+
+    <a href="{{ path('question_crud_edit', {'id': question.id}) }}">edit</a>
+
+    {{ include('question_crud/_delete_form.html.twig') }}
+{% endblock %}

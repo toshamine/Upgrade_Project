@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<title>WhiteTest</title>
+
+{% block body %}
+    <h1>WhiteTest</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ white_test.Title }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ white_test.Date ? white_test.Date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Limit_Time</th>
+                <td>{{ white_test.LimitTime ? white_test.LimitTime|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>{{ white_test.Time ? white_test.Time|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Certification</th>
+                <td>{{ white_test.certiftitle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('white_test_index') }}">back to list</a>
+
+    <a href="{{ path('white_test_edit', {'id': white_test.id}) }}">edit</a>
+
+    {{ include('white_test/_delete_form.html.twig') }}
+{% endblock %}

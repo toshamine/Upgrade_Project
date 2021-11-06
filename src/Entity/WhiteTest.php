@@ -25,7 +25,7 @@ class WhiteTest
     private $Date;
 
     /**
-     * @ORM\Column(type="time",nullable=true)
+     * @ORM\Column(type="time",nullable=false)
      */
     private $Limit_Time;
 
@@ -38,6 +38,18 @@ class WhiteTest
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="whiteTest",cascade={"All"})
      */
     private $questions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Certification::class, inversedBy="whiteTests")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Certification;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Title;
+
 
     public function __construct()
     {
@@ -114,4 +126,80 @@ class WhiteTest
 
         return $this;
     }
+
+    public function getChoiceA(): ?string
+    {
+        return $this->ChoiceA;
+    }
+
+    public function setChoiceA(string $ChoiceA): self
+    {
+        $this->ChoiceA = $ChoiceA;
+
+        return $this;
+    }
+
+    public function getChoiceB(): ?string
+    {
+        return $this->ChoiceB;
+    }
+
+    public function setChoiceB(string $ChoiceB): self
+    {
+        $this->ChoiceB = $ChoiceB;
+
+        return $this;
+    }
+
+    public function getChoiceC(): ?string
+    {
+        return $this->ChoiceC;
+    }
+
+    public function setChoiceC(string $ChoiceC): self
+    {
+        $this->ChoiceC = $ChoiceC;
+
+        return $this;
+    }
+
+    public function nbquestion():?int
+    {
+        return $this->questions->count();
+    }
+
+    public function __toString() {
+        return (string)$this->getTitle();
+    }
+
+    public function getCertification(): ?Certification
+    {
+        return $this->Certification;
+    }
+
+    public function setCertification(?Certification $Certification): self
+    {
+        $this->Certification = $Certification;
+
+        return $this;
+    }
+
+    public function certiftitle():?string
+    {
+        return (string)$this->getCertification();
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->Title;
+    }
+
+    public function setTitle(string $Title): self
+    {
+        $this->Title = $Title;
+
+        return $this;
+    }
+
+
 }

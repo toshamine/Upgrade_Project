@@ -50,9 +50,15 @@ class Certification
      */
     private $category;
 
+    /**
+     * @ORM\OneToMany(targetEntity=WhiteTest::class, mappedBy="Certification")
+     */
+    private $whiteTests;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
+        $this->whiteTests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,5 +154,39 @@ class Certification
         $this->category = $category;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|WhiteTest[]
+     */
+    public function getWhiteTests(): Collection
+    {
+        return $this->whiteTests;
+    }
+
+    public function addWhiteTest(WhiteTest $whiteTest): self
+    {
+        if (!$this->whiteTests->contains($whiteTest)) {
+            $this->whiteTests[] = $whiteTest;
+            $whiteTest->setCertification($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWhiteTest(WhiteTest $whiteTest): self
+    {
+        if ($this->whiteTests->removeElement($whiteTest)) {
+            // set the owning side to null (unless already changed)
+            if ($whiteTest->getCertification() === $this) {
+                $whiteTest->setCertification(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->getTitle();
     }
 }
