@@ -47,6 +47,11 @@ class Question
      */
     private $whiteTest;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $Duration;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -146,6 +151,18 @@ class Question
     public function setChoiceC($ChoiceC): void
     {
         $this->ChoiceC = $ChoiceC;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->Duration;
+    }
+
+    public function setDuration(int $Duration): self
+    {
+        $this->Duration = $Duration;
+
+        return $this;
     }
 
 }

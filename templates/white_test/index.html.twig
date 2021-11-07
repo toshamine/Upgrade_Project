@@ -26,7 +26,7 @@
                 <td>{{ white_test.Time ? white_test.Time|date('H:i:s') : '' }}</td>
                 <td>{{ white_test.nbquestion }}</td>
                 <td>
-                    <a href="{{ path('passerWT',{'id': white_test.id}) }}">Pass</a>
+                    <a href="{{ path('passerWT',{'id': white_test.id,'i':0,'score':0,'answer':"17D36YUQHZ"}) }}">Pass</a>
                     <a href="{{ path('white_test_show', {'id': white_test.id}) }}">show</a>
                     <a href="{{ path('white_test_edit', {'id': white_test.id}) }}">edit</a>
                 </td>

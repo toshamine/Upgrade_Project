@@ -8,6 +8,7 @@ use App\Entity\Question;
 use App\Entity\WhiteTest;
 use App\Form\WhiteTestType;
 use App\Repository\WhiteTestRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,7 +63,6 @@ class WhiteTestController extends AbstractController
     {
         $form = $this->createForm(WhiteTestType::class, $whiteTest);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -88,30 +88,31 @@ class WhiteTestController extends AbstractController
     }
 
     /**
-     * @Route("passerWT/{id}",name="passerWT")
+     * @Route("passerWT/{id}/{i}/e73f1ece5087b8a5ae33998952202202{answer}e73f1ece5087b8a5ae33998952202202/7d60febfd9c79bf45ec6126f14dfe69a57444099{score}7d60febfd9c79bf45ec6126f14dfe69a57444099",name="passerWT")
      */
-    public function passer($id,Request $request,PaginatorInterface $paginator):Response
+    public function passer($id,$i,$answer,$score):Response
     {
         $em=$this->getDoctrine()->getManager();
         $questions=$em->getRepository(Question::class)->findBy(['whiteTest'=>$id]);
-        $questions=$paginator->paginate(
-            $questions,
-            $request->query->getInt('page',1),1
-    );
-
-        return $this->render("Client/PasserWT.html.twig",['questions'=>$questions]);
-    }
-
-    /**
-     * @Route("/score/{question}/{answer}/{end}",name="score")
-     */
-    public function score($question,$answer,$end){
-        $score=0;
-        if($end!="end") {
-            if ($question == $answer) {
+        $length=count($questions);
+        $j=$i-1;
+        if($i!=0) {
+            if ($answer == $questions[$j]->getAnswer()) {
                 $score++;
             }
         }
+        while($i != $length){
+        return $this->render("Client/PasserWT.html.twig",['question'=>$questions[$i],'whitetestid'=>$id,'i'=>$i,'score'=>$score]);
+        }
+
+        return $this->render("Client/result.html.twig", ['score' => $score]);
+
+    }
+
+    /**
+     * @Route("/result/{score}",name="result")
+     */
+    public function result($score){
         return $this->render("Client/result.html.twig",['score'=>$score]);
     }
 }

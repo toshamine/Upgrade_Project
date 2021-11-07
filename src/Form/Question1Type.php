@@ -19,6 +19,7 @@ class Question1Type extends AbstractType
             ->add('ChoiceA')
             ->add('ChoiceB')
             ->add('ChoiceC')
+            ->add('Duration')
             ->add('whiteTest')
         ;
     }

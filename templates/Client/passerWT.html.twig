@@ -16,25 +16,79 @@
 {%  block sectionname %} Test {% endblock %}
 {% block sectionmenu %} Test {% endblock %}
 {% block contenu %}
+
 <div class="d-flex justify-content-center">
-<table border="1">
-{% for question in questions %}
-    <tr><td>{{ question.Question }}</td><tr>
+    <div style="float: right;color: red">Question Time Ends In <span id="time">{{ question.Duration }}</span> Minutes!</div>
+</div>
+    </br>
+    </br>
+<div class="d-flex justify-content-center">
 
-    <tr><td>{{ question.ChoiceA }}</td><td>
 
-    </td></tr>
+<table border="1" class="table-hover table-dark table">
 
-    <tr><td>{{ question.ChoiceB }}</td></tr>
-    <tr><td>{{ question.ChoiceC }}</td></tr>
-    <tr><td><a href="{{ path('score', {'question': "nothing",'answer': "nothing",'end': "end"}) }}">End Test</a></td></tr>
-    {% endfor %}
+    <tr><td align="center">{{ question.Question }}</td><tr>
+
+    <tr><td align="center"><a href="{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"A",'score':score} ) }}">{{ question.ChoiceA }}</a></td><tr>
+
+    <tr><td align="center"><a href="{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"B",'score':score} ) }}">{{ question.ChoiceB }}</a></td></tr>
+
+    {% if question.ChoiceC!=null %}<tr><td align="center"><a href="{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"C",'score':score} ) }}">{{ question.ChoiceC }}</a></td></tr>{% endif %}
+
 </table>
+
 </div></br>
-    <div class="d-flex justify-content-center">
-    {% do questions.SetPageRange(2) %}
+    <script type="text/javascript" >
+        function preventBack(){window.history.forward();}
+        setTimeout("preventBack()", 0);
+        window.onunload=function(){null;};
+    </script>
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
 
-    {{ knp_pagination_render(questions,'pagination/pagination.html.twig') }}
-    </div>
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
 
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                    {%  set out=0  %} ;
+                     {% if  out==0 %}window.location.replace("{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"A",'score':score} ) }}");{% endif %};
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            var Minutes = 60 * parseInt({{ question.Duration }}, 10),
+                display = document.querySelector('#time');
+            startTimer(Minutes, display);
+        };
+    </script>
+    <style>
+        /* unvisited link */
+        a:link {
+            color: white;
+        }
+
+        /* visited link */
+        a:visited {
+            color: white;
+        }
+
+        /* mouse over link */
+        a:hover {
+            color: hotpink;
+        }
+
+        /* selected link */
+        a:active {
+            color: blue;
+        }
+    </style>
 {% endblock %}
+
