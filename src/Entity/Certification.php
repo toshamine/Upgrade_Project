@@ -46,13 +46,19 @@ class Certification
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="certifications")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=WhiteTest::class, mappedBy="certification",cascade={"All"})
+     */
+    private $whitetests;
 
     public function __construct()
     {
         $this->documents = new ArrayCollection();
+        $this->whitetests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,6 +152,36 @@ class Certification
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|WhiteTest[]
+     */
+    public function getWhitetests(): Collection
+    {
+        return $this->whitetests;
+    }
+
+    public function addWhitetest(WhiteTest $whitetest): self
+    {
+        if (!$this->whitetests->contains($whitetest)) {
+            $this->whitetests[] = $whitetest;
+            $whitetest->setCertification($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWhitetest(WhiteTest $whitetest): self
+    {
+        if ($this->whitetests->removeElement($whitetest)) {
+            // set the owning side to null (unless already changed)
+            if ($whitetest->getCertification() === $this) {
+                $whitetest->setCertification(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block contenu %}
+    <h1> Liste des Certification</h1>
+    <table border="1" >
+        <tr>
+
+            <td> Title </td>
+            <td> Company </td>
+            <td> Difficulty </td>
+            <td> Picture </td>
+        </tr>
+        {% for v in listeCertification %}
+                <tr>
+                    <td> {{ v.Title }} </td>
+                    <td> {{  v.Company}} </td>
+                    <td> {{ v.Difficulty}} </td>
+                    <td>{{   v.Picture }} </td>
+                    <td><a href="{{ path("CertificationDelete" , {'id':v.id})}}">  Delete </a> </td>
+                    <td><a href="{{ path("CertificationUpdate" , {'id':v.id})}}">  Update </a> </td>
+
+                </tr>
+        {% endfor %}
+
+
+    </table>
+
+{% endblock  %}

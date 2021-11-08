@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block contenu %}
+
+<h1> Category List</h1>
+
+<table border="1" >
+    <tr>
+        <td> Name </td>
+    </tr>
+    {% for c in listCategory %}
+
+    <tr>
+        <td>  {{ c.Name}} </td>
+        <td><a href="{{ path("categoryDelete" , {'id':c.id})}}">  Delete </a> </td>
+        <td><a href="{{ path("categoryUpdate" , {'id':c.id})}}">  Update </a> </td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock  %}
