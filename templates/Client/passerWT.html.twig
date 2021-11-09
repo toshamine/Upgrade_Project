@@ -13,27 +13,29 @@
 {% block contact %} {{ parent() }} {% endblock %}
 
 
-{%  block sectionname %} Test {% endblock %}
-{% block sectionmenu %} Test {% endblock %}
+{%  block sectionname %} Question Number {{ i+1 }} {% endblock %}
+{% block sectionmenu %}  {{ whitetest }}{% endblock %}
+{% block div %}<div id="quiz"></div>{% endblock %}
 {% block contenu %}
 
-<div class="d-flex justify-content-center">
-    <div style="float: right;color: red">Question Time Ends In <span id="time">{{ question.Duration }}</span> Minutes!</div>
+<div class="d-flex justify-content-center" >
+
+    <div style="float: right;color: red" >Question Time Ends In <span id="time">{{ question.Duration }}</span> Minutes!</div>
 </div>
     </br>
     </br>
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" >
 
 
-<table border="1" class="table-hover table-dark table" id="quiz" id="refresh-section">
+<table border="1" class="table-hover table-dark table"  id="refresh-section">
 
     <tr><td align="center" class="unselectable">{{ question.Question }}</td><tr>
 
-    <tr><td align="center"><a  href="{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"A",'score':score} ) }}">{{ question.ChoiceA }}</a></td><tr>
+    <tr><td align="center"><a onclick="confA()" href="#quiz">{{ question.ChoiceA }}</a></td><tr>
 
-    <tr><td align="center"><a href="{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"B",'score':score} ) }}">{{ question.ChoiceB }}</a></td></tr>
+    <tr><td align="center"><a onclick="confB()" href="#quiz">{{ question.ChoiceB }}</a></td></tr>
 
-    {% if question.ChoiceC!=null %}<tr><td align="center"><a href="{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"C",'score':score} ) }}">{{ question.ChoiceC }}</a></td></tr>{% endif %}
+    {% if question.ChoiceC!=null %}<tr><td align="center"><a onclick="confC()" href="#quiz">{{ question.ChoiceC }}</a></td></tr>{% endif %}
 
 </table>
 
@@ -57,7 +59,7 @@
                 if (--timer < 0) {
                     timer = duration;
                     {%  set out=0  %} ;
-                    {% if  out==0 %}window.location.replace("{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"A",'score':score} ) }}");{% endif %};
+                    {% if  out==0 %}window.location.replace("{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"nothing",'score':score} ) }}");{% endif %};
                 }
             }, 1000);
         }
@@ -65,9 +67,7 @@
 
 
 
-        window.onbeforeunload = function() {
-            return 'You have unsaved changes!';
-        }
+
 
         window.onload = function () {
 
@@ -139,6 +139,121 @@
             }
         });
 
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confA(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                cancelButtonText: 'No!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Saved!',
+                        'Your Answer Is Saved.',
+                        'Success'
+                    )
+                    window.location.replace("{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"A",'score':score} ) }}");
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Review Your Answer Please :)'
+                    )
+                }
+            });
+        }
+
+        function confB(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                cancelButtonText: 'No!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Saved!',
+                        'Your Answer Is Saved.',
+                        'Success'
+                    )
+                    window.location.replace("{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"B",'score':score} ) }}");
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Review Your Answer Please :)'
+                    )
+                }
+            });
+        }
+
+        function confC(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                cancelButtonText: 'No!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Saved!',
+                        'Your Answer Is Saved.',
+                        'Success'
+                    )
+                    window.location.replace("{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"C",'score':score} ) }}");
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Review Your Answer Please :)'
+                    )
+                }
+            });
+        }
     </script>
 {% endblock %}
 

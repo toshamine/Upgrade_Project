@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Certification;
 use App\Entity\Question;
+use App\Entity\Records;
 use App\Entity\WhiteTest;
 use App\Form\WhiteTestType;
 use App\Repository\WhiteTestRepository;
@@ -89,11 +90,13 @@ class WhiteTestController extends AbstractController
 
     /**
      * @Route("passerWT/{id}/{i}/e73f1ece5087b8a5ae33998952202202{answer}e73f1ece5087b8a5ae33998952202202/7d60febfd9c79bf45ec6126f14dfe69a57444099{score}7d60febfd9c79bf45ec6126f14dfe69a57444099",name="passerWT")
+     * @throws \Exception
      */
     public function passer($id,$i,$answer,$score):Response
     {
         $em=$this->getDoctrine()->getManager();
         $questions=$em->getRepository(Question::class)->findBy(['whiteTest'=>$id]);
+        $whitetest=$em->getRepository(WhiteTest::class)->find($id);
         $length=count($questions);
         $j=$i-1;
         if($i!=0) {
@@ -102,17 +105,20 @@ class WhiteTestController extends AbstractController
             }
         }
         while($i != $length){
-        return $this->render("Client/PasserWT.html.twig",['question'=>$questions[$i],'whitetestid'=>$id,'i'=>$i,'score'=>$score]);
+        return $this->render("Client/PasserWT.html.twig",['question'=>$questions[$i],'whitetestid'=>$id,'i'=>$i,'score'=>$score,'whitetest'=>$whitetest]);
         }
-
+        $whitetest=$questions[0]->getWhiteTest();
+        $em=$this->getDoctrine()->getManager();
+        $record = new Records();
+        $record->setUser("Test User");
+        $record->setScore((string)$score);
+        $record->setWhiteTest((string)$whitetest);
+        $record->setCertification((string)$whitetest->getCertification());
+        $record->setDate(new \DateTime('now'));
+        $em->persist($record);
+        $em->flush();
         return $this->render("Client/result.html.twig", ['score' => $score]);
-
     }
 
-    /**
-     * @Route("/result/{score}",name="result")
-     */
-    public function result($score){
-        return $this->render("Client/result.html.twig",['score'=>$score]);
-    }
+
 }
