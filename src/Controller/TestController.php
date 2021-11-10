@@ -32,4 +32,12 @@ class TestController extends AbstractController
         return $this->render("/Client/home.html.twig",[]);
     }
 
+    /**
+     * @Route("/base",name="base")
+     */
+    public function basetest():Response
+    {
+        return $this->render("base.html.twig",[]);
+    }
+
 }

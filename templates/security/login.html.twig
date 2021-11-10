@@ -1,4 +1,4 @@
-{# {% extends 'base.html.twig' %} #}
+{% extends 'base.html.twig' %}
 
 
 {% block title %}Log in!{% endblock %}
@@ -40,4 +40,7 @@
         Sign in
     </button>
 </form>
+
+    <a href="{{ path('app_register') }}" class="nav-link">Register</a>
+
 {% endblock %}
