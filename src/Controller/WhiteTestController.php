@@ -19,11 +19,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/whitetest')]
 class WhiteTestController extends AbstractController
 {
-    #[Route('/', name: 'white_test_index', methods: ['GET'])]
-    public function index(WhiteTestRepository $whiteTestRepository): Response
+    #[Route('/{certification}', name: 'white_test_index', methods: ['GET'])]
+    public function index(WhiteTestRepository $whiteTestRepository,string $certification): Response
     {
+        $em=$this->getDoctrine()->getManager();
+        $certification=$em->getRepository(Certification::class)->findOneBy(['Title'=>$certification]);
         return $this->render('white_test/index.html.twig', [
-            'white_tests' => $whiteTestRepository->findAll(),
+            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification]),'Certif'=>$certification
         ]);
     }
 
