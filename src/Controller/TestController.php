@@ -8,6 +8,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestController extends AbstractController
 {
+
+    /**
+     * @Route("/",name="home")
+     */
+    public function home():Response
+    {
+
+        return $this->redirectToRoute('app_register');
+    }
     /**
      * @Route("/clienttest",name="clienttest")
      */
@@ -37,7 +46,18 @@ class TestController extends AbstractController
      */
     public function basetest():Response
     {
-        return $this->render("base.html.twig",[]);
+        $user = $this->getUser();
+        return $this->render("base.html.twig",['user'=>$user]);
+    }
+
+
+    /**
+     * @Route("/index",name="index")
+     */
+    public function index():Response
+    {
+        $user = $this->getUser();
+        return $this->render("/test/index.html.twig",['user'=>$user]);
     }
 
 }
