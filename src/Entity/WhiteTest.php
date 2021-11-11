@@ -19,20 +19,6 @@ class WhiteTest
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="date",nullable=true)
-     */
-    private $Date;
-
-    /**
-     * @ORM\Column(type="time",nullable=false)
-     */
-    private $Limit_Time;
-
-    /**
-     * @ORM\Column(type="time",nullable=true)
-     */
-    private $Time;
 
     /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="whiteTest",cascade={"All"})
@@ -59,42 +45,6 @@ class WhiteTest
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->Date;
-    }
-
-    public function setDate(\DateTimeInterface $Date): self
-    {
-        $this->Date = $Date;
-
-        return $this;
-    }
-
-    public function getLimitTime(): ?\DateTimeInterface
-    {
-        return $this->Limit_Time;
-    }
-
-    public function setLimitTime(\DateTimeInterface $Limit_Time): self
-    {
-        $this->Limit_Time = $Limit_Time;
-
-        return $this;
-    }
-
-    public function getTime(): ?\DateTimeInterface
-    {
-        return $this->Time;
-    }
-
-    public function setTime(\DateTimeInterface $Time): self
-    {
-        $this->Time = $Time;
-
-        return $this;
     }
 
     /**

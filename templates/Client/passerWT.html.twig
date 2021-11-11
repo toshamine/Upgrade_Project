@@ -91,7 +91,6 @@
 <!--Timer-->
     <script type="text/javascript" >
         function startTimer(duration, display) {
-            var cheat=0;
             var timer = duration, minutes, seconds;
             setInterval(function () {
                 minutes = parseInt(timer / 60, 10);
@@ -104,24 +103,17 @@
 
                 if (--timer < 0) {
                     timer = duration;
-                    {%  set out=0  %} ;
-                    {% if  out==0 %}window.location.replace("{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"nothing",'score':score} ) }}");{% endif %};
+                    {% set out=0 %} ;
+                    {% if  out==0 %}window.location.replace("{{ path('passerWT', {'id': whitetestid,'i':i+1,"answer":"nothing",'score':score} ) }}");
+                    {% endif %};
                 }
             }, 1000);
         }
-
-
-
-
-
-
         window.onload = function () {
 
             var Minutes = 60 * parseInt({{ question.Duration }}, 10),
                 display = document.querySelector('#time');
             startTimer(Minutes, display);
-
-
 
         };
     </script>

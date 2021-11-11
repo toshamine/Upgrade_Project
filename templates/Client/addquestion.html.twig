@@ -3,7 +3,7 @@
 
 
 {%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
-<!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
 
 {% block home %} {{ parent() }} {% endblock %}
 {% block about %} {{ parent() }} {% endblock %}
@@ -13,18 +13,17 @@
 {% block contact %} {{ parent() }} {% endblock %}
 
 
-{%  block sectionname %} Add WhiteTest {% endblock %}
-{% block sectionmenu %} Add WhiteTest {% endblock %}
+{%  block sectionname %} Add A Question {% endblock %}
+{% block sectionmenu %} Question {% endblock %}
 
 {% block contenu %}
     <center>
-    <table >
-    <tr><h1>Create new WhiteTest</h1></tr>
+        <table >
+            <h1>Create new Question</h1>
 
+            {{ include('question_crud/_form.html.twig') }}
 
-    <tr>{{ include('white_test/_form.html.twig') }}</tr>
-
-    <tr><a href="{{ path('white_test_index',{"certif":certif}) }}">back to list</a></tr>
-    </table>
+            <a href="{{ path('question_crud_index') }}">back to list</a>
+        </table>
     </center>
 {% endblock %}

@@ -1,0 +1,39 @@
+{%  extends "Client/base.html.twig" %}
+{% block title %}Add WhiteTest{% endblock %}
+
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} Certifications {% endblock %}
+{% block sectionmenu %} Chose A Certification {% endblock %}
+
+{% block contenu %}
+    <center>
+        <table >
+
+            <tr>
+                <td><a href="{{ path('white_test_index',{'certif':'OCP'}) }}"><img src="{{ asset("assets/ocp.png")}}">&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+            <td><a href="{{ path('white_test_index',{'certif':'CEH'}) }}"><img src="{{ asset("assets/ceh.png")}}">&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+            <td><a href="{{ path('white_test_index',{'certif':'CISCO'}) }}"><img src="{{ asset("assets/cisco.png")}}"></a></td>
+            </tr>
+        </table>
+    </center>
+    <style>
+        img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+{% endblock %}

@@ -11,13 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/question')]
+#[Route('/questions')]
 class QuestionCrudController extends AbstractController
 {
     #[Route('/', name: 'question_crud_index', methods: ['GET'])]
     public function index(QuestionRepository $questionRepository): Response
     {
-        return $this->render('question_crud/index.html.twig', [
+        return $this->render('Client/questionslist.html.twig', [
             'questions' => $questionRepository->findAll(),
         ]);
     }
@@ -39,7 +39,7 @@ class QuestionCrudController extends AbstractController
             return $this->redirectToRoute('question_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('question_crud/new.html.twig', [
+        return $this->renderForm('Client/addquestion.html.twig', [
             'question' => $question,
             'form' => $form,
         ]);
@@ -71,15 +71,15 @@ class QuestionCrudController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'question_crud_delete', methods: ['POST'])]
-    public function delete(Request $request, Question $question): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$question->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($question);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('question_crud_index', [], Response::HTTP_SEE_OTHER);
-    }
+    /**
+     * @Route ("deletequestion/{id}",name="deleteqs")
+     */
+   public function deletequestion(int $id):Response
+   {
+       $em=$this->getDoctrine()->getManager();
+       $question=$em->getRepository(Question::class)->find($id);
+       $em->remove($question);
+       $em->flush();
+       return $this->redirectToRoute('question_crud_index');
+   }
 }

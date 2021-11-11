@@ -1,6 +1,6 @@
 {%  extends "Client/base.html.twig" %}
 {%  block sectionname %}  WhiteTests {% endblock %}
-    {% block sectionmenu %}  {{ Certif }} {% endblock %}
+    {% block sectionmenu %}  {{ certif }} {% endblock %}
 {% block contenu %}
 
 
@@ -24,22 +24,37 @@
                 <td>{{ white_test.id }}</td>
                 <td>{{ white_test.Title }}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ white_test.nbquestion }}</td>
+                {% if white_test.nbquestion!=0 %}
                 <td>
                     <div class="svg-wrapper">
                         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                             <rect id="shape" height="40" width="150" />
                             <div id="text" >
-                                &nbsp;&nbsp;&nbsp;<a href="{{ path('passerWT',{'id': white_test.id,'i':0,'score':0,'answer':"17D36YUQHZ"}) }}"><span class="spot"></span><span style="color: limegreen;">Pass</span></a>
+                                &nbsp;&nbsp;&nbsp;<a href="{{ path('passerWT',{'id': white_test.id,'i':0,'score':0,'answer':"17D36YUQHZ"}) }}"><span class="spot" ></span><span style="color: #0b7dfd;">Take</span></a>
                             </div>
                         </svg>
                     </div>
                 </td>
+                    {% else %}
+
+                        <td>
+                            <div class="svg-wrapper">
+                                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                                    <rect id="shape" height="40" width="150" />
+                                    <div id="text" >
+                                        &nbsp;&nbsp;&nbsp;<a class="unselectable" href="#"><span class="spot" ></span><span style="color: grey;">Take</span></a>
+                                    </div>
+                                </svg>
+                            </div>
+                        </td>
+
+                {% endif %}
                 <td>
                     <div class="svg-wrapper">
                     <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                         <rect id="shape" height="40" width="150" />
                         <div id="text" >
-                    &nbsp;<a href="{{ path('white_test_show', {'id': white_test.id}) }}"><span class="spot"></span><span style="color: blue;">Show</span></a>
+                    &nbsp;<a href="{{ path('white_test_show', {'id': white_test.id}) }}"><span class="spot"></span><span style="color: #0b7dfd;">Show</span></a>
                         </div>
                     </svg>
                     </div>
@@ -48,22 +63,27 @@
                         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                             <rect id="shape" height="40" width="150" />
                             <div id="text" >
-                                &nbsp;<a href="{{ path('white_test_edit', {'id': white_test.id}) }}"><span class="spot"></span><span style="color: orange;">Update</span></a>
+                                &nbsp;&nbsp;<a href="{{ path('white_test_edit', {'id': white_test.id,'certif':certif}) }}"><span class="spot"></span><span style="color: #0b7dfd;">Update</span></a>
                             </div>
                         </svg>
                     </div>
 
                 </td>
             </tr>
+
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5"><center class="unselectable">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No Tests Found</center></td>
+                <td></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('white_test_new',{id:1}) }}">Create new</a>
+           <center><a class="btn btn-success" style="position: center" href="{{ path('white_test_new',{'certif':"OCP"}) }}">Add A Test</a></center>
+
+
+
 
    <style>
        /*       Just setting CSS for the page   */
@@ -176,4 +196,14 @@
            stroke: #06D6A0;
        }
    </style>
+
+    <style>
+        .unselectable {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
 {% endblock %}

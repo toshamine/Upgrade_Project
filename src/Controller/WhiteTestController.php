@@ -19,18 +19,18 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/whitetest')]
 class WhiteTestController extends AbstractController
 {
-    #[Route('/{certification}', name: 'white_test_index', methods: ['GET'])]
-    public function index(WhiteTestRepository $whiteTestRepository,string $certification): Response
+    #[Route('/{certif}', name: 'white_test_index', methods: ['GET'])]
+    public function index(WhiteTestRepository $whiteTestRepository,string $certif): Response
     {
         $em=$this->getDoctrine()->getManager();
-        $certification=$em->getRepository(Certification::class)->findOneBy(['Title'=>$certification]);
+        $certification=$em->getRepository(Certification::class)->findOneBy(['Title'=>$certif]);
         return $this->render('white_test/index.html.twig', [
-            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification]),'Certif'=>$certification
+            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification]),'certif'=>$certif
         ]);
     }
 
-    #[Route('/new/{id}', name: 'white_test_new', methods: ['GET','POST'])]
-    public function new(Request $request,$id): Response
+    #[Route('/new/{certif}', name: 'white_test_new', methods: ['GET','POST'])]
+    public function new(Request $request,string $certif): Response
     {
         $whiteTest = new WhiteTest();
         $form = $this->createForm(WhiteTestType::class, $whiteTest);
@@ -38,56 +38,58 @@ class WhiteTestController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $category=$this->getDoctrine()->getRepository(Category::class)->find($id);
             $certification=$this->getDoctrine()->getManager()->getRepository(Certification::class)->findOneBy(['Title'=>(string)$whiteTest->getCertification()]);
             $whiteTest->setCertification($certification);
             $entityManager->persist($whiteTest);
             $entityManager->flush();
 
-            return $this->redirectToRoute('white_test_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('white_test_index', ['certif'=>$certif]);
         }
 
         return $this->renderForm('Client/AddWhiteTest.html.twig', [
             'white_test' => $whiteTest,
             'form' => $form,
+            'certif' => $certif
         ]);
     }
 
     #[Route('/{id}', name: 'white_test_show', methods: ['GET'])]
-    public function show(WhiteTest $whiteTest): Response
+    public function show(int $id): Response
     {
+        $whitetest=$this->getDoctrine()->getManager()->getRepository(WhiteTest::class)->find($id);
         return $this->render('white_test/show.html.twig', [
-            'white_test' => $whiteTest,
+            'white_test' => $whitetest,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'white_test_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, WhiteTest $whiteTest): Response
+    #[Route('/{id}/{certif}/edit', name: 'white_test_edit', methods: ['GET','POST'])]
+    public function edit(Request $request, WhiteTest $whiteTest,string $certif): Response
     {
         $form = $this->createForm(WhiteTestType::class, $whiteTest);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('white_test_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('white_test_index', ['certif'=>$certif], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('white_test/edit.html.twig', [
+        return $this->renderForm('Client/EditWhiteTest.html.twig', [
             'white_test' => $whiteTest,
             'form' => $form,
+            'certif'=>$certif
         ]);
     }
 
-    #[Route('/{id}', name: 'white_test_delete', methods: ['POST'])]
-    public function delete(Request $request, WhiteTest $whiteTest): Response
+    /**
+     * @Route("/deletewh/{id}/{certif}",name="deletewh")
+     */
+    public function delete(int $id,string $certif):Response
     {
-        if ($this->isCsrfTokenValid('delete'.$whiteTest->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($whiteTest);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('white_test_index', [], Response::HTTP_SEE_OTHER);
+        $whitetest=$this->getDoctrine()->getManager()->getRepository(WhiteTest::class)->find($id);
+        $em=$this->getDoctrine()->getManager();
+        $em->remove($whitetest);
+        $em->flush();
+        return $this->redirectToRoute("white_test_index",['certif'=>$certif]);
     }
 
     /**
@@ -122,5 +124,11 @@ class WhiteTestController extends AbstractController
         return $this->render("Client/result.html.twig", ['score' => $score]);
     }
 
-
+    /**
+     * @Route ("/chose/wh",name="chosewh")
+     */
+    public function chosewh():Response
+    {
+        return $this->render("Client/chosewh.html.twig");
+    }
 }

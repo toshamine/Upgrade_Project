@@ -17,7 +17,6 @@ class WhiteTestType extends AbstractType
     {
         $builder
             ->add('Title')
-            ->add('Limit_Time')
             ->add('Certification',EntityType::class ,[
         'class' => Certification::class,
         'choice_label' => 'Title',])

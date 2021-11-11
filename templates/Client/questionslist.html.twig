@@ -13,24 +13,64 @@
 {% block contact %} {{ parent() }} {% endblock %}
 
 
-{%  block sectionname %} Add WhiteTest {% endblock %}
-{% block sectionmenu %} Add WhiteTest {% endblock %}
+{%  block sectionname %} Add A Question {% endblock %}
+{% block sectionmenu %} Question {% endblock %}
 
 {% block contenu %}
-   <center>
-    <h1>Edit Question {{ question.id }}</h1>
+    <center>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Question</th>
+                <th>WhiteTest</th>
+                <th></th>
+                <th></th>
+                <th><center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actions</center> </th>
+                <th></th>
 
-    {{ include('question_crud/_form.html.twig', {'button_label': 'Update'}) }}
+            </tr>
+            </thead>
+            <tbody>
+            {% for question in questions %}
+                <tr>
+                    <td>{{ question.Question }}</td>
 
-    <div class="svg-wrapper" style="float: left;">
-        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-            <rect id="shape" height="40" width="150" />
-            <div id="text" >
-                &nbsp;<a href="{{ path('question_crud_index') }}"><span class="spot"></span><span style="color: #0b7dfd;">Back To List</span></a>
-            </div>
-        </svg>
-    </div>
-   </center>
+                    <td>{{ question.WhiteTest }}</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <div class="svg-wrapper">
+                            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                                <rect id="shape" height="40" width="150" />
+                                <div id="text" >
+                                    &nbsp;<a href="{{ path('question_crud_show', {'id': question.id}) }}"><span class="spot"></span><span style="color: #0b7dfd;">Show</span></a>
+                                </div>
+                            </svg>
+                        </div>
+                    </td>
+                <td> <div class="svg-wrapper">
+                        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                            <rect id="shape" height="40" width="150" />
+                            <div id="text" >
+                                &nbsp;<a href="{{ path('question_crud_edit', {'id': question.id}) }}"><span class="spot"></span><span style="color: #0b7dfd;">Update</span></a>
+                            </div>
+                        </svg>
+                    </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">No Questions Found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-success" href="{{ path('question_crud_new') }}">Create A Question</a>
+    </center>
 
     <style>
         /*       Just setting CSS for the page   */

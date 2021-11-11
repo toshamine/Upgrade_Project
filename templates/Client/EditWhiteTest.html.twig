@@ -1,0 +1,83 @@
+{%  extends "Client/base.html.twig" %}
+{% block title %}Add WhiteTest{% endblock %}
+
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} Add WhiteTest {% endblock %}
+{% block sectionmenu %} Add WhiteTest {% endblock %}
+
+{% block contenu %}
+    <center>
+        <table >
+            <tr><h1>Update WhiteTest</h1></tr>
+
+            <tr>{{ include('white_test/_form.html.twig', {'button_label': 'Update'}) }}</tr>
+        </br>
+            </br>
+            <tr><td><a href="{{ path('white_test_index',{'certif':certif}) }}">back to list</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+                <td><button class="btn btn-danger" onclick="confdelete()">&nbsp;Delete</button></td></tr>
+        </table>
+    </center>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confdelete(){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes!',
+                cancelButtonText: 'No!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'WhiteTest Is Deleted.',
+                        'Success'
+                    );
+                    function sleep(ms) {
+                        return new Promise(resolve => setTimeout(resolve, ms));
+                    }
+                    async function valid() {
+                        await sleep(3000);
+                        window.location.replace("{{ path('deletewh', {'id': white_test.id,'certif':certif}) }}");
+                    }
+                    valid();
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Be Sure Which Test You Select :)'
+                    )
+                }
+            });
+        }
+    </script>
+
+{% endblock %}
