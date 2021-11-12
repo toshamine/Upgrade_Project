@@ -53,12 +53,14 @@ class WhiteTestController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'white_test_show', methods: ['GET'])]
+    /**
+     * @Route ("/show/{id}",name="showwh")
+     */
     public function show(int $id): Response
     {
         $whitetest=$this->getDoctrine()->getManager()->getRepository(WhiteTest::class)->find($id);
         return $this->render('white_test/show.html.twig', [
-            'white_test' => $whitetest,
+            'whitetest' => $whitetest,
         ]);
     }
 
@@ -119,9 +121,10 @@ class WhiteTestController extends AbstractController
         $record->setWhiteTest((string)$whitetest);
         $record->setCertification((string)$whitetest->getCertification());
         $record->setDate(new \DateTime('now'));
+        $record->setTotal($whitetest->nbquestion());
         $em->persist($record);
         $em->flush();
-        return $this->render("Client/result.html.twig", ['score' => $score]);
+        return $this->render("Client/result.html.twig", ['score' => $score,'nbquestions'=>$whitetest->nbquestion()]);
     }
 
     /**

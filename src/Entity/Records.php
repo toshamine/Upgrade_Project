@@ -42,6 +42,11 @@ class Records
      */
     private $Date;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $Total;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Records
     public function setDate(\DateTimeInterface $Date): self
     {
         $this->Date = $Date;
+
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->Total;
+    }
+
+    public function setTotal(int $Total): self
+    {
+        $this->Total = $Total;
 
         return $this;
     }

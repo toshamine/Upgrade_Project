@@ -1,0 +1,63 @@
+{%  extends "Client/base.html.twig" %}
+{% block title %}Add WhiteTest{% endblock %}
+
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} Test Records {% endblock %}
+{% block sectionmenu %} WhiteTest {% endblock %}
+
+{% block contenu %}
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>User</th>
+                <th>Score</th>
+                <th>WhiteTest</th>
+                <th>Certification</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for record in records %}
+            <tr>
+                <td>{{ record.User }}</td>
+                <td>{{ record.Score }} / {{ record.Total}}</td>
+                <td>{{ record.WhiteTest }}</td>
+                <td>{{ record.Certification }}</td>
+                <td>{{ record.Date ? record.Date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('records_show', {'id': record.id}) }}">show</a>
+                    <a href="{{ path('records_edit', {'id': record.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7"><center class="unselectable">No Test Records Found</center></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <style>
+        .unselectable {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .unclick{ text-decoration: none; cursor: default; }
+    </style>
+{% endblock %}
