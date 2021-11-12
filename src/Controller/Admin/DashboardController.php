@@ -7,9 +7,12 @@ use App\Entity\Certification;
 use App\Entity\User1;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use phpDocumentor\Reflection\Types\Parent_;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -34,6 +37,18 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Users', 'fas fa-list', User1::class);
         yield MenuItem::linkToCrud('Certification', 'fas fa-list', Certification::class);
         yield MenuItem::linkToCrud('Categorie', 'fas fa-list', Category::class);
+
+    }
+
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        return Parent::configureUserMenu($user)->setName($user->getUsername())
+            //->setGravatarEmail($user->getUsername())
+            ->setAvatarUrl($this->getUser()->getPicture())
+            ->displayUserAvatar(true)
+
+
+            ;
 
     }
 }

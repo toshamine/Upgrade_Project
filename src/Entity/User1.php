@@ -3,14 +3,19 @@
 namespace App\Entity;
 
 use App\Repository\User1Repository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiResource(formats={"json"})
+ * @Vich\Uploadable
  * @ORM\Entity(repositoryClass=User1Repository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
@@ -65,9 +70,59 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface
     private $username;
 
     /**
+     * @var string | null
      * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $picture;
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="picture")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     */
+    private $updatedAt;
+
+
+
+    public function setImageFile( $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+        /*if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }*/
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime $updatedAt
+     */
+    public function setUpdatedAt(DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
 
     /**
      * @ORM\Column(type="boolean")
@@ -223,7 +278,7 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture( $picture): self
     {
         $this->picture = $picture;
 
@@ -241,4 +296,34 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+    /**
+     * public function serialize() {
+
+    return serialize(array(
+    $this->id,
+    $this->username,
+    $this->password,
+    ));
+
+    }
+
+    public function unserialize($serialized) {
+
+    list (
+    $this->id,
+    $this->username,
+    $this->password,
+    ) = unserialize($serialized);
+    }
+     *
+     *
+     */
+
+
+
+
 }
+
+
