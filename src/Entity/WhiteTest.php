@@ -39,6 +39,12 @@ class WhiteTest
      */
     private $questions;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Certification::class, inversedBy="whitetests")
+     * * @ORM\JoinColumn(nullable=false)
+     */
+    private $certification;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -111,6 +117,18 @@ class WhiteTest
                 $question->setWhiteTest(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCertification(): ?Certification
+    {
+        return $this->certification;
+    }
+
+    public function setCertification(?Certification $certification): self
+    {
+        $this->certification = $certification;
 
         return $this;
     }

@@ -1,0 +1,14 @@
+
+{% extends "baseCertification.html.twig" %}
+
+
+{% block contenu  %}
+    <h1> Add a new Certification  </h1>
+
+    {{ form_start(formCertification) }}
+    {{ form_widget(formCertification) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(formCertification) }}
+
+
+{% endblock %}
