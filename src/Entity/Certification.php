@@ -20,22 +20,22 @@ class Certification
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Company;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Difficulty;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $Picture;
 
@@ -55,6 +55,10 @@ class Certification
      */
     private $whitetests;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="certification", cascade={"persist", "remove"})
+     */
+     private $image;
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -182,6 +186,28 @@ class Certification
                 $whitetest->setCertification(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($image === null && $this->image !== null) {
+            $this->image->setCertification(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($image !== null && $image->getCertification() !== $this) {
+            $image->setCertification($this);
+        }
+
+        $this->image = $image;
 
         return $this;
     }

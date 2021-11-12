@@ -1,7 +1,16 @@
-<h1>  Update of a Certification </h1>
+{% extends "baseCertification.html.twig" %}
 
-<form action="" method="post"  >
+
+{% block contenu  %}
+    <h1> Update of a Certification </h1>
+
+    {{ form_start(editformCertification) }}
     {{ form_widget(editformCertification) }}
-    <input type="submit" value="Update Certification" >
 
-</form>
+
+
+    <button class="btn">{{ button_label|default('Update Certification') }}</button>
+    {{ form_end(editformCertification) }}
+
+
+{% endblock %}

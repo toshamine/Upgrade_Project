@@ -62,66 +62,38 @@
     <div class="col-lg-9">
         <div class="row">
            {# <div class="col-md-6 d-flex align-items-stretch ftco-animate"> #}
-            <div class="col-md-6 d-flex align-items-stretch ">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-1.jpg") }}');">
 
 
+            {% for v in listeCertification %}
+                <div class="col-md-6 d-flex align-items-stretch ">
+                    <div class="project-wrap">
+                        <a href="#" class="img" style="background-image: url('{{ asset('uploads/'~v.Picture) }}');">
 
-                        <span class="price">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
-                        </ul>
+                            <span class="price">Software</span>
+                        </a>
+                        <div class="text p-4">
+                            <h3><a href="#">{{ v.Title }}</a></h3>
+                      {#      <p class="advisor">Category <span></span>{{  v.Category}}</p>   #}
+                            <ul class="d-flex justify-content-between">
+                                <li><span class="flaticon-shower"></span>{{  v.Company}}</li>
+                                <li class="price">{{ v.Difficulty}}</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 d-flex align-items-stretch ">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-1.jpg") }}');">
+
+            {% endfor %}
 
 
-
-                        <span class="price">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 d-flex align-items-stretch ">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-1.jpg") }}');">
-
-
-
-                        <span class="price">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
 
 
 
 
 
         </div>
+
+
+
         <div class="row mt-5">
             <div class="col">
                 <div class="block-27">
