@@ -9,11 +9,10 @@
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Questions</th>
+                <th class="unselectable">Title</th>
+                <th class="unselectable">Questions</th>
                 <th></th>
-                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actions</th>
+                <th class="unselectable">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actions</th>
                 <th></th>
 
             </tr>
@@ -21,7 +20,6 @@
         <tbody>
         {% for white_test in white_tests %}
             <tr>
-                <td>{{ white_test.id }}</td>
                 <td>{{ white_test.Title }}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ white_test.nbquestion }}</td>
                 {% if white_test.nbquestion!=0 %}

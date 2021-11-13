@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/records')]
 class RecordsController extends AbstractController
 {
-    #[Route('/{nbquestions}', name: 'records_index', methods: ['GET'])]
-    public function index(RecordsRepository $recordsRepository,int $nbquestions): Response
+    #[Route('/', name: 'records_index', methods: ['GET'])]
+    public function index(RecordsRepository $recordsRepository): Response
     {
         return $this->render('records/index.html.twig', [
-            'records' => $recordsRepository->findAll(),'nbquestions'=>$nbquestions
+            'records' => $recordsRepository->findAll()
         ]);
     }
 
@@ -68,15 +68,15 @@ class RecordsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'records_delete', methods: ['POST'])]
-    public function delete(Request $request, Records $record): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$record->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($record);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('records_index', [], Response::HTTP_SEE_OTHER);
-    }
+    /**
+     * @Route ("/deleterec/{id}",name="deleterec")
+     */
+   public function deleterecord(int $id):Response
+   {
+       $em=$this->getDoctrine()->getManager();
+       $record=$em->getRepository(Records::class)->find($id);
+       $em->remove($record);
+       $em->flush();
+       return $this->redirectToRoute('records_index');
+   }
 }
