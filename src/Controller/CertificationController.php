@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Certification;
-use App\Entity\Image;
 use App\Form\CertificationForm;
 use App\Form\CertificationType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +26,12 @@ class CertificationController extends AbstractController
 
         $em=$this->getDoctrine()->getManager();
         $certification=$em->getRepository("App\Entity\Certification")->findAll();
-    return $this->render("Certification/listCertification.html.twig",["listeCertification"=>$certification]);
+        $categories=$em->getRepository("App\Entity\Category")->findAll();
+        $company=$em->getRepository("App\Entity\Company")->findAll();
+        $difficulty=$em->getRepository("App\Entity\Difficulty")->findAll();
+
+
+        return $this->render("Certification/listCertification.html.twig",["listeCertification"=>$certification,"listCategory"=>$categories,"listDifficulty"=>$difficulty,'listCompany'=>$company]);
 
     }
 
