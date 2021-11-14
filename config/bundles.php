@@ -12,6 +12,10 @@ return [
     Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle::class => ['all' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
+<<<<<<< HEAD
     EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
+=======
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
+>>>>>>> 3586aa371f0c3070d5c2bacec11e66c47d0c12fc
 ];

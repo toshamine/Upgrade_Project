@@ -97,8 +97,16 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+<<<<<<< HEAD
     "jms/metadata": {
         "version": "2.5.1"
+=======
+    "knplabs/knp-components": {
+        "version": "v3.3.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.7.0"
+>>>>>>> 3586aa371f0c3070d5c2bacec11e66c47d0c12fc
     },
     "laminas/laminas-code": {
         "version": "4.4.3"

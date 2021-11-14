@@ -14,7 +14,11 @@
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.10",
+<<<<<<< HEAD
         "easycorp/easyadmin-bundle": "^3.5",
+=======
+        "knplabs/knp-paginator-bundle": "^5.7",
+>>>>>>> 3586aa371f0c3070d5c2bacec11e66c47d0c12fc
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.3.*",
