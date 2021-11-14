@@ -81,7 +81,10 @@
                 {% if  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     {# <li class="nav-item"><a href="#" class="nav-link">
                             {{ user.Firstname }} {{ user.Lastname }}</a></li> #}
+
+
                     <li class="nav-item nav-profile dropdown">
+
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
                             {{ user.Firstname }} {{ user.Lastname }}
                         </a>
@@ -116,13 +119,39 @@
         </div>
     </div>
 </div>
-
+    {% if not  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 <section class="ftco-section ftco-no-pb ftco-no-pt">
     <div class="container">
         <div class="row">
             <div class="col-md-7"></div>
             <div class="col-md-5 order-md-last">
                 <div class="login-wrap p-4 p-md-5">
+
+
+                    <h3 class="mb-4">Register Now</h3>
+
+
+
+                    {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+                    {{ form_row(registrationForm.username) }}
+                    {{ form_row(registrationForm.CIN) }}
+                    {{ form_row(registrationForm.Lastname) }}
+
+                    {{ form_row(registrationForm.Firstname) }}
+                    {{ form_row(registrationForm.Birthdate) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
+
+                    <button type="submit" class="btn">Register</button>
+                    {{ form_end(registrationForm) }}
+
+
+
+
+                    <p class="text-center">Already have an account? <a href="{{ path('app_login') }}">Sign In</a></p>
 
 
 
@@ -133,6 +162,7 @@
         </div>
     </div>
 </section>
+    {% endif %}
 
 <section class="ftco-section">
     <div class="container">

@@ -20,13 +20,14 @@ class CertificationCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-
+            IdField::new('id')->onlyOnIndex(),
             TextField::new('title'),
             TextField::new('Company'),
+            AssociationField::new('documents'),
+            AssociationField::new('category'),
             TextField::new('Difficulty'),
             TextField::new('Picture'),
-            AssociationField::new('documents'),
-            AssociationField::new('category')
+
         ];
     }
 

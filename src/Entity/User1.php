@@ -5,7 +5,9 @@ namespace App\Entity;
 use App\Repository\User1Repository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+//use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -19,7 +21,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=User1Repository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User1 implements UserInterface, PasswordAuthenticatedUserInterface
+class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Serializable
 {
     /**
      * @ORM\Id
@@ -66,9 +68,9 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
-    private $username;
 
+    private $username;
+*/
     /**
      * @var string | null
      * @ORM\Column(type="string", length=255,nullable=true)
@@ -127,7 +129,7 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isVerified = false;
+    private bool $isVerified = false;
 
     public function getId(): ?int
     {
@@ -266,12 +268,7 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
 
-        return $this;
-    }
 
     public function getPicture(): ?string
     {
@@ -321,8 +318,19 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface
      *
      */
 
+    /**
+     *@see \Serializable::serialize()
+     */
 
+     public function serialize()
+     { return serialize(array( $this->id, $this->email, $this->password, )); }
 
+    /**
+     * @see \Serializable::unserialize()
+     */
+
+    public function unserialize($serialized) { list ( $this->id, $this->email, $this->password, )
+        = unserialize($serialized, array('allowed_classes' => false)); }
 
 }
 

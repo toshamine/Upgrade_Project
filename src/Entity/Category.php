@@ -83,6 +83,6 @@ class Category
 
     public function __toString()
     {
-        return $this->id ;
+        return $this->id.' '.$this->getName() ;
     }
 }
