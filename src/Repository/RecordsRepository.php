@@ -19,22 +19,19 @@ class RecordsRepository extends ServiceEntityRepository
         parent::__construct($registry, Records::class);
     }
 
-    // /**
+    /**
     //  * @return Records[] Returns an array of Records objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByOrder()
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('r.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Records

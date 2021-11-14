@@ -17,55 +17,21 @@ class RecordsController extends AbstractController
     public function index(RecordsRepository $recordsRepository): Response
     {
         return $this->render('records/index.html.twig', [
-            'records' => $recordsRepository->findAll()
+            'records' => $recordsRepository->findByOrder()
         ]);
     }
-
-    #[Route('/new', name: 'records_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    #[Route('/deleteallrec', name: 'deleteallrec', methods: ['GET','POST'])]
+    public function edit(): Response
     {
-        $record = new Records();
-        $form = $this->createForm(RecordsType::class, $record);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($record);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('records_index', [], Response::HTTP_SEE_OTHER);
+        $em=$this->getDoctrine()->getManager();
+        $record=$em->getRepository(Records::class)->findAll();
+        $i=0;
+        while($i!=count($record)){
+            $em->remove($record[$i]);
+            $em->flush();
+            $i++;
         }
-
-        return $this->renderForm('records/new.html.twig', [
-            'record' => $record,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'records_show', methods: ['GET'])]
-    public function show(Records $record): Response
-    {
-        return $this->render('records/show.html.twig', [
-            'record' => $record,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'records_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Records $record): Response
-    {
-        $form = $this->createForm(RecordsType::class, $record);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('records_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('records/edit.html.twig', [
-            'record' => $record,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('records_index');
     }
 
     /**

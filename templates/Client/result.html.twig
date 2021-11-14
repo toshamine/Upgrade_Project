@@ -17,12 +17,29 @@
 {% block sectionmenu %} WhiteTest {% endblock %}
 
 {% block contenu %}
-<center>
 <h1>Your Score</h1>
-</br>
-    </br>
-    <h2 style="color: green">Correct : {{ score }} </h2><h2 style="color: red"> Wrong : {{ nbquestions-score }}</h2><h2> Total : {{ nbquestions }}</h2>
-</center>
+    <table class="table table-hover">
+        <tbody class="thead-dark">
+        <tr>
+            <th class="" style="width: 30%;color: green;">Correct</th>
+            <td>{{ score }}</td>
+        </tr>
+        <tr>
+            <th style="color:red;">Wrong</th>
+            <td>{{ nbquestions-score }}</td>
+        </tr>
+        <tr>
+            <th>Total</th>
+            <td>{{ nbquestions }}</td>
+        </tr>
+        <tr>
+            <th>Percentage</th>
+            <td>{{ ((score*100)/nbquestions)|round(2) }}%</td>
+        </tr>
+        </tbody>
+    </table>
+
+
     <div class="svg-wrapper" style="float: left;">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
             <rect id="shape" height="40" width="150" />
