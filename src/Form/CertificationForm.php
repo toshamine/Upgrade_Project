@@ -4,6 +4,9 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Certification;
+use App\Entity\Company;
+use App\Entity\Difficulty;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -12,16 +15,25 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
+
 class CertificationForm extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface  $builder,array $option){
         $builder->add('Title',TextType::class)
-                ->add('Company',TextType::class)
-            ->add('Difficulty',TextType::class)
+
+            ->add('Company',EntityType::class,['class'=>Company::class,'choice_label'=>'Name'])
 
 
-            ->add('Picture', FileType::class, [
+            ->add('Difficulty',EntityType::class,['class'=>Difficulty::class,'choice_label'=>'Name'])
+
+            ->add('Category',EntityType::class,['class'=>Category::class,'choice_label'=>'Name'])
+
+
+
+
+
+->add('Picture', FileType::class, [
                 'label' => 'Picture',
 
                 // unmapped means that this field is not associated to any entity property
