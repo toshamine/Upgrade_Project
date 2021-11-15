@@ -20,22 +20,22 @@ class Certification
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Title;
 
-    /**
-     * @ORM\Column(type="string", length=255)
+/*   /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $Company;
+ //   private $Company;
+
+  /*  /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+  //  private $Difficulty;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Difficulty;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $Picture;
 
@@ -46,19 +46,35 @@ class Certification
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="certifications")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=WhiteTest::class, mappedBy="Certification")
+     * @ORM\OneToMany(targetEntity=WhiteTest::class, mappedBy="certification",cascade={"All"})
      */
-    private $whiteTests;
+    private $whitetests;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="certifications")
+     */
+    private $company;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Difficulty::class, inversedBy="certifications")
+     */
+    private $difficulty;
+
+  /*  /**
+     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="certification", cascade={"persist", "remove"})
+     */
+     //private $image;
+
 
     public function __construct()
     {
         $this->documents = new ArrayCollection();
-        $this->whiteTests = new ArrayCollection();
+        $this->whitetests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,10 +94,11 @@ class Certification
         return $this;
     }
 
-    public function getCompany(): ?string
+ /*   public function getCompany(): ?string
     {
         return $this->Company;
     }
+
 
     public function setCompany(string $Company): self
     {
@@ -89,8 +106,8 @@ class Certification
 
         return $this;
     }
-
-    public function getDifficulty(): ?string
+*/
+  /*  public function getDifficulty(): ?string
     {
         return $this->Difficulty;
     }
@@ -101,7 +118,7 @@ class Certification
 
         return $this;
     }
-
+*/
     public function getPicture(): ?string
     {
         return $this->Picture;
@@ -159,33 +176,79 @@ class Certification
     /**
      * @return Collection|WhiteTest[]
      */
-    public function getWhiteTests(): Collection
+    public function getWhitetests(): Collection
     {
-        return $this->whiteTests;
+        return $this->whitetests;
     }
 
-    public function addWhiteTest(WhiteTest $whiteTest): self
+    public function addWhitetest(WhiteTest $whitetest): self
     {
-        if (!$this->whiteTests->contains($whiteTest)) {
-            $this->whiteTests[] = $whiteTest;
-            $whiteTest->setCertification($this);
+        if (!$this->whitetests->contains($whitetest)) {
+            $this->whitetests[] = $whitetest;
+            $whitetest->setCertification($this);
         }
 
         return $this;
     }
 
-    public function removeWhiteTest(WhiteTest $whiteTest): self
+    public function removeWhitetest(WhiteTest $whitetest): self
     {
-        if ($this->whiteTests->removeElement($whiteTest)) {
+        if ($this->whitetests->removeElement($whitetest)) {
             // set the owning side to null (unless already changed)
-            if ($whiteTest->getCertification() === $this) {
-                $whiteTest->setCertification(null);
+            if ($whitetest->getCertification() === $this) {
+                $whitetest->setCertification(null);
             }
         }
 
         return $this;
     }
 
+    /*    public function getImage(): ?Image
+       {
+           return $this->image;
+       }
+
+      public function setImage(?Image $image): self
+       {
+           // unset the owning side of the relation if necessary
+           if ($image === null && $this->image !== null) {
+               $this->image->setCertification(null);
+           }
+
+           // set the owning side of the relation if necessary
+           if ($image !== null && $image->getCertification() !== $this) {
+               $image->setCertification($this);
+           }
+
+           $this->image = $image;
+
+           return $this;
+       }
+      */
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?Difficulty
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(?Difficulty $difficulty): self
+    {
+        $this->difficulty = $difficulty;
+
+        return $this;
+    }
     public function __toString() {
         return $this->getTitle();
     }
