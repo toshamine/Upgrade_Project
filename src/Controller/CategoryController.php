@@ -14,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CategoryController extends AbstractController
 {
-/**
- * @Route("/category",name="category")
- */
+    /**
+     * @Route("/category",name="category")
+     */
     public function listCategory()
     {
         $em=$this->getDoctrine()->getManager();
@@ -63,25 +63,25 @@ class CategoryController extends AbstractController
         return $this->redirectToRoute('category');
     }
 
-/**
- * @Route("/updateCategory/{id}",name="categoryUpdate")
- */
-public function updateCategory(Request $request, $id)
-{
-    $em=$this->getDoctrine()->getManager();
-    $category=$em->getRepository("App\Entity\Category")->find($id);
+    /**
+     * @Route("/updateCategory/{id}",name="categoryUpdate")
+     */
+    public function updateCategory(Request $request, $id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $category=$em->getRepository("App\Entity\Category")->find($id);
 
-    $editform=$this->createForm(CategoryForm::class,$category);
-    $editform->handleRequest($request);
-    if($editform->isSubmitted() and$editform->isValid()){
+        $editform=$this->createForm(CategoryForm::class,$category);
+        $editform->handleRequest($request);
+        if($editform->isSubmitted() and$editform->isValid()){
 
-        $em->persist($category);
-        $em->flush();
-        return $this->redirectToRoute('category');
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('category');
+        }
+
+        return $this->render('category/updateCategory.html.twig',['editFormCategory'=>$editform->createView()]);
+
     }
-
-    return $this->render('category/updateCategory.html.twig',['editFormCategory'=>$editform->createView()]);
-
-}
 
 }

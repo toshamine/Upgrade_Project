@@ -42,15 +42,11 @@ class CertificationController extends AbstractController
     {
         $certification=new Certification();
         $form=$this->createForm(CertificationForm::class,$certification);
-       $form->handleRequest($request);
+        $form->handleRequest($request);
         if($form->isSubmitted() and $form->isValid())
         {
             //on récupère les images transmises
             $picture =$form['Picture']->getData();
-            //   $image = $form['image']->getData();
-
-//dump($image=$request->query->get('image')->getData());die;
-
 
             //on genere un nouveau nom de fichier
 
@@ -79,100 +75,66 @@ class CertificationController extends AbstractController
         return $this->render('Certification/addCertification.html.twig',['formCertification'=>$form->createView()]);
     }
 
-
-
-
     /**
      * @Route ("/deleteCertification/{id}",name="CertificationDelete")
      */
-public function deleteCertification($id):Response
-{
-    $em=$this->getDoctrine()->getManager();
-    $certification=$em->getRepository("App\Entity\Certification")->find($id);
-
-    if($certification!==null){
-        $em->remove($certification);
-        $em->flush();
-    }
-    else{
-        throw new NotFoundHttpException("the certification with ID ".$id."does not exist");
-    }
-    return $this->redirectToRoute('certification');
-}
-
-/**
- * @Route("/UpdateCertification/{id}",name="CertificationUpdate")
- */
-public function UpdateCertififcation(Request $request,Certification  $certification):Response
-{
-    $form=$this->createForm(CertificationForm::class,$certification);
-    $form->handleRequest($request);
-    if($form->isSubmitted() and $form->isValid()){
-
-        //on récupère les images transmises
-        $picture =$form['Picture']->getData();
-        //   $image = $form['image']->getData();
-
-//dump($image=$request->query->get('image')->getData());die;
-
-
-        //on genere un nouveau nom de fichier
-
-        $fichier=md5(uniqid()).'.'.$picture->guessExtension();
-
-        // on copie le fichier dans le dossier uploads
-
-        $picture->move(
-            $this->getParameter('images_directory'),
-            $fichier
-
-        );
-        //on staocke le nom de l'image dans la base de données
-
-
-        $certification->setPicture($fichier);
-
-        // pour afficher contenu die
-        //var_dump("contenu"); die;
+    public function deleteCertification($id):Response
+    {
         $em=$this->getDoctrine()->getManager();
-        $em->persist($certification);
-        $em->flush();
+        $certification=$em->getRepository("App\Entity\Certification")->find($id);
+
+        if($certification!==null){
+            $em->remove($certification);
+            $em->flush();
+        }
+        else{
+            throw new NotFoundHttpException("the certification with ID ".$id."does not exist");
+        }
         return $this->redirectToRoute('certification');
     }
-    return $this->render('Certification/updateCertification.html.twig',[
-        'editformCertification'=>$form->createView(),
-        'certification'=>$certification,
+
+    /**
+     * @Route("/UpdateCertification/{id}",name="CertificationUpdate")
+     */
+    public function UpdateCertififcation(Request $request,Certification  $certification):Response
+    {
+        $form=$this->createForm(CertificationForm::class,$certification);
+        $form->handleRequest($request);
+        if($form->isSubmitted() and $form->isValid()){
+
+            //on récupère les images transmises
+            $picture =$form['Picture']->getData();
+
+
+
+            //on genere un nouveau nom de fichier
+
+            $fichier=md5(uniqid()).'.'.$picture->guessExtension();
+
+            // on copie le fichier dans le dossier uploads
+
+            $picture->move(
+                $this->getParameter('images_directory'),
+                $fichier
+
+            );
+            //on staocke le nom de l'image dans la base de données
+
+
+            $certification->setPicture($fichier);
+
+            // pour afficher contenu die
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($certification);
+            $em->flush();
+            return $this->redirectToRoute('certification');
+        }
+        return $this->render('Certification/updateCertification.html.twig',[
+            'editformCertification'=>$form->createView(),
+            'certification'=>$certification,
         ]);
 
 
 
-}
-
-    /**
-     * @Route("/supprime/image/{id}", name="annonces_delete_image", methods={"DELETE"})
-     */
-public function deleteImage(Image $image, Request $request){
-
-    $data = json_decode($request->getContent(), true);
-
-    // On vérifie si le token est valide
-    if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
-        // On récupère le nom de l'image
-        $nom = $image->getName();
-        // On supprime le fichier
-        unlink($this->getParameter('images_directory').'/'.$nom);
-
-        // On supprime l'entrée de la base
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($image);
-        $em->flush();
-
-        // On répond en json
-        return new JsonResponse(['success' => 1]);
-    }else{
-        return new JsonResponse(['error' => 'Token Invalide'], 400);
     }
-}
-
-
 }
