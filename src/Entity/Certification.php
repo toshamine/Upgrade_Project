@@ -24,15 +24,15 @@ class Certification
      */
     private $Title;
 
-    /*   /**
-         * @ORM\Column(type="string", length=255, nullable=true)
-         */
-    //   private $Company;
+/*   /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+ //   private $Company;
 
-    /*  /**
-       * @ORM\Column(type="string", length=255, nullable=true)
-       */
-    //  private $Difficulty;
+  /*  /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+  //  private $Difficulty;
 
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
@@ -51,7 +51,7 @@ class Certification
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=WhiteTest::class, mappedBy="Certification",cascade={"All"})
+     * @ORM\OneToMany(targetEntity=WhiteTest::class, mappedBy="certification",cascade={"All"})
      */
     private $whitetests;
 
@@ -65,10 +65,10 @@ class Certification
      */
     private $difficulty;
 
-    /*  /**
-       * @ORM\OneToOne(targetEntity=Image::class, inversedBy="certification", cascade={"persist", "remove"})
-       */
-    //private $image;
+  /*  /**
+     * @ORM\OneToOne(targetEntity=Image::class, inversedBy="certification", cascade={"persist", "remove"})
+     */
+     //private $image;
 
 
     public function __construct()
@@ -94,31 +94,31 @@ class Certification
         return $this;
     }
 
-    /*   public function getCompany(): ?string
-       {
-           return $this->Company;
-       }
+ /*   public function getCompany(): ?string
+    {
+        return $this->Company;
+    }
 
 
-       public function setCompany(string $Company): self
-       {
-           $this->Company = $Company;
+    public function setCompany(string $Company): self
+    {
+        $this->Company = $Company;
 
-           return $this;
-       }
-   */
-    /*  public function getDifficulty(): ?string
-      {
-          return $this->Difficulty;
-      }
+        return $this;
+    }
+*/
+  /*  public function getDifficulty(): ?string
+    {
+        return $this->Difficulty;
+    }
 
-      public function setDifficulty(string $Difficulty): self
-      {
-          $this->Difficulty = $Difficulty;
+    public function setDifficulty(string $Difficulty): self
+    {
+        $this->Difficulty = $Difficulty;
 
-          return $this;
-      }
-  */
+        return $this;
+    }
+*/
     public function getPicture(): ?string
     {
         return $this->Picture;
