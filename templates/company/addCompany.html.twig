@@ -1,0 +1,12 @@
+{% extends "baseCertification.html.twig" %}
+
+{% block contenu %}
+
+    <h1> Add a new Company</h1>
+
+    <form action =""  method="post">
+        {{ form_widget(formCompany) }}
+        <input type="submit" value="Add Company" >
+    </form>
+
+{% endblock  %}

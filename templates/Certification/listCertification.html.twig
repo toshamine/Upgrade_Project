@@ -1,0 +1,140 @@
+{% extends "baseCertification.html.twig" %}
+
+
+{% block title %}{{ parent() }}{% endblock %}
+
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} List of Certifications {% endblock %}
+{% block sectionmenu %} List of Certifications {% endblock %}
+
+
+{% block contenu  %}
+<div class="row">
+    <div class="col-lg-3 sidebar">
+        <form action="#" class="search-form">
+            <div class="form-group">
+                <span class="icon fa fa-search"></span>
+                <input type="text" class="form-control" placeholder="Search...">
+            </div>
+        </form>
+        <div >
+            <h3 class="heading-sidebar">Category</h3>
+            <form action="#" class="browse-form">
+
+                {% for c in listCategory %}
+
+                    <label for="option-category-1"><input type="checkbox" id="option-category-1" name="vehicle" value="" checked> {{ c.Name}}</label><br>
+
+                {% endfor %}
+
+            </form>
+        </div>
+        <div >
+            <h3 class="heading-sidebar">Company</h3>
+            <form action="#" class="browse-form">
+                {% for c in listCompany %}
+                    <label for="option-instructor-1"><input type="checkbox" id="option-instructor-1" name="vehicle" value="" checked>  {{ c.Name}} </label><br>
+
+                {% endfor %}
+
+
+            </form>
+        </div>
+        <div>
+
+
+            <h3 class="heading-sidebar">Difficulty</h3>
+            <form action="#" class="browse-form">
+                {% for c in listDifficulty %}
+
+                    <label for="option-course-type-1"><input type="checkbox" id="option-course-type-1" name="vehicle" value="" checked> {{ c.Name}}</label><br>
+
+                {% endfor %}
+
+             {#
+                <label for="option-course-type-1"><input type="checkbox" id="option-course-type-1" name="vehicle" value="" checked> Basic</label><br>
+                <label for="option-course-type-2"><input type="checkbox" id="option-course-type-2" name="vehicle" value=""> Intermediate</label><br>
+                <label for="option-course-type-3"><input type="checkbox" id="option-course-type-3" name="vehicle" value=""> Advanced</label><br>
+                #}
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="row">
+           {# <div class="col-md-6 d-flex align-items-stretch ftco-animate"> #}
+
+
+            {% for v in listeCertification %}
+                <div class="col-md-6 d-flex align-items-stretch ">
+                    <div class="project-wrap">
+                        <a href="#" class="img" style="background-image: url('{{ asset('uploads/'~v.Picture) }}');">
+
+                            <span class="price">{{  v.Company.name}}</span>
+                        </a>
+                        <div class="text p-4">
+                            <h3><a href="#">{{ v.Title }}</a></h3>
+
+
+                            {#    <p class="advisor">Category <span></span>{{  v.category.Name}}</p>#}
+                            <ul class="d-flex justify-content-between">
+                                <li><span class="flaticon-shower"></span>{{  v.Category.name}}</li>
+                                <li class="price">{{ v.Difficulty.name}}</li>
+
+
+
+                            </ul>
+
+                            <a href="{{ path("CertificationDelete" , {'id':v.id})}}">  Delete </a>
+                            <a href="{{ path("CertificationUpdate" , {'id':v.id})}}">  Update </a>
+
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+
+
+
+
+
+        </div>
+
+
+
+        <div class="row mt-5">
+            <div class="col">
+                <div class="block-27">
+                    <ul>
+                        <li><a href="#">&lt;</a></li>
+                        <li class="active"><span>1</span></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&gt;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock  %}
