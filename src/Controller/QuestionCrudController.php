@@ -18,7 +18,7 @@ class QuestionCrudController extends AbstractController
     public function index(QuestionRepository $questionRepository): Response
     {
         return $this->render('Client/questionslist.html.twig', [
-            'questions' => $questionRepository->findAll(),
+            'questions' => $questionRepository->findByOrder(),
         ]);
     }
 

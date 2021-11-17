@@ -22,19 +22,14 @@ class WhiteTestRepository extends ServiceEntityRepository
     // /**
     //  * @return WhiteTest[] Returns an array of WhiteTest objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByOrder()
     {
-        return $this->createQueryBuilder('w')
-            ->andWhere('w.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('w.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?WhiteTest

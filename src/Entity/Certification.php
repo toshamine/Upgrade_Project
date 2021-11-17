@@ -24,16 +24,6 @@ class Certification
      */
     private $Title;
 
-    /*   /**
-         * @ORM\Column(type="string", length=255, nullable=true)
-         */
-    //   private $Company;
-
-    /*  /**
-       * @ORM\Column(type="string", length=255, nullable=true)
-       */
-    //  private $Difficulty;
-
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
      */
@@ -65,11 +55,6 @@ class Certification
      */
     private $difficulty;
 
-    /*  /**
-       * @ORM\OneToOne(targetEntity=Image::class, inversedBy="certification", cascade={"persist", "remove"})
-       */
-    //private $image;
-
 
     public function __construct()
     {
@@ -94,31 +79,6 @@ class Certification
         return $this;
     }
 
-    /*   public function getCompany(): ?string
-       {
-           return $this->Company;
-       }
-
-
-       public function setCompany(string $Company): self
-       {
-           $this->Company = $Company;
-
-           return $this;
-       }
-   */
-    /*  public function getDifficulty(): ?string
-      {
-          return $this->Difficulty;
-      }
-
-      public function setDifficulty(string $Difficulty): self
-      {
-          $this->Difficulty = $Difficulty;
-
-          return $this;
-      }
-  */
     public function getPicture(): ?string
     {
         return $this->Picture;
@@ -202,29 +162,6 @@ class Certification
 
         return $this;
     }
-
-    /*    public function getImage(): ?Image
-       {
-           return $this->image;
-       }
-
-      public function setImage(?Image $image): self
-       {
-           // unset the owning side of the relation if necessary
-           if ($image === null && $this->image !== null) {
-               $this->image->setCertification(null);
-           }
-
-           // set the owning side of the relation if necessary
-           if ($image !== null && $image->getCertification() !== $this) {
-               $image->setCertification($this);
-           }
-
-           $this->image = $image;
-
-           return $this;
-       }
-      */
 
     public function getCompany(): ?Company
     {

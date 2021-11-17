@@ -25,7 +25,7 @@ class CertificationController extends AbstractController
     {
 
         $em=$this->getDoctrine()->getManager();
-        $certification=$em->getRepository("App\Entity\Certification")->findAll();
+        $certification=$em->getRepository("App\Entity\Certification")->findByOrder();
         $categories=$em->getRepository("App\Entity\Category")->findAll();
         $company=$em->getRepository("App\Entity\Company")->findAll();
         $difficulty=$em->getRepository("App\Entity\Difficulty")->findAll();
@@ -34,7 +34,6 @@ class CertificationController extends AbstractController
         return $this->render("Certification/listCertification.html.twig",["listeCertification"=>$certification,"listCategory"=>$categories,"listDifficulty"=>$difficulty,'listCompany'=>$company]);
 
     }
-
     /**
      * @Route("/addCertification",name="add_certification")
      */

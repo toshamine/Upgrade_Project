@@ -22,20 +22,14 @@ class CertificationRepository extends ServiceEntityRepository
     // /**
     //  * @return Certification[] Returns an array of Certification objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByOrder()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
-
     /*
     public function findOneBySomeField($value): ?Certification
     {

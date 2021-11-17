@@ -64,7 +64,6 @@ class CompanyController extends AbstractController
         return $this->redirectToRoute('company');
     }
 
-
     /**
      * @Route("/updateCompany/{id}",name="companyUpdate")
      */
