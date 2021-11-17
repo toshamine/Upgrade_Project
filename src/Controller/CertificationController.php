@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Certification;
+use App\Entity\Document;
 use App\Form\CertificationForm;
 use App\Form\CertificationType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,9 +48,7 @@ class CertificationController extends AbstractController
         {
             //on récupère les images transmises
             $picture =$form['Picture']->getData();
-            //   $image = $form['image']->getData();
 
-//dump($image=$request->query->get('image')->getData());die;
 
 
             //on genere un nouveau nom de fichier
@@ -64,9 +63,27 @@ class CertificationController extends AbstractController
 
             );
             //on staocke le nom de l'image dans la base de données
-
-
             $certification->setPicture($fichier);
+
+
+//on recupere  les documents transmise
+
+            $documents=$form['documents']->getData();
+//on boucle sur les images
+            foreach ($documents as $document ){
+                //on genere un nouveau nom de fichier
+
+                $fichierdoc=md5(uniqid()).'.'.$document->guessExtension();
+            // on copie le fichier dans le dossier uploads
+                $document->move(
+                $this->getParameter('documents_directory'),
+                $fichierdoc
+            );
+            // on stocke  les doc dans la BD
+            $doc=new Document();
+            $doc->setTitle($fichierdoc);
+            $certification->addDocument($doc);
+        }
 
             // pour afficher contenu die
             //var_dump("contenu"); die;
@@ -134,6 +151,27 @@ public function UpdateCertififcation(Request $request,Certification  $certificat
 
         // pour afficher contenu die
         //var_dump("contenu"); die;
+
+        //on recupere  les documents transmise
+
+        $documents=$form['documents']->getData();
+//on boucle sur les images
+        foreach ($documents as $document ){
+            //on genere un nouveau nom de fichier
+
+            $fichierdoc=md5(uniqid()).'.'.$document->guessExtension();
+            // on copie le fichier dans le dossier uploads
+            $document->move(
+                $this->getParameter('documents_directory'),
+                $fichierdoc
+            );
+            // on stocke  les doc dans la BD
+            $doc=new Document();
+            $doc->setTitle($fichierdoc);
+            $certification->addDocument($doc);
+        }
+
+
         $em=$this->getDoctrine()->getManager();
         $em->persist($certification);
         $em->flush();

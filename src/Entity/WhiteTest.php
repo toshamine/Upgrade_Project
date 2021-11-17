@@ -19,6 +19,20 @@ class WhiteTest
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="date",nullable=true)
+     */
+    private $Date;
+
+    /**
+     * @ORM\Column(type="time",nullable=true)
+     */
+    private $Limit_Time;
+
+    /**
+     * @ORM\Column(type="time",nullable=true)
+     */
+    private $Time;
 
     /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="whiteTest",cascade={"All"})
@@ -26,16 +40,10 @@ class WhiteTest
     private $questions;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Certification::class, inversedBy="whiteTests")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Certification::class, inversedBy="whitetests")
+     * * @ORM\JoinColumn(nullable=false)
      */
-    private $Certification;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Title;
-
+    private $certification;
 
     public function __construct()
     {
@@ -45,6 +53,42 @@ class WhiteTest
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->Date;
+    }
+
+    public function setDate(\DateTimeInterface $Date): self
+    {
+        $this->Date = $Date;
+
+        return $this;
+    }
+
+    public function getLimitTime(): ?\DateTimeInterface
+    {
+        return $this->Limit_Time;
+    }
+
+    public function setLimitTime(\DateTimeInterface $Limit_Time): self
+    {
+        $this->Limit_Time = $Limit_Time;
+
+        return $this;
+    }
+
+    public function getTime(): ?\DateTimeInterface
+    {
+        return $this->Time;
+    }
+
+    public function setTime(\DateTimeInterface $Time): self
+    {
+        $this->Time = $Time;
+
+        return $this;
     }
 
     /**
@@ -77,79 +121,15 @@ class WhiteTest
         return $this;
     }
 
-    public function getChoiceA(): ?string
-    {
-        return $this->ChoiceA;
-    }
-
-    public function setChoiceA(string $ChoiceA): self
-    {
-        $this->ChoiceA = $ChoiceA;
-
-        return $this;
-    }
-
-    public function getChoiceB(): ?string
-    {
-        return $this->ChoiceB;
-    }
-
-    public function setChoiceB(string $ChoiceB): self
-    {
-        $this->ChoiceB = $ChoiceB;
-
-        return $this;
-    }
-
-    public function getChoiceC(): ?string
-    {
-        return $this->ChoiceC;
-    }
-
-    public function setChoiceC(string $ChoiceC): self
-    {
-        $this->ChoiceC = $ChoiceC;
-
-        return $this;
-    }
-
-    public function nbquestion():?int
-    {
-        return $this->questions->count();
-    }
-
-    public function __toString() {
-        return (string)$this->getTitle();
-    }
-
     public function getCertification(): ?Certification
     {
-        return $this->Certification;
+        return $this->certification;
     }
 
-    public function setCertification(?Certification $Certification): self
+    public function setCertification(?Certification $certification): self
     {
-        $this->Certification = $Certification;
+        $this->certification = $certification;
 
         return $this;
     }
-
-    public function certiftitle():?string
-    {
-        return (string)$this->getCertification();
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->Title;
-    }
-
-    public function setTitle(string $Title): self
-    {
-        $this->Title = $Title;
-
-        return $this;
-    }
-
-
 }

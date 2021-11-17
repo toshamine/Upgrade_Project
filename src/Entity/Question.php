@@ -18,6 +18,11 @@ class Question
     private $id;
 
     /**
+     * @ORM\Column(type="array")
+     */
+    private $Choices = [];
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $Answer;
@@ -28,29 +33,9 @@ class Question
     private $Question;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ChoiceA;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $ChoiceB;
-
-    /**
-     * @ORM\Column(type="string", length=255,nullable=true)
-     */
-    private $ChoiceC;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=WhiteTest::class, inversedBy="questions",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=WhiteTest::class, inversedBy="questions")
      */
     private $whiteTest;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $Duration;
 
     public function getId(): ?int
     {
@@ -104,65 +89,4 @@ class Question
 
         return $this;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getChoiceA()
-    {
-        return $this->ChoiceA;
-    }
-
-    /**
-     * @param mixed $ChoiceA
-     */
-    public function setChoiceA($ChoiceA): void
-    {
-        $this->ChoiceA = $ChoiceA;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getChoiceB()
-    {
-        return $this->ChoiceB;
-    }
-
-    /**
-     * @param mixed $ChoiceB
-     */
-    public function setChoiceB($ChoiceB): void
-    {
-        $this->ChoiceB = $ChoiceB;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getChoiceC()
-    {
-        return $this->ChoiceC;
-    }
-
-    /**
-     * @param mixed $ChoiceC
-     */
-    public function setChoiceC($ChoiceC): void
-    {
-        $this->ChoiceC = $ChoiceC;
-    }
-
-    public function getDuration(): ?int
-    {
-        return $this->Duration;
-    }
-
-    public function setDuration(int $Duration): self
-    {
-        $this->Duration = $Duration;
-
-        return $this;
-    }
-
 }

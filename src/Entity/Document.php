@@ -23,7 +23,7 @@ class Document
     private $Title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $File;
 

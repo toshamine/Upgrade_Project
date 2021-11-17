@@ -28,12 +28,7 @@ class CertificationForm extends AbstractType
             ->add('Difficulty',EntityType::class,['class'=>Difficulty::class,'choice_label'=>'Name'])
 
             ->add('Category',EntityType::class,['class'=>Category::class,'choice_label'=>'Name'])
-
-
-
-
-
-->add('Picture', FileType::class, [
+            ->add('Picture', FileType::class, [
                 'label' => 'Picture',
 
                 // unmapped means that this field is not associated to any entity property
@@ -52,7 +47,17 @@ class CertificationForm extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
                 ],
-            ]);
+            ])
+
+            //we add documents in our Form
+            ->add('documents',FileType::class,['label' => 'Documents',
+                                                            'multiple'=>true,
+                                                            'mapped'=>false,
+                                                            'required'=>false]) ;
+
+
+
+
     }
     public function configureOptions(OptionsResolver  $resolver)
     {
