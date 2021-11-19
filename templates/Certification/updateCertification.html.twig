@@ -1,5 +1,20 @@
 {% extends "baseCertification.html.twig" %}
+{% block title %}{{ parent() }}{% endblock %}
 
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} Update Certification {% endblock %}
+{% block sectionmenu %} Certification {% endblock %}
 
 {% block contenu  %}
     <center>
@@ -8,7 +23,20 @@
     {{ form_start(editformCertification) }}
     {{ form_widget(editformCertification) }}
 
+        <h2> Documents </h2>
+        {% for document in certification.documents %}
+            <div>
+                {{ document.Title }}
+                <a  href="{{ path('Certification_delete_document',{id:document.id}) }}"
+                    data-delete data-token="{{ csrf_token('delete'~document.id) }}"> Supprimer</a>
 
+
+
+                <a  href="{{ path('Certification_download_document',{id:document.id}) }}"> Download</a>
+
+            </div>
+
+        {% endfor %}
 
     <button class="btn">{{ button_label|default('Update Certification') }}</button>
     {{ form_end(editformCertification) }}

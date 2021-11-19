@@ -38,9 +38,9 @@
                 <td>{{ record.Certification }}</td>
                 <td>{{ record.Date ? record.Date|date('Y-m-d') : '' }}</td>
                 <td>
-                    <div class="svg-wrapper" style="float: left;">
+                    <div class="svg-wrapper-red" style="float: left;">
                         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-                            <rect id="shape" height="40" width="150" />
+                            <rect id="shape-red" height="40" width="150" />
                             <div id="text" >
                                 &nbsp;<a href="{{ path('deleterec',{id:record.Id}) }}"><span class="spot"></span><span style="color: black;">Delete</span></a>
                             </div>
@@ -57,7 +57,16 @@
     </table>
 
     {% if records!=null %}
-                &nbsp;<center><a href="#m" class="btn btn-danger" onclick="confdelete()">Delete All</a></center>
+        <center>
+        <div class="svg-wrapper-red">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape-red" height="40" width="150" />
+                <div id="text" >
+                    &nbsp;<a href="#m" onclick="confdelete()"><span class="spot"></span><span style="color: black;">Delete All</span></a>
+                </div>
+            </svg>
+        </div>
+        </center>
     {% endif %}
 
     <style>

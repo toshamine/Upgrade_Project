@@ -38,7 +38,7 @@ class CompanyController extends AbstractController
             $em=$this->getDoctrine()->getManager();
             $em->persist( $company);
             $em->flush();
-            return $this->redirectToRoute('company');
+            return $this->redirectToRoute('add_certification');
         }
 
         return $this->render('company/addCompany.html.twig',['formCompany'=>$form->createView()]);

@@ -13,26 +13,67 @@
 {% block contact %} {{ parent() }} {% endblock %}
 
 
-{%  block sectionname %} Add A Question {% endblock %}
-{% block sectionmenu %} Question {% endblock %}
+{%  block sectionname %} {{ certif.Title}} Details {% endblock %}
+{% block sectionmenu %} Certification {% endblock %}
 
 {% block contenu %}
-    <center>
-        <table >
-            <h1>Create new Question</h1>
 
-            {{ include('question_crud/_form.html.twig') }}
+    <center><h1 class="hvr-float-shadow unselectable">{{ certif.Title }}</h1></center>
 
-        </table>
-    </center>
-        <div class="svg-wrapper" style="float: left;">
-            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-                <rect id="shape" height="40" width="150" />
-                <div id="text" >
-                    &nbsp;<a href="{{ path('question_crud_index') }}"><span class="spot"></span><span style="color: #0b7dfd;">Questions List</span></a>
-                </div>
-            </svg>
-        </div>
+    <table class="table table-hover">
+        <tbody class="thead-dark">
+        <tr>
+            <th class="" style="width: 30%;">Title</th>
+            <td>{{ certif.Category.name }}</td>
+        </tr>
+        <tr>
+            <th>Difficulty</th>
+            <td>{{ certif.Difficulty.name }}</td>
+        </tr>
+        <tr>
+            <th>Company</th>
+            <td>{{ certif.Company.name }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="svg-wrapper" style="float: left;">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+            <rect id="shape" height="40" width="150" />
+            <div id="text" >
+                &nbsp;<a href="{{ path("certification") }}"><span class="spot"></span><span style="color: #0b7dfd;">Back To List</span></a>
+            </div>
+        </svg>
+    </div>
+
+    <div class="svg-wrapper" style="float: right;">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+            <rect id="shape" height="40" width="150" />
+            <div id="text" >
+                &nbsp;<a href="{{ path("details_document" , {'id':certif.id})}}"><span class="spot"></span><span style="color: #0b7dfd;">Documents</span></a>
+            </div>
+        </svg>
+    </div>
+
+    <center><div class="svg-wrapper">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+            <rect id="shape" height="40" width="150" />
+            <div id="text" >
+                &nbsp;<a href="{{ path("white_test_index",{"certif":certif.Title}) }}"><span class="spot"></span><span style="color: #0b7dfd;">WhiteTests</span></a>
+            </div>
+        </svg>
+    </div></center>
+
+    <style>
+        .unselectable {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .unclick{ text-decoration: none; cursor: default; }
+    </style>
+
     <style>
         /*       Just setting CSS for the page   */
 
@@ -195,3 +236,5 @@
         }
     </style>
 {% endblock %}
+
+

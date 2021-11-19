@@ -1,6 +1,20 @@
-
 {% extends "baseCertification.html.twig" %}
+{% block title %}{{ parent() }}{% endblock %}
 
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} Add Certification {% endblock %}
+{% block sectionmenu %} Certification {% endblock %}
 
 {% block contenu  %}
     <center>
@@ -12,6 +26,10 @@
     {{ form_end(formCertification) }}
     </center>
 
+    </br>
+    <table width="1100">
+     <tr>
+     <td>
     <div class="svg-wrapper-green">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
             <rect id="shape-green" height="40" width="150" />
@@ -20,7 +38,31 @@
             </div>
         </svg>
     </div>
-
+     </td>
+         <td>
+         <center>
+    <div class="svg-wrapper-green">
+    <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+        <rect id="shape-green" height="40" width="150" />
+        <div id="text" >
+            &nbsp;<a href="{{ path('add_category')}}"><span class="spot"></span><span style="color: #0b7dfd;">Add Category</span></a>
+        </div>
+    </svg>
+    </div>
+    </center>
+         </td>
+    <td>
+    <div class="svg-wrapper-green" style="float: right;">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+            <rect id="shape-green" height="40" width="150" />
+            <div id="text" >
+                &nbsp;<a href="{{ path('add_company')}}"><span class="spot"></span><span style="color: #0b7dfd;">Add Company</span></a>
+            </div>
+        </svg>
+    </div>
+    </td>
+     </tr>
+    </table>
     <style>
         /*       Just setting CSS for the page   */
 

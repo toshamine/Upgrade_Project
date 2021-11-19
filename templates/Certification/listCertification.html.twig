@@ -7,9 +7,10 @@
 {%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
     <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
 
+
 {% block home %} {{ parent() }} {% endblock %}
 {% block about %} {{ parent() }} {% endblock %}
-{% block certifications %} {{ parent() }} {% endblock %}
+{% block certifications %} <li class="nav-item active"><a href="{{ path("certification") }}" class="nav-link">Certifications</a></li>  {% endblock %}
 {% block instructors %} {{ parent() }} {% endblock %}
 {% block forum %}  {{ parent() }} {% endblock %}
 {% block contact %} {{ parent() }} {% endblock %}
@@ -24,12 +25,17 @@
 <div class="row" >
 
     <div class="col-lg-3 sidebar">
-        <form action="#" class="search-form">
-            <div class="form-group">
-                <span class="icon fa fa-search"></span>
-                <input type="text" class="form-control" placeholder="Search...">
-            </div>
-        </form>
+
+
+        {{ form_start(form)}}
+        {{ form_widget(form)}}
+
+        <button class="btn"><span class="icon fa fa-search"></span></button>
+
+        <input type="text" class="form-control">{{ button_label|default(' ') }}</input>
+        {{ form_end(form) }}
+
+
         <div >
             <h3 class="heading-sidebar">Category</h3>
             <form action="#" class="browse-form">
@@ -64,11 +70,6 @@
 
                 {% endfor %}
 
-             {#
-                <label for="option-course-type-1"><input type="checkbox" id="option-course-type-1" name="vehicle" value="" checked> Basic</label><br>
-                <label for="option-course-type-2"><input type="checkbox" id="option-course-type-2" name="vehicle" value=""> Intermediate</label><br>
-                <label for="option-course-type-3"><input type="checkbox" id="option-course-type-3" name="vehicle" value=""> Advanced</label><br>
-                #}
             </form>
         </div>
         <div class="heading-sidebar">
@@ -81,15 +82,36 @@
                 </div>
             </svg>
         </div>
+        </br>
+            </br>
+            <div class="svg-wrapper-green">
+                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                    <rect id="shape-green" height="40" width="150" />
+                    <div id="text" >
+                        &nbsp;<a href="{{ path("newtest") }}"><span class="spot"></span><span style="color: #0b7dfd;">+WhiteTest</span> </a>
+                    </div>
+                </svg>
+            </div>
         </div>
+        </br>
+        <div class="svg-wrapper-green">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape-green" height="40" width="150" />
+                <div id="text" >
+                    &nbsp;<a href="{{ path("question_crud_new") }}"><span class="spot"></span><span style="color: #0b7dfd;">+Question</span> </a>
+                </div>
+            </svg>
+        </div>
+
+
     </div>
     <div class="col-lg-9">
         <div class="row">
             {% for v in listeCertification %}
                 <div class="col-md-6 d-flex align-items-stretch " >
-                    <div class="project-wrap">
-                        <a href="#" class="img" style="background-image: url('{{ asset('uploads/'~v.Picture) }}');">
-
+                    <div class="project-wrap hvr-grow-shadow">
+                        <a href="{{ path("showcertif",{'id':v.id}) }}" class="img" style="background-image: url('{{ asset('uploads/'~v.Picture) }}');
+                                background-size: 200px 200px;">
                             <span class="price">{{  v.Company.name}}</span>
                         </a>
                         <div class="text p-4">
@@ -97,7 +119,7 @@
 
                             <ul class="d-flex justify-content-between">
                                 <li><span class="flaticon-shower"></span>{{  v.Category.name}}</li>
-                                <li class="price">{{ v.Difficulty.name}}</li>
+                                <li class="price unselectable">{{ v.Difficulty.name}}</li>
 
                             </ul>
                             <ul>
@@ -125,15 +147,16 @@
                         </div>
                     </div>
                 </div>
-
+                {% else %}
+                <center><h1>No Certifications Available</h1></center>
             {% endfor %}
 
 
 
         </div>
 
-
-
+{% if listeCertification!=null %}
+<center>
         <div class="row mt-5">
 
             <div class="col">
@@ -150,6 +173,8 @@
                 </div>
             </div>
         </div>
+</center>
+{% endif %}
     </div>
 </div>
 

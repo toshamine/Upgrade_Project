@@ -29,27 +29,29 @@ class WhiteTestController extends AbstractController
         ]);
     }
 
-    #[Route('/new/{certif}', name: 'white_test_new', methods: ['GET','POST'])]
-    public function new(Request $request,string $certif): Response
+    /**
+     * @Route ("/new/test",name="newtest")
+     */
+    public function new(Request $request): Response
     {
         $whiteTest = new WhiteTest();
         $form = $this->createForm(WhiteTestType::class, $whiteTest);
         $form->handleRequest($request);
-
+        $certif="test";
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $certification=$this->getDoctrine()->getManager()->getRepository(Certification::class)->findOneBy(['Title'=>(string)$whiteTest->getCertification()]);
             $whiteTest->setCertification($certification);
             $entityManager->persist($whiteTest);
             $entityManager->flush();
-
-            return $this->redirectToRoute('white_test_index', ['certif'=>$certif]);
+            $certif=$certification->getTitle();
+            return $this->redirectToRoute('white_test_index', ['certif'=>$certification->getTitle()]);
         }
 
         return $this->renderForm('Client/AddWhiteTest.html.twig', [
             'white_test' => $whiteTest,
             'form' => $form,
-            'certif' => $certif
+            'certif'=>$certif
         ]);
     }
 
@@ -125,13 +127,5 @@ class WhiteTestController extends AbstractController
         $em->persist($record);
         $em->flush();
         return $this->render("Client/result.html.twig", ['score' => $score,'nbquestions'=>$whitetest->nbquestion()]);
-    }
-
-    /**
-     * @Route ("/chose/wh",name="chosewh")
-     */
-    public function chosewh():Response
-    {
-        return $this->render("Client/chosewh.html.twig");
     }
 }

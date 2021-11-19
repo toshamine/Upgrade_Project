@@ -17,7 +17,7 @@
 {% block sectionmenu %} WhiteTest {% endblock %}
 
 {% block contenu %}
-    <h1>{{ whitetest.Title }}</h1>
+    <center><h1 class="hvr-float-shadow unselectable">{{ whitetest.Title }}</h1></center>
 
     <table class="table table-hover">
         <tbody class="thead-dark">
@@ -121,6 +121,28 @@
             margin-left: 5px;
             margin-right: 5px
         }
+        .svg-wrapper-red {
+            margin-top: 0;
+            position: relative;
+            width: 150px;
+            /*make sure to use same height/width as in the html*/
+            height: 40px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-left: 5px;
+            margin-right: 5px
+        }
+        .svg-wrapper-green {
+            margin-top: 0;
+            position: relative;
+            width: 150px;
+            /*make sure to use same height/width as in the html*/
+            height: 40px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-left: 5px;
+            margin-right: 5px
+        }
         /*
           This is where we define the fill, color, thickness,
           and stroke pattern of the SVG when there is no hover.
@@ -132,6 +154,22 @@
             stroke-width: 6px;
             fill: transparent;
             stroke: #009FFD;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease;
+        }
+        #shape-red {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: darkred;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease;
+        }
+        #shape-green {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: green;
             stroke-dasharray: 85 400;
             stroke-dashoffset: -220;
             transition: 1s all ease;
@@ -162,6 +200,18 @@
             stroke-width: 3px;
             stroke-dashoffset: 0;
             stroke: #06D6A0;
+        }
+        .svg-wrapper-red:hover #shape-red {
+            stroke-dasharray: 50 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: red;
+        }
+        .svg-wrapper-green:hover #shape-green {
+            stroke-dasharray: 50 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: greenyellow;
         }
     </style>
 {% endblock %}

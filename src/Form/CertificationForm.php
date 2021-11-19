@@ -31,8 +31,6 @@ class CertificationForm extends AbstractType
 
 
 
-
-
 ->add('Picture', FileType::class, [
                 'label' => 'Picture',
 
@@ -49,10 +47,14 @@ class CertificationForm extends AbstractType
                     new File([
                        'maxSize' => '1024k',
 
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Please upload a valid picture',
                     ])
                 ],
-            ]);
+            ])
+        ->add('documents',FileType::class,['label' => 'Documents',
+            'multiple'=>true,
+            'mapped'=>false,
+            'required'=>false]) ;
     }
     public function configureOptions(OptionsResolver  $resolver)
     {

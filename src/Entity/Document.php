@@ -23,11 +23,6 @@ class Document
     private $Title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $File;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Certification::class, inversedBy="documents")
      */
     private $certification;
@@ -45,18 +40,6 @@ class Document
     public function setTitle(string $Title): self
     {
         $this->Title = $Title;
-
-        return $this;
-    }
-
-    public function getFile(): ?string
-    {
-        return $this->File;
-    }
-
-    public function setFile(string $File): self
-    {
-        $this->File = $File;
 
         return $this;
     }

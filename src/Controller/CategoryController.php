@@ -39,7 +39,7 @@ class CategoryController extends AbstractController
             $em=$this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
-            return $this->redirectToRoute('category');
+            return $this->redirectToRoute('add_certification');
         }
 
         return $this->render('category/addCategory.html.twig',['formCategory'=>$form->createView()]);

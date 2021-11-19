@@ -13,11 +13,11 @@
 {% block contact %} {{ parent() }} {% endblock %}
 
 
-{%  block sectionname %} Add WhiteTest {% endblock %}
-{% block sectionmenu %} Add WhiteTest {% endblock %}
+{%  block sectionname %} Question Details <div id="this"></div> {% endblock %}
+{% block sectionmenu %} Question {% endblock %}
 
 {% block contenu %}
-    <center><h1>Question {{ question.id }}</h1></center>
+    <center><h1  class="hvr-float-shadow unselectable">Question {{ question.id }}</h1></center>
 
     <table class="table table-hover">
         <tbody class="thead-dark">
@@ -76,7 +76,16 @@
             </svg>
         </div>
 
-    <center><button class="btn btn-danger" onclick="confdelete()" >&nbsp;Delete</button></center>
+    <center>
+        <div class="svg-wrapper-red">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape-red" height="40" width="150" />
+                <div id="text" >
+                    &nbsp;<a href="#this" onclick="confdelete()"><span class="spot"></span><span style="color: black;">Delete</span></a>
+                </div>
+            </svg>
+        </div>
+    </center>
 
 
 
@@ -196,6 +205,28 @@
             margin-left: 5px;
             margin-right: 5px
         }
+        .svg-wrapper-red {
+            margin-top: 0;
+            position: relative;
+            width: 150px;
+            /*make sure to use same height/width as in the html*/
+            height: 40px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-left: 5px;
+            margin-right: 5px
+        }
+        .svg-wrapper-green {
+            margin-top: 0;
+            position: relative;
+            width: 150px;
+            /*make sure to use same height/width as in the html*/
+            height: 40px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-left: 5px;
+            margin-right: 5px
+        }
         /*
           This is where we define the fill, color, thickness,
           and stroke pattern of the SVG when there is no hover.
@@ -207,6 +238,22 @@
             stroke-width: 6px;
             fill: transparent;
             stroke: #009FFD;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease;
+        }
+        #shape-red {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: darkred;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease;
+        }
+        #shape-green {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: green;
             stroke-dasharray: 85 400;
             stroke-dashoffset: -220;
             transition: 1s all ease;
@@ -238,6 +285,28 @@
             stroke-dashoffset: 0;
             stroke: #06D6A0;
         }
+        .svg-wrapper-red:hover #shape-red {
+            stroke-dasharray: 50 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: red;
+        }
+        .svg-wrapper-green:hover #shape-green {
+            stroke-dasharray: 50 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: greenyellow;
+        }
+    </style>
+    <style>
+        .unselectable {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .unclick{ text-decoration: none; cursor: default; }
     </style>
 
 {% endblock %}
