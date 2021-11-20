@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}Upgrade</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset("assets/Logo.ico") }}">
+        {% endblock %}
+        {% block stylesheet %}
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="{{ asset("assets/Client/css/animate.css") }}">
+        <link rel="stylesheet" href="{{ asset("assets/Client/css/owl.carousel.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("assets/Client/css/owl.theme.default.min.css") }}">
+        <link rel="stylesheet" href="{{ asset("assets/Client/css/magnific-popup.css") }}">
+
+        <link rel="stylesheet" href="{{ asset("assets/Client/css/bootstrap-datepicker.css") }}">
+        <link rel="stylesheet" href="{{ asset("assets/Client/css/jquery.timepicker.css") }}">
+
+
+        <link rel="stylesheet" href="{{ asset("assets/Client/css/flaticon.css") }}">
+        <link rel="stylesheet" href="{{ asset("assets/Client/css/style.css") }}">
+            <link rel="stylesheet" href="{{ asset("assets/Hover-master/css/hover.css") }}">
+        {% endblock stylesheet %}
+
+
+
+        {% block javascripts %}
+            <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+            <script src="{{ asset("assets/Client/js/jquery.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/jquery-migrate-3.0.1.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/popper.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/bootstrap.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/jquery.easing.1.3.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/jquery.waypoints.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/jquery.stellar.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/owl.carousel.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/jquery.magnific-popup.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/jquery.animateNumber.min.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/bootstrap-datepicker.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/scrollax.min.js") }}"></script>
+           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+          <script src="{{ asset("assets/Client/js/google-map.js") }}"></script>
+            <script src="{{ asset("assets/Client/js/main.js") }}"></script>
+        {% endblock %}
+    </head>
+    <body>
+    {% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand hvr-hang" href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/index.html">Upgrade</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    {% block home %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/index.html" class="nav-link">Home</a></li>{% endblock %}
+                    {% block about %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/about.html" class="nav-link">About</a></li>{% endblock %}
+                    {% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link">Certifications</a></li>{% endblock %}
+                    {% block instructors %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/instructor.html" class="nav-link">Instructors</a></li>{% endblock %}
+                    <!-- Here you need to give the attribute the class nav-item active to make active it depends where you are -->
+                    {% block forum%} <li class="nav-item"><a href="" class="nav-link">Forum</a></li>{% endblock %}
+                    {% block contact %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/contact.html" class="nav-link">Contact</a></li>{% endblock %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+    <!-- END nav -->
+
+
+
+
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset("assets/Client/images/bg_2.jpg") }}');">
+
+        <div class="overlay"></div>
+
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-end justify-content-center">
+                <div class="col-md-9 text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="">Home <i class="fa fa-chevron-right"></i></a></span> <span>{% block sectionmenu %} Section Name Here {% endblock %}<i class="fa fa-chevron-right"></i></span></p>
+                    <h1 class="mb-0 bread">{% block sectionname %}Section Name Here{% endblock %}</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+                {% block contenu %}
+                <!-- Put Code Here -->
+                {% endblock %}
+        </div>
+    </section>
+
+    <footer class="ftco-footer ftco-no-pt">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md pt-5">
+                    <div class="ftco-footer-widget pt-md-5 mb-4">
+                        <h2 class="ftco-heading-2">About</h2>
+                        <p>Worldwife ceritifcation platform to get certified for free</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md pt-5">
+                    <div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
+                        <h2 class="ftco-heading-2">Help Desk</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Customer Care</a></li>
+                            <li><a href="#" class="py-2 d-block">Legal Help</a></li>
+                            <li><a href="#" class="py-2 d-block">Services</a></li>
+                            <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+                            <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
+                            <li><a href="#" class="py-2 d-block">Call Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md pt-5">
+                    <div class="ftco-footer-widget pt-md-5 mb-4">
+                        <h2 class="ftco-heading-2">Recent Courses</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Computer Engineering</a></li>
+                            <li><a href="#" class="py-2 d-block">Web Design</a></li>
+                            <li><a href="#" class="py-2 d-block">Business Studies</a></li>
+                            <li><a href="#" class="py-2 d-block">Civil Engineering</a></li>
+                            <li><a href="#" class="py-2 d-block">Computer Technician</a></li>
+                            <li><a href="#" class="py-2 d-block">Web Developer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md pt-5">
+                    <div class="ftco-footer-widget pt-md-5 mb-4">
+                        <h2 class="ftco-heading-2">Have a Questions?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                         {#        <li><span class="icon fa fa-map-marker"></span><span class="text">Ariana, Tunisia</span></li> #}
+                                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                                <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">Upgrade@gmail.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Tek Up</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    </body>
+    <style>
+        /*       Just setting CSS for the page   */
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        css {
+            width: 100%;
+            height: 100%;
+        }
+
+        .position {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-top: 15%;
+        }
+
+        #workarea {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #1e1a3e;
+            font-family: Raleway;
+        }
+
+        #personal {
+            color:white;
+            text-decoration:none;
+            position:absolute;
+            bottom:15px;
+            right:2%;
+        }
+        /*    start code for the actual button:         */
+
+
+        /*
+            Spot is the span on the inside of the href that
+            fills the parent and makes the hover and link work
+            for the entire div
+        */
+
+        .spot {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        /*
+            This is the outer svg wrapper that the SVG itself will
+            fill. Multiple svg-wrapper classes can be put side by side.
+        */
+
+        .svg-wrapper {
+            margin-top: 0;
+            position: relative;
+            width: 150px;
+            /*make sure to use same height/width as in the html*/
+            height: 40px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-left: 5px;
+            margin-right: 5px
+        }
+        .svg-wrapper-red {
+            margin-top: 0;
+            position: relative;
+            width: 150px;
+            /*make sure to use same height/width as in the html*/
+            height: 40px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-left: 5px;
+            margin-right: 5px
+        }
+        .svg-wrapper-green {
+            margin-top: 0;
+            position: relative;
+            width: 150px;
+            /*make sure to use same height/width as in the html*/
+            height: 40px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-left: 5px;
+            margin-right: 5px
+        }
+        /*
+          This is where we define the fill, color, thickness,
+          and stroke pattern of the SVG when there is no hover.
+          The dasharray and offset together define the line position
+          under the words. Here's also where the transition speed is set.
+        */
+
+        #shape {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: #009FFD;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease;
+        }
+        #shape-red {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: darkred;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease;
+        }
+        #shape-green {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: green;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease;
+        }
+        /*
+            Pushing the text up into the SVG. Without this the
+            text would be below the div's.
+        */
+
+        #text {
+            margin-top: -35px;
+            text-align: center;
+        }
+
+        #text a {
+            color: white;
+            text-decoration: none;
+            font-weight: 100;
+            font-size: 1.1em;
+        }
+        /*
+            Changing the shape on hover. I change the color of the stroke,
+        make it thinner, then set it to again wrap around the entire parent element.
+        */
+
+        .svg-wrapper:hover #shape {
+            stroke-dasharray: 50 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: #06D6A0;
+        }
+        .svg-wrapper-red:hover #shape-red {
+            stroke-dasharray: 50 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: red;
+        }
+        .svg-wrapper-green:hover #shape-green {
+            stroke-dasharray: 50 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: greenyellow;
+        }
+    </style>
+
+    <style>
+        .unselectable {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .unclick{ text-decoration: none; cursor: default; }
+    </style>
+</html>

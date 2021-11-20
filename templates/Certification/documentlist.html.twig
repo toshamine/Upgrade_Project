@@ -1,0 +1,14 @@
+<h2> Documents </h2>
+{% for document in documents %}
+    <div>
+        {{ document.Title }}
+        <a  href="{{ path('Certification_delete_document',{id:document.id}) }}"
+            data-delete data-token="{{ csrf_token('delete'~document.id) }}"> Supprimer</a>
+
+
+
+        <a  href="{{ path('Certification_download_document',{id:document.id}) }}"> Download</a>
+
+    </div>
+
+{% endfor %}
