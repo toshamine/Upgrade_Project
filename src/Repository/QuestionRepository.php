@@ -22,29 +22,13 @@ class QuestionRepository extends ServiceEntityRepository
     // /**
     //  * @return Question[] Returns an array of Question objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByOrder()
     {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Question
-    {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
