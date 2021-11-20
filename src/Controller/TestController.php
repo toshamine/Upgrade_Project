@@ -73,13 +73,16 @@ class TestController extends AbstractController
     {
 
 
-
+        /* if ($this->isGranted('ROLE_ADMIN')){
+                        echo 'yess';die;
+                    }*/
 
 
 
 
 
         if($this->getUser()){
+
             $entityManager = $this->getDoctrine()->getManager();
             $userV = $entityManager->getRepository(User1::class)->findOneBy(['email'=>$this->getUser()->getUserIdentifier(),
                 'isVerified'=>false]);
