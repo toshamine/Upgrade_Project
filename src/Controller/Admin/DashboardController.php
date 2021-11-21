@@ -33,6 +33,9 @@ class DashboardController extends AbstractDashboardController
             {
                 return $this->redirectToRoute('app_logout');
             }
+            if(!$this->isGranted('ROLE_ADMIN')){
+                return $this->redirectToRoute('index');
+            }
 
         }
 
