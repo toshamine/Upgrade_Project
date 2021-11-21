@@ -23,10 +23,11 @@ class QuestionCrudController extends AbstractCrudController
         return [
             IdField::new('id')->onlyOnIndex(),
             AssociationField::new('whiteTest'),
-
-            CollectionField::new('choices'),
-            TextField::new('answer'),
             TextField::new('question'),
+            TextField::new('ChoiceA'),
+            TextField::new('ChoiceB'),
+            TextField::new('ChoiceC'),
+            TextField::new('answer')
         ];
     }
 

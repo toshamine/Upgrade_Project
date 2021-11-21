@@ -23,20 +23,6 @@
     {{ form_start(editformCertification) }}
     {{ form_widget(editformCertification) }}
 
-        <h2> Documents </h2>
-        {% for document in certification.documents %}
-            <div>
-                {{ document.Title }}
-                <a  href="{{ path('Certification_delete_document',{id:document.id}) }}"
-                    data-delete data-token="{{ csrf_token('delete'~document.id) }}"> Supprimer</a>
-
-
-
-                <a  href="{{ path('Certification_download_document',{id:document.id}) }}"> Download</a>
-
-            </div>
-
-        {% endfor %}
 
     <button class="btn">{{ button_label|default('Update Certification') }}</button>
     {{ form_end(editformCertification) }}

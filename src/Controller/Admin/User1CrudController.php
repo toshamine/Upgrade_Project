@@ -46,7 +46,7 @@ class User1CrudController extends AbstractCrudController
             TextField::new('Firstname'),
             //TextField::new('roles'),
             TextField::new('Lastname'),
-            DateField::new('Birthdate'),
+            DateField::new('birthdate'),
             TextareaField::new('imageFile')->hideOnIndex()
             ->setFormType(VichImageType::class)
                 ->setLabel('Image'),

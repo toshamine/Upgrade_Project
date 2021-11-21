@@ -22,11 +22,8 @@ class WhiteTestCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->onlyOnIndex(),
-            AssociationField::new('questions'),
-            TimeField::new('time'),
-            TimeField::new('limit_time'),
-
+            TextField::new('Title'),
+            AssociationField::new('questions')
 
         ];
     }

@@ -6,6 +6,8 @@ use App\Entity\Certification;
 use App\Form\CertificationForm;
 use App\Form\CertificationType;
 use App\Entity\Document;
+use App\Repository\DocumentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -86,7 +88,7 @@ class CertificationController extends AbstractController
             //on genere un nouveau nom de fichier
 
             //   $fichier=md5(uniqid()).'.'.$picture->guessExtension();
-            $filename = $picture->getClientOriginalName();
+            $filename = "(".$certification->getTitle().")"." ".$picture->getClientOriginalName();
 
 
             // on copie le fichier dans le dossier uploads
@@ -112,7 +114,7 @@ class CertificationController extends AbstractController
             foreach ($documents as $document ){
                 //on genere un nouveau nom de fichier
 
-                $filename = $document->getClientOriginalName();
+                $filename = "(".$certification->getTitle().")"." ".$document->getClientOriginalName();
 
                 //  $fichierdoc=md5(uniqid()).'.'.$document->guessExtension();
                 // on copie le fichier dans le dossier uploads
@@ -176,15 +178,13 @@ class CertificationController extends AbstractController
                 //on genere un nouveau nom de fichier
 
                 $fichier = md5(uniqid()) . '.' . $picture->guessExtension();
-                $filename = $picture->getClientOriginalName();
-
+                $filename = "(".$certification->getTitle().")"." ".$picture->getClientOriginalName();
 
                 // on copie le fichier dans le dossier uploads
 
                 $picture->move(
                     $this->getParameter('images_directory'),
                     $filename
-
                 );
                 //on staocke le nom de l'image dans la base de données
 
@@ -201,7 +201,7 @@ class CertificationController extends AbstractController
             foreach ($documents as $document ){
                 //on genere un nouveau nom de fichier
 
-                $filename = $document->getClientOriginalName();
+                $filename = "(".$certification->getTitle().")"." ".$document->getClientOriginalName();
 
                 $fichierdoc=md5(uniqid()).'.'.$document->guessExtension();
                 // on copie le fichier dans le dossier uploads
@@ -220,7 +220,7 @@ class CertificationController extends AbstractController
             $em=$this->getDoctrine()->getManager();
             $em->persist($certification);
             $em->flush();
-            return $this->redirectToRoute('certification');
+            return $this->redirectToRoute('showcertif',['id'=>$certification->getId()]);
         }
         return $this->render('Certification/updateCertification.html.twig',[
             'editformCertification'=>$form->createView(),
@@ -240,9 +240,9 @@ class CertificationController extends AbstractController
     }
 
     /**
-     * @Route("/delete/document/{id}", name="Certification_delete_document")
+     * @Route("/delete/document/{id}/{certif}", name="Certification_delete_document")
      */
-    public function deleteDocument(Document $document, Request $request ){
+    public function deleteDocument(Document $document, string $certif ,Request $request ){
 
         // $data = json_decode($request->getContent(), true);
 
@@ -260,6 +260,7 @@ class CertificationController extends AbstractController
 
         //on supprime de la base
         $em=$this->getDoctrine()->getManager();
+        $id=$em->getRepository(Certification::class)->findOneBy(['Title'=>$certif])->getId();
         $em->remove($document);
         $em->flush();
 
@@ -270,7 +271,7 @@ class CertificationController extends AbstractController
 
         // }
 
-        return $this->redirectToRoute('certification');
+        return $this->redirectToRoute('details_document',['id'=>$id]);
 
     }
     /**
@@ -296,13 +297,13 @@ class CertificationController extends AbstractController
      * @Route("/certificationDetails/{id}", name="details_document")
      */
     //   public function index(DocumentRepository $documentRepository): Response
-    public function download($id):Response
+    public function download($id,DocumentRepository $repo):Response
 
 
     {
         $em = $this->getDoctrine()->getManager();
         $certification = $em->getRepository("App\Entity\Certification")->find($id);
-        $documents = $certification->getDocuments();
+        $documents = $repo->findByOrder($id);
 
         return $this->render('Certification/documentlist.html.twig',[
             'documents'=>$documents
