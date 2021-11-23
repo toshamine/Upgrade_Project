@@ -30,6 +30,50 @@ class CertificationRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    public function findBycat($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->where("c.category = :id")
+            ->setParameter("id",$id)
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+  }
+
+    public function findByFilter($filter,$nofilter)
+    {
+        if($filter !=null) {
+        return $this->createQueryBuilder('c')
+            ->where("c.category IN :filter")
+            ->setParameter("filter",$filter)
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+        }
+
+
+    }
+    /*public function findByCategory($filters)
+    {
+        if($filters!=null){
+        return $this->createQueryBuilder('c')
+            ->where("c.category IN (:filters)")
+            ->setParameter("filters",$filters)
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;}
+        else{
+            return $this->createQueryBuilder('c')
+                ->orderBy('c.id', 'DESC')
+                ->getQuery()
+                ->getResult()
+                ;
+        }
+    }*/
+
     /*
     public function findOneBySomeField($value): ?Certification
     {

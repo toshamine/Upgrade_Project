@@ -38,11 +38,13 @@
 
         <div >
             <h3 class="heading-sidebar">Category</h3>
-            <form action="#" class="browse-form">
+            <form action="#" class="browse-form" id="filters">
 
                 {% for c in listCategory %}
 
-                    <label for="option-category-1"><input type="checkbox" id="option-category-1" name="vehicle" value="" checked> {{ c.Name}}</label><br>
+
+                    <label for="option-category-1"><input type="radio" onclick="category({{ c.id }})" id="cat{{ c.id }}" value="{{ c.id }}"> {{ c.Name}}</label><br>
+                    <input type="hidden" id="catid" value="{{ c.id }}">
 
                 {% endfor %}
 
@@ -105,7 +107,7 @@
 
 
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-9" id="content">
         <div class="row">
             {% for v in listeCertification %}
                 <div class="col-md-6 d-flex align-items-stretch " >
@@ -391,6 +393,22 @@
                     )
                 }
             });
+        }
+    </script>
+    <script>
+        function category(id){
+            let link="http://localhost/UpgradeProject/public/index.php/certification/"+id;
+            window.location.replace(link);
+        }
+    </script>
+    <script>
+        w=window.location.href;
+
+        if(window.location.href!="http://localhost/UpgradeProject/public/index.php/certification/" && document.getElementById('cat'+w.charAt(63)).checked == false){
+            document.getElementById('cat'+w.charAt(63)).checked = true;
+        }
+        else{
+            document.getElementById('cat'+w.charAt(63)).checked = false;
         }
     </script>
 {% endblock  %}
