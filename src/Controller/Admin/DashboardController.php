@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use phpDocumentor\Reflection\Types\Parent_;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,6 +33,9 @@ class DashboardController extends AbstractDashboardController
             if ($userV)
             {
                 return $this->redirectToRoute('app_logout');
+            }
+            if(!$this->isGranted('ROLE_ADMIN')){
+                return $this->redirectToRoute('index');
             }
 
         }
@@ -62,9 +66,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureUserMenu(UserInterface $user): UserMenu
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $userV = $entityManager->getRepository(User1::class)->findOneBy(['email'=>$user->getUserIdentifier()]);
+
+
         return Parent::configureUserMenu($user)->setName($user->getUsername())
-            //->setGravatarEmail($user->getUsername())
-            ->setAvatarUrl($this->getUser()->getPicture())
+            //->setGravatarEmail($user->getUserIdentifier())
+            ->setAvatarUrl($this->getParameter("app.path.product_images").'/'.$userV->getPicture() )
             ->displayUserAvatar(true)
 
 

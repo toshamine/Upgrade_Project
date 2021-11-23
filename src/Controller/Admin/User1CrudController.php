@@ -42,7 +42,7 @@ class User1CrudController extends AbstractCrudController
 
             ArrayField::new('roles'),
             EmailField::new('email'),
-            TextField::new('username'),
+            TextField::new('password')->hideOnIndex()->hideWhenUpdating(),
             TextField::new('Firstname'),
             //TextField::new('roles'),
             TextField::new('Lastname'),

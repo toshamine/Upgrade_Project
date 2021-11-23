@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 
 class DocumentCrudController extends AbstractCrudController
 {
@@ -23,7 +24,7 @@ class DocumentCrudController extends AbstractCrudController
             IdField::new('id')->onlyOnIndex(),
             TextField::new('title'),
             AssociationField::new('certification'),
-            TextEditorField::new('file'),
+            TextareaField::new('file')->hideOnForm(),
 
         ];
     }

@@ -1,29 +1,81 @@
 {# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
 {% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block content_title 'Welcome to EasyAdmin 3' %}
 
-{% block main %}
-    <style>
-        p { max-width: 600px; }
-    </style>
 
-    <p>
-        <strong>You have successfully change and installed EasyAdmin 3 in your application!</strong>
-    </p>
+{% block page_title %} Dashboad {% endblock %}
 
-    <p>
-        You are seeing this example page because you haven't configured the start page
-        of your Dashboard. To do that, open the following file in your editor:
-    </p>
+{% block content %}
+    <div class="content">
 
-    <pre>{{ dashboard_controller_filepath }}</pre>
+        <div class="container">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">{{ 'page.dashboard.title'|trans }}</a>
+                </li>
+                <li class="breadcrumb-item active">{{ app.user.username }} </li>
+            </ol>
+            <!-- Icon Cards-->
+        </div>
 
-    <p>
-        Then, add the following method to it to customize the Dashboard start page:
-    </p>
+        <div class="container">
+            <div class="row">
+                <h1> Tableau de bord </h1>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6 alert-success">
+                    <span class="display-3"> 80 </span> Utilisateurs
+                </div>
+                <div class="col-6 alert-dark">
+                    <span class="display-3"> 100 </span> Aides
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3> Liste des villes </h3>
 
-    <pre>
+                    <ul class="list-group">
+                        {#
+                        {% for city in cities %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="display-4">
+                                <i class="fa fa-map"></i>
+                                {{ city.name }}
+                            </span>
+                                <span class="badge badge-pill">
+                                <img class="img-thumbnail" src="{{ vich_uploader_asset(city, 'imageFile') }}" style="width: 150px;">
+                            </span>
+                            </li>
+                        {% endfor %}#}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{#
+<style>
+    p { max-width: 600px; }
+</style>
+
+<p>
+    <strong>You have successfully change and installed EasyAdmin 3 in your application!</strong>
+</p>
+
+<p>
+    You are seeing this example page because you haven't configured the start page
+    of your Dashboard. To do that, open the following file in your editor:
+</p>
+
+<pre>{{ dashboard_controller_filepath }}</pre>
+
+<p>
+    Then, add the following method to it to customize the Dashboard start page:
+</p>
+
+<pre>
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,4 +107,6 @@ class {{ dashboard_controller_class }} extends AbstractDashboardController
     // ...
 }
     </pre>
-{% endblock %}
+
+#}
+

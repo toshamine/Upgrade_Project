@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
@@ -55,4 +56,11 @@ class Document
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getId()." ".$this->getTitle();
+    }
+
+
 }
