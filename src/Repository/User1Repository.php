@@ -37,12 +37,17 @@ class User1Repository extends ServiceEntityRepository implements PasswordUpgrade
     }
 
 
-    public function findByIsVerified()
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
+    public function CountUser()
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.isVerified = false')
+            ->select('count(u.id)')
+            //->andWhere('u.isVerified = false')
             ->getQuery()
-            ->getResult()
+            ->getSingleScalarResult()
             ;
     }
 

@@ -31,6 +31,21 @@ class WhiteTestRepository extends ServiceEntityRepository
             ;
     }
 
+
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
+    public function CountWT()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(u.id)')
+            //->andWhere('u.isVerified = false')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
     /*
     public function findOneBySomeField($value): ?WhiteTest
     {
