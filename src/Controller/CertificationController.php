@@ -44,7 +44,7 @@ class CertificationController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $value = $form->getData();
-            $certification = $em->getRepository("App\Entity\Certification")->findBy(['Title' => $value]);
+            $certification = $em->getRepository("App\Entity\Certification")->findBy(['Title' => strtoupper($value)]);
             $categories = $em->getRepository("App\Entity\Category")->findAll();
             $company = $em->getRepository("App\Entity\Company")->findAll();
             $difficulty = $em->getRepository("App\Entity\Difficulty")->findAll();
@@ -63,26 +63,6 @@ class CertificationController extends AbstractController
 
     }
 
-    /**
-     * @Route("/searchCertification/{value}", name="searchCertification")
-     */
-    public function searchCertification( Request $request ,string $value)
-    {
-        var_dump("sz");die;
-        // $form->handleRequest($request);
-
-        //   if ($form->isSubmitted() && $form->isValid()) {
-        // }
-        $em=$this->getDoctrine()->getManager();
-        $certification=$em->getRepository("App\Entity\Certification")->findAll();
-        $categories=$em->getRepository("App\Entity\Category")->findAll();
-        $company=$em->getRepository("App\Entity\Company")->findAll();
-        $difficulty=$em->getRepository("App\Entity\Difficulty")->findAll();
-
-
-        //  return $this->render("Certification/listCertification.html.twig",["listeCertification"=>[],"listCategory"=>[],"listDifficulty"=>[],'listCompany'=>[]]);
-
-    }
 
     /**
      * @Route("/addCertification",name="add_certification")
@@ -186,7 +166,7 @@ class CertificationController extends AbstractController
                 $picture = $form['Picture']->getData();
                 //   $image = $form['image']->getData();
 
-//dump($image=$request->query->get('image')->getData());die;
+
 
 
                 //on genere un nouveau nom de fichier
@@ -256,14 +236,7 @@ class CertificationController extends AbstractController
     /**
      * @Route("/delete/document/{id}/{certif}", name="Certification_delete_document")
      */
-    public function deleteDocument(Document $document, string $certif ,Request $request ){
-
-        // $data = json_decode($request->getContent(), true);
-
-        //on verifiE si le token est valide
-        //  if($this->isCsrfTokenValid('delete'.$document->getId(), $data['_token'])){
-
-
+    public function deleteDocument(Document $document,string $certif ,Request $request ){
 
         //on recupere le nom de doc
         $nom=$document->getTitle();
@@ -278,12 +251,7 @@ class CertificationController extends AbstractController
         $em->remove($document);
         $em->flush();
 
-        //on repond en json
-        // return new JsonResponse(['success' => 1]);
-        // }else{
-        //   return new JsonResponse(['error' => 'Token Invalide'], 400);
 
-        // }
 
         return $this->redirectToRoute('details_document',['id'=>$id]);
 
@@ -327,10 +295,11 @@ class CertificationController extends AbstractController
     }
 
     /**
-     * @Route("/certification/{id}", name="certificationbycat")
+     * @Route("/certificationfilter/{filter}", name="certificationfilter")
      */
-    public function listCertificationbycat(Request $request,$id)
+    public function listCertificationfilter(Request $request,$filter)
     {
+
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(SearchType::class, null, [
             'method' => 'GET'
@@ -343,12 +312,62 @@ class CertificationController extends AbstractController
             $company = $em->getRepository("App\Entity\Company")->findAll();
             $difficulty = $em->getRepository("App\Entity\Difficulty")->findAll();
         } else {
-            $certification = $em->getRepository("App\Entity\Certification")->findBycat($id);
+            $certification = $em->getRepository("App\Entity\Certification")->findByOrder();
             $categories = $em->getRepository("App\Entity\Category")->findAll();
             $company = $em->getRepository("App\Entity\Company")->findAll();
             $difficulty = $em->getRepository("App\Entity\Difficulty")->findAll();
 
         }
+        $finallist= array();
+        $cat=array();
+        $com=array();
+        $diff=array();
+        $i=0;
+        $test=explode(",",$filter);
+
+            while($i!=count($test)) {
+                if($test[$i]<=200) {
+                            array_push($cat,$test[$i]);
+                        }
+                if($test[$i]>200 && $test[$i]<300) {
+                    array_push($com,$test[$i]);
+                }
+                if($test[$i]>=300) {
+                    array_push($diff,$test[$i]);
+                }
+                $i++;
+        }
+
+
+            if(count($cat)!=0){
+                foreach ($certification as $c) {
+                    if(!in_array($c->getCategory()->getId(),$cat))
+                    {
+                        $key = array_search($c, $certification);
+                        unset($certification[$key]);
+                    }
+                }
+            }
+        if(count($com)!=0){
+            foreach ($certification as $c) {
+                if(!in_array($c->getCompany()->getId(),$com))
+                {
+                    $key = array_search($c, $certification);
+                    unset($certification[$key]);
+                }
+            }
+        }
+        if(count($diff)!=0){
+            foreach ($certification as $c) {
+                if(!in_array($c->getDifficulty()->getId(),$diff))
+                {
+                    $key = array_search($c, $certification);
+                    unset($certification[$key]);
+                }
+            }
+        }
+
+
         return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
             "listeCertification"=>$certification,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
             'listCompany'=>$company]);
@@ -356,83 +375,4 @@ class CertificationController extends AbstractController
     }
 
 
-    /**
-     * @Route("/certificationfilter/{filter}", name="certificationfilter")
-     */
-    public function listCertificationfilter(Request $request,$filter)
-    {
-
-        $certif=$this->get('session')->get('certif');
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(SearchType::class, null, [
-            'method' => 'GET'
-        ]);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $value = $form->getData();
-            $certification = $em->getRepository("App\Entity\Certification")->findBy(['Title' => $value]);
-            $categories = $em->getRepository("App\Entity\Category")->findAll();
-            $company = $em->getRepository("App\Entity\Company")->findAll();
-            $difficulty = $em->getRepository("App\Entity\Difficulty")->findAll();
-        } else {
-            $certification = $em->getRepository("App\Entity\Certification")->findByOrder();
-            $categories = $em->getRepository("App\Entity\Category")->findAll();
-            $company = $em->getRepository("App\Entity\Company")->findAll();
-            $difficulty = $em->getRepository("App\Entity\Difficulty")->findAll();
-
-        }
-        $finallist= array();
-        $test=explode(",",$filter);
-        foreach($certification as $c){
-            if(in_array($c->getCategory()->getId(),$test)){
-                array_push($finallist,$c);
-            }
-        }
-
-
-        return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
-            "listeCertification"=>$finallist,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
-            'listCompany'=>$company,'filters'=>$filter]);
-
-    }
-
-    /**
-     * @Route("/certificationfilterminus/{id}", name="certificationfilterminus")
-     */
-    public function listCertificationfilterminus(Request $request,$id)
-    {
-
-        $certif=$this->get('session')->get('certif');
-        $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(SearchType::class, null, [
-            'method' => 'GET'
-        ]);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $value = $form->getData();
-            $certification = $em->getRepository("App\Entity\Certification")->findBy(['Title' => $value]);
-            $categories = $em->getRepository("App\Entity\Category")->findAll();
-            $company = $em->getRepository("App\Entity\Company")->findAll();
-            $difficulty = $em->getRepository("App\Entity\Difficulty")->findAll();
-        } else {
-            $certification = $em->getRepository("App\Entity\Certification")->findByOrder();
-            $categories = $em->getRepository("App\Entity\Category")->findAll();
-            $company = $em->getRepository("App\Entity\Company")->findAll();
-            $difficulty = $em->getRepository("App\Entity\Difficulty")->findAll();
-
-        }
-        $finallist= array();
-        $test=array($id);
-        foreach($certif as $c){
-            if(!in_array($c->getCategory()->getId(),$test)){
-                array_push($finallist,$c);
-            }
-        }
-
-
-        return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
-            "listeCertification"=>$finallist,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
-            'listCompany'=>$company]);
-
-    }
 }

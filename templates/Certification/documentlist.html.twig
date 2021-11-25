@@ -17,7 +17,7 @@
 {% block sectionmenu %} Documents {% endblock %}
 {% block contenu %}
     {% if documents is not empty %}
-    <center><h1 class="hvr-grow-shadow unselectable">{{ documents[0].certification }} Documents</h1></center>
+    <center><h1 class="hvr-grow-shadow unselectable">{{ documents[0].certification.getTitle() }} Documents</h1></center>
         {% else %}
             <center><h3 class="hvr-grow-shadow unselectable">No Document For This Certifications Yet</h3></center>
     {% endif %}
@@ -33,7 +33,7 @@
 
             <div class="text pt-3">
                 <center><h3><a href="{{ path('Certification_download_document',{id:document.id}) }}" class="unselectable">{{ document.Title }}</a></h3></center>
-                <span class="position mb-2">{{ document.certification }}</span>
+                <span class="position mb-2">{{ document.certification.getTitle() }}</span>
                 <div class="faded">
 
                <center>
@@ -41,7 +41,7 @@
                         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                             <rect id="shape-red" height="40" width="150" />
                             <div id="text" >
-                               <a href="{{ path('Certification_delete_document',{id:document.id,certif:document.certification}) }}" data-delete data-token="{{ csrf_token('delete'~document.id) }}"><span ></span><span style="color: black;">Delete</span> </a>
+                               <a href="{{ path('Certification_delete_document',{id:document.id,certif:document.certification.getTitle()}) }}" data-delete data-token="{{ csrf_token('delete'~document.id) }}"><span ></span><span style="color: black;">Delete</span> </a>
                             </div>
                         </svg>
                     </div>

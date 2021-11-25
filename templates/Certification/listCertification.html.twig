@@ -43,7 +43,7 @@
                 {% for c in listCategory %}
 
 
-                    <label for="option-category-1"><input type="checkbox" onclick="test({{ c.id }})" id="cat{{ c.id }}" value="{{ c.id }}"> {{ c.Name}}</label><br>
+                    <label for="option-category-1"><input type="checkbox" onclick="filter()" id="{{ c.id }}" value="{{ c.id }}"> {{ c.Name}}</label><br>
                     <input type="hidden" id="catid" value="{{ c.id }}">
 
 
@@ -55,7 +55,7 @@
             <h3 class="heading-sidebar">Company</h3>
             <form action="#" class="browse-form">
                 {% for c in listCompany %}
-                    <label for="option-instructor-1"><input type="checkbox" id="option-instructor-1" name="vehicle" value="" checked>  {{ c.Name}} </label><br>
+                    <label for="option-instructor-1"><input type="checkbox" onclick="filter()" id="{{ c.id }}" name="vehicle" value="{{ c.id }}">  {{ c.Name}} </label><br>
 
                 {% endfor %}
 
@@ -69,7 +69,7 @@
             <form action="#" class="browse-form">
                 {% for c in listDifficulty %}
 
-                    <label for="option-course-type-1"><input type="checkbox" id="option-course-type-1" name="vehicle" value="" checked> {{ c.Name}}</label><br>
+                    <label for="option-course-type-1"><input type="checkbox" onclick="filter()" id="{{ c.id }}" name="vehicle" value="{{ c.id }}"> {{ c.Name}}</label><br>
 
                 {% endfor %}
 
@@ -151,7 +151,7 @@
                     </div>
                 </div>
                 {% else %}
-                <center><h1>No Certifications Available</h1></center>
+                <h1 style="margin-left: 220px;" class="unselectable hvr-buzz">No Certifications Available</h1>
             {% endfor %}
 
 
@@ -399,13 +399,7 @@
     <script>
 
 
-
-        function category(id){
-            let link="http://localhost/UpgradeProject/public/index.php/certification/"+id;
-            window.location.replace(link);
-        }
-
-        function test(id) {
+        function filter() {
 
                 let array = []
                 let checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
@@ -414,26 +408,27 @@
                     array.push(checkboxes[i].value)
                 }
 
-                let path = "{{ path("certificationfilter",{"filter":"array"}) }}";
-                path = path.replace("jsid", id);
-                path = path.replace("array", array);
-                window.location.replace(path);
+                if(array.length!=0) {
+                    let path = "{{ path("certificationfilter",{"filter":"array"}) }}";
+                    path = path.replace("array", array);
+                    window.location.replace(path);
+                }
+                else{
+                    window.location.replace("{{ path("certification") }}");
+                }
             }
 
     </script>
     <script>
         w=window.location.href;
-
-
-
         let checkboxes = document.querySelectorAll('input[type=checkbox]')
 
-        if(window.location.href!="http://localhost/UpgradeProject/public/index.php/certification/") {
+        if(w!="http://localhost/UpgradeProject/public/index.php/certification/") {
             for (let i = 0; i < checkboxes.length; i++) {
                 if (w.indexOf(checkboxes[i].value) != -1) {
-                    document.getElementById('cat' + checkboxes[i].value).checked = true;
+                    document.getElementById(checkboxes[i].value).checked = true;
                 } else {
-                    document.getElementById('cat' + checkboxes[i].value).checked = false;
+                    document.getElementById(checkboxes[i].value).checked = false;
 
                 }
             }
