@@ -10,6 +10,7 @@ use App\Entity\Document;
 use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -35,7 +36,7 @@ class CertificationController extends AbstractController
     /**
      * @Route("/certification", name="certification")
      */
-    public function listCertification(Request $request)
+    public function listCertification(Request $request,PaginatorInterface $paginator)
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(SearchType::class, null, [
@@ -55,11 +56,13 @@ class CertificationController extends AbstractController
             $difficulty = $em->getRepository("App\Entity\Difficulty")->findAll();
 
         }
-        $session = $this->requestStack->getSession();
-        $filters=array(8,9,1);
+        $certifications=$paginator->paginate(
+            $certification,
+            $request->query->getInt('page',1),4
+        );
         return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
-            "listeCertification"=>$certification,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
-            'listCompany'=>$company,'session'=>$session,'filters'=>$filters]);
+            "listeCertification"=>$certifications,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
+            'listCompany'=>$company]);
 
     }
 
@@ -297,7 +300,7 @@ class CertificationController extends AbstractController
     /**
      * @Route("/certificationfilter/{filter}", name="certificationfilter")
      */
-    public function listCertificationfilter(Request $request,$filter)
+    public function listCertificationfilter(Request $request,$filter,PaginatorInterface $paginator)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -367,9 +370,13 @@ class CertificationController extends AbstractController
             }
         }
 
+        $certifications=$paginator->paginate(
+            $certification,
+            $request->query->getInt('page',1),4
+        );
 
         return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
-            "listeCertification"=>$certification,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
+            "listeCertification"=>$certifications,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
             'listCompany'=>$company]);
 
     }

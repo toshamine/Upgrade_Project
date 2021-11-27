@@ -24,7 +24,7 @@
 
 <div class="row" >
 
-    <div class="col-lg-3 sidebar">
+    <div class="col-lg-3 sidebar ">
 
 
         {{ form_start(form)}}
@@ -37,16 +37,17 @@
 
 
         <div >
-            <h3 class="heading-sidebar">Category</h3>
+            <h3 class="heading-sidebar ">Category</h3>
             <form action="#" class="browse-form" id="filters">
 
                 {% for c in listCategory %}
 
-
-                    <label for="option-category-1"><input type="checkbox" onclick="filter()" id="{{ c.id }}" value="{{ c.id }}"> {{ c.Name}}</label><br>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" onclick="filter()" id="{{ c.id }}" value="{{ c.id }}">
+                    <label for="{{ c.id }}" class="custom-control-label" >{{ c.Name}}</label><br>
                     <input type="hidden" id="catid" value="{{ c.id }}">
 
-
+                </div>
                 {% endfor %}
 
             </form>
@@ -55,8 +56,12 @@
             <h3 class="heading-sidebar">Company</h3>
             <form action="#" class="browse-form">
                 {% for c in listCompany %}
-                    <label for="option-instructor-1"><input type="checkbox" onclick="filter()" id="{{ c.id }}" name="vehicle" value="{{ c.id }}">  {{ c.Name}} </label><br>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" onclick="filter()" id="{{ c.id }}" value="{{ c.id }}">
+                        <label for="{{ c.id }}" class="custom-control-label" >{{ c.Name}}</label><br>
+                        <input type="hidden" id="catid" value="{{ c.id }}">
 
+                    </div>
                 {% endfor %}
 
 
@@ -68,16 +73,55 @@
             <h3 class="heading-sidebar">Difficulty</h3>
             <form action="#" class="browse-form">
                 {% for c in listDifficulty %}
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" onclick="filter()" id="{{ c.id }}" value="{{ c.id }}">
+                        <label for="{{ c.id }}" class="custom-control-label" >{{ c.Name}}</label><br>
+                        <input type="hidden" id="catid" value="{{ c.id }}">
 
-                    <label for="option-course-type-1"><input type="checkbox" onclick="filter()" id="{{ c.id }}" name="vehicle" value="{{ c.id }}"> {{ c.Name}}</label><br>
-
+                    </div>
                 {% endfor %}
 
             </form>
         </div>
         <div class="heading-sidebar">
+          <center>
+            <div class="svg-wrapper-red">
+                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                    <rect id="shape-red" height="40" width="150" />
+                    <div id="text" >
+                        &nbsp;<a href="{{ path("certification") }}"><span class="spot"></span><span style="color: black;">Reset Filter</span> </a>
+                    </div>
+                </svg>
+            </div>
+          </center>
 
-        <div class="svg-wrapper-green">
+        </div>
+        </br>
+
+
+
+    </div>
+    <div class="col-lg-9" id="content">
+
+       <table>
+           <tr>
+
+               <td>
+                   <div class="svg-wrapper-green" style="margin-left: -1px;">
+                       <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                           <rect id="shape-green" height="40" width="150" />
+                           <div id="text" >
+                               &nbsp;<a href="{{ path("newtest") }}"><span class="spot"></span><span style="color: #0b7dfd;">+WhiteTest</span> </a>
+                           </div>
+                       </svg>
+                   </div>
+
+               </td>
+
+
+         <td>
+
+        <div class="svg-wrapper-green" style="margin-left: 176px;">
             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                 <rect id="shape-green" height="40" width="150" />
                 <div id="text" >
@@ -85,34 +129,29 @@
                 </div>
             </svg>
         </div>
-        </br>
-            </br>
-            <div class="svg-wrapper-green">
-                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-                    <rect id="shape-green" height="40" width="150" />
-                    <div id="text" >
-                        &nbsp;<a href="{{ path("newtest") }}"><span class="spot"></span><span style="color: #0b7dfd;">+WhiteTest</span> </a>
-                    </div>
-                </svg>
+ </td>
+
+<td>
+
+    <div class="svg-wrapper-green" style="margin-left: 190px;">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+            <rect id="shape-green" height="40" width="150" />
+            <div id="text" >
+                &nbsp;<a href="{{ path("question_crud_new") }}"><span class="spot"></span><span style="color: #0b7dfd;">+Question</span> </a>
             </div>
-        </div>
-        </br>
-        <div class="svg-wrapper-green">
-            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-                <rect id="shape-green" height="40" width="150" />
-                <div id="text" >
-                    &nbsp;<a href="{{ path("question_crud_new") }}"><span class="spot"></span><span style="color: #0b7dfd;">+Question</span> </a>
-                </div>
-            </svg>
-        </div>
-
-
+        </svg>
     </div>
-    <div class="col-lg-9" id="content">
+
+</td>
+
+
+           </tr>
+       </table>
+    </br>
         <div class="row">
             {% for v in listeCertification %}
-                <div class="col-md-6 d-flex align-items-stretch " >
-                    <div class="project-wrap hvr-grow-shadow">
+                <div class="col-md-6 d-flex align-items-stretch " data-aos="flip-down">
+                    <div class="project-wrap hvr-grow-shadow " >
                         <a href="{{ path("showcertif",{'id':v.id}) }}" class="img" style="background-image: url('{{ asset('uploads/'~v.Picture) }}');
                                 background-size: 200px 200px;">
                             <span class="price">{{  v.Company.name}}</span>
@@ -120,13 +159,13 @@
                         <div class="text p-4">
                             <center><h3><a href="#">{{ v.Title }}</a></h3></center>
 
-                            <ul class="d-flex justify-content-between">
+                            <ul class="d-flex justify-content-between ">
                                 <li><span class="flaticon-shower"></span>{{  v.Category.name}}</li>
                                 <li class="price unselectable">{{ v.Difficulty.name}}</li>
 
                             </ul>
                             <ul>
-                            <div class="svg-wrapper-red">
+                            <div class="svg-wrapper-red" style="margin-left: -1px;">
                                 <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                                     <rect id="shape-red" height="40" width="150" />
                                     <div id="text" >
@@ -136,8 +175,8 @@
                                     </div>
                                 </svg>
                             </div>
-
-                            <div class="svg-wrapper">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="svg-wrapper" >
                                 <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                                     <rect id="shape" height="40" width="150" />
                                     <div id="text" >
@@ -151,30 +190,18 @@
                     </div>
                 </div>
                 {% else %}
-                <h1 style="margin-left: 220px;" class="unselectable hvr-buzz">No Certifications Available</h1>
+                <h1 style="margin-left: 190px;" class="unselectable hvr-buzz">No Certifications Available</h1>
             {% endfor %}
 
 
-
+</div>
         </div>
 
 {% if listeCertification!=null %}
 <center>
-        <div class="row mt-5">
-
-            <div class="col">
-                <div class="block-27">
-                    <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
-                    </ul>
-                </div>
-            </div>
+        <div class="row mt-5" style="margin-left: 590px;">
+            {% do listeCertification.SetPageRange(4) %}
+            {{ knp_pagination_render(listeCertification,'pagination/pagination.html.twig') }}
         </div>
 </center>
 {% endif %}
@@ -182,7 +209,6 @@
 </div>
 
 
-{{ app.session.set("certif",listeCertification) }}
 
     <style>
         /*       Just setting CSS for the page   */
@@ -436,4 +462,13 @@
 
 
     </script>
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
 {% endblock  %}
