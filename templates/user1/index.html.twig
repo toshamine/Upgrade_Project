@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User1 index{% endblock %}
+
+{% block body %}
+    <h1>User1 index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>CIN</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Birthdate</th>
+                <th>Picture</th>
+                <th>UpdatedAt</th>
+                <th>IsVerified</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user1 in user1s %}
+            <tr>
+                <td>{{ user1.id }}</td>
+                <td>{{ user1.email }}</td>
+                <td>{{ user1.roles ? user1.roles|json_encode : '' }}</td>
+                <td>{{ user1.password }}</td>
+                <td>{{ user1.CIN }}</td>
+                <td>{{ user1.FirstName }}</td>
+                <td>{{ user1.LastName }}</td>
+                <td>{{ user1.Birthdate ? user1.Birthdate|date('Y-m-d') : '' }}</td>
+                <td>{{ user1.picture }}</td>
+                <td>{{ user1.updatedAt ? user1.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user1.isVerified ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('user1_show', {'id': user1.id}) }}">show</a>
+                    <a href="{{ path('user1_edit', {'id': user1.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user1_new') }}">Create new</a>
+{% endblock %}
