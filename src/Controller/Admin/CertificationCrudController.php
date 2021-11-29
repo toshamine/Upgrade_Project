@@ -22,10 +22,10 @@ class CertificationCrudController extends AbstractCrudController
         return [
             IdField::new('id')->onlyOnIndex(),
             TextField::new('title'),
-            TextField::new('Company'),
+            AssociationField::new('company'),
             AssociationField::new('documents'),
             AssociationField::new('category'),
-            TextField::new('Difficulty'),
+            AssociationField::new('difficulty'),
             TextField::new('Picture'),
 
         ];
