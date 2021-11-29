@@ -38,6 +38,21 @@ class User1Controller extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/myprofile",name="profile")
+     */
+    public function profile():Response
+    {
+
+        // $user1 = $this->getUser();
+        $entityManager = $this->getDoctrine()->getManager();
+        $user1 = $entityManager->getRepository(User1::class)->findOneBy(['email'=>$this->getUser()->getUserIdentifier()]);
+
+        return $this->render('user1/show.html.twig', [
+            'user1' => $this->getUser(),'user' => $this->getUser()
+        ]);
+    }
+
     #[Route('/new', name: 'user1_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
@@ -96,4 +111,8 @@ class User1Controller extends AbstractController
 
         return $this->redirectToRoute('user1_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+
 }
