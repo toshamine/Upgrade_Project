@@ -17,7 +17,6 @@
                 <th>LastName</th>
                 <th>Birthdate</th>
                 <th>Picture</th>
-                <th>UpdatedAt</th>
                 <th>IsVerified</th>
                 <th>actions</th>
             </tr>
@@ -34,7 +33,6 @@
                 <td>{{ user1.LastName }}</td>
                 <td>{{ user1.Birthdate ? user1.Birthdate|date('Y-m-d') : '' }}</td>
                 <td>{{ user1.picture }}</td>
-                <td>{{ user1.updatedAt ? user1.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ user1.isVerified ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('user1_show', {'id': user1.id}) }}">show</a>
