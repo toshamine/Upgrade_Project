@@ -1,0 +1,48 @@
+{%  extends "Client/base.html.twig" %}
+{% block title %}{{ parent() }}{% endblock %}
+
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} Instructors {% endblock %}
+{% block sectionmenu %} Instructors {% endblock %}
+{% block contenu %}
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            {% for instructor in instructors %}
+            <div class="col-md-6 col-lg-3  d-flex align-items-stretch">
+                <div class="staff">
+                    <div class="img-wrap d-flex align-items-stretch">
+                        <div class="img align-self-stretch" style="background-image: url('{{ asset('uploads/images/products/'~instructor.picture)}}');"></div>
+                    </div>
+                    <div class="text pt-3">
+                        <center><h3><a href="instructor-details.html">{{ instructor.FirstName }} {{ instructor.LastName }}</a></h3></center>
+                        <span class="position mb-2">Business</span>
+                        <div class="faded">
+                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
+                            <ul class="ftco-social text-center">
+                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
+                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
