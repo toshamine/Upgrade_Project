@@ -93,7 +93,7 @@ class TestController extends AbstractController
                 }
 
 
-            return $this->render("/test/index.html.twig",['user'=>$this->getUser()]);
+            return $this->render("/registration/register.html.twig",['user'=>$this->getUser()]);
         }else{
 
 
