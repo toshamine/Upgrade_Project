@@ -41,7 +41,7 @@ class CompanyController extends AbstractController
             return $this->redirectToRoute('add_certification');
         }
 
-        return $this->render('company/addCompany.html.twig',['formCompany'=>$form->createView()]);
+        return $this->render('company/addCompany.html.twig',['formCompany'=>$form->createView(),'user'=>$this->getuser()]);
     }
 
 
@@ -61,7 +61,7 @@ class CompanyController extends AbstractController
         else{
             throw new NotFoundHttpException("Company NOt Found");
         }
-        return $this->redirectToRoute('company');
+        return $this->redirectToRoute('company',['user'=>$this->getuser()]);
     }
 
     /**

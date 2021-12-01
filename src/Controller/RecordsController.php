@@ -18,6 +18,7 @@ class RecordsController extends AbstractController
     {
         return $this->render('records/index.html.twig', [
             'records' => $recordsRepository->findByOrder()
+            ,'user'=>$this->getuser()
         ]);
     }
     #[Route('/deleteallrec', name: 'deleteallrec', methods: ['GET','POST'])]
@@ -31,7 +32,7 @@ class RecordsController extends AbstractController
             $em->flush();
             $i++;
         }
-        return $this->redirectToRoute('records_index');
+        return $this->redirectToRoute('records_index',['user'=>$this->getuser()]);
     }
 
     /**
@@ -43,6 +44,6 @@ class RecordsController extends AbstractController
        $record=$em->getRepository(Records::class)->find($id);
        $em->remove($record);
        $em->flush();
-       return $this->redirectToRoute('records_index');
+       return $this->redirectToRoute('records_index',['user'=>$this->getuser()]);
    }
 }

@@ -39,7 +39,7 @@ class DifficultyController extends AbstractController
             return $this->redirectToRoute('difficulty');
         }
 
-        return $this->render('difficulty/addDifficulty.html.twig',['formDifficulty'=>$form->createView()]);
+        return $this->render('difficulty/addDifficulty.html.twig',['formDifficulty'=>$form->createView(),'user'=>$this->getuser()]);
     }
 
     /**
@@ -57,7 +57,7 @@ class DifficultyController extends AbstractController
         else{
             throw new NotFoundHttpException("Difficulty NOt Found");
         }
-        return $this->redirectToRoute('difficulty');
+        return $this->redirectToRoute('difficulty',['user'=>$this->getuser()]);
     }
 
     /**

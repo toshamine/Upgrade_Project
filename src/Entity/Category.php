@@ -29,9 +29,17 @@ class Category
      */
     private $certifications;
 
+    /**
+     * @ORM\OneToMany(targetEntity=User1::class, mappedBy="Category")
+     */
+    private $users;
+    
+
     public function __construct()
     {
         $this->certifications = new ArrayCollection();
+        $this->Users = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -85,4 +93,36 @@ class Category
     {
         return $this->getId()." ".$this->getName() ;
     }
+
+    /**
+     * @return Collection|User1[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->Users;
+    }
+
+    public function addUser(User1 $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User1 $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getCategory() === $this) {
+                $user->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

@@ -21,6 +21,6 @@ class InstructorsController extends AbstractController
                array_push($finalist,$in );
            }
        }
-       return $this->render("Instructors/instructors.html.twig",['instructors'=>$finalist]);
+       return $this->render("Instructors/instructors.html.twig",['instructors'=>$finalist,'user'=>$this->getuser()]);
    }
 }

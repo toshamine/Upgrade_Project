@@ -101,8 +101,9 @@
 
 
     </div>
-    <div class="col-lg-9" id="content">
 
+    <div class="col-lg-9" id="content">
+        {% if  is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')%}
        <table>
            <tr>
 
@@ -147,6 +148,7 @@
 
            </tr>
        </table>
+        {% endif %}
     </br>
         <div class="row">
             {% for v in listeCertification %}
@@ -164,6 +166,7 @@
                                 <li class="price unselectable">{{ v.Difficulty.name}}</li>
 
                             </ul>
+                            {% if  (is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')) and user.Category.name==v.Category.name%}
                             <ul>
                             <div class="svg-wrapper-red" style="margin-left: -1px;">
                                 <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
@@ -185,7 +188,7 @@
                                 </svg>
                             </div>
                             </ul>
-                            </ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

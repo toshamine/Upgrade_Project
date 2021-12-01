@@ -42,7 +42,7 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('add_certification');
         }
 
-        return $this->render('category/addCategory.html.twig',['formCategory'=>$form->createView()]);
+        return $this->render('category/addCategory.html.twig',['formCategory'=>$form->createView(),'user'=>$this->getuser()]);
     }
 
     /**
@@ -60,7 +60,7 @@ class CategoryController extends AbstractController
         else{
             throw new NotFoundHttpException("Category NOt Found");
         }
-        return $this->redirectToRoute('category');
+        return $this->redirectToRoute('category',['user'=>$this->getuser()]);
     }
 
     /**

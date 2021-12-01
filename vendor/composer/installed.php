@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ae0a9db1f5da93fcce3835dfe59e81324f2039b5',
+        'reference' => '992c9cfb6fbdc8ff8b9751d8d15155fd7abfa086',
         'name' => 'symfony/website-skeleton',
         'dev' => true,
     ),
@@ -654,6 +654,15 @@
             'install_path' => __DIR__ . '/../sensio/framework-extra-bundle',
             'aliases' => array(),
             'reference' => '7fd1d54c1b27f094a68ae15a99b7fc815857255f',
+            'dev_requirement' => false,
+        ),
+        'symfony/apache-pack' => array(
+            'pretty_version' => 'v1.0.1',
+            'version' => '1.0.1.0',
+            'type' => 'symfony-pack',
+            'install_path' => __DIR__ . '/../symfony/apache-pack',
+            'aliases' => array(),
+            'reference' => '3aa5818d73ad2551281fc58a75afd9ca82622e6c',
             'dev_requirement' => false,
         ),
         'symfony/asset' => array(
@@ -1340,7 +1349,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ae0a9db1f5da93fcce3835dfe59e81324f2039b5',
+            'reference' => '992c9cfb6fbdc8ff8b9751d8d15155fd7abfa086',
             'dev_requirement' => false,
         ),
         'symfony/yaml' => array(

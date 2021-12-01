@@ -8,6 +8,8 @@
         <link rel="icon" type="image/x-icon" href="{{ asset("assets/Logo.ico") }}">
         {% endblock %}
         {% block stylesheet %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -57,13 +59,37 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    {% block home %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/index.html" class="nav-link">Home</a></li>{% endblock %}
+                    {% block home %}<li class="nav-item"><a href="{{ path("index") }}"  class="nav-link">Home</a></li>{% endblock %}
                     {% block about %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/about.html" class="nav-link">About</a></li>{% endblock %}
                     {% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link">Certifications</a></li>{% endblock %}
                     {% block instructors %}<li class="nav-item"><a  href="{{ path("listinstructors") }}" class="nav-link">Instructors</a></li>{% endblock %}
                     <!-- Here you need to give the attribute the class nav-item active to make active it depends where you are -->
                     {% block forum%} <li class="nav-item"><a href="" class="nav-link">Forum</a></li>{% endblock %}
                     {% block contact %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/contact.html" class="nav-link">Contact</a></li>{% endblock %}
+                    {% if  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li class="nav-item nav-profile dropdown">
+
+
+
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                                {{ user.Firstname }} {{ user.Lastname }}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="{{ path('profile') }}">
+                                    <i class="ti-settings text-primary"></i>
+                                    My Profile
+                                </a>
+                                <a class="dropdown-item" href="{{ path('admin') }}">
+                                    <i class="ti-settings text-primary"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                    <i class="ti-power-off text-primary"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -335,4 +361,20 @@
         }
         .unclick{ text-decoration: none; cursor: default; }
     </style>
+
+    <script src="{{ asset("assets/Client/js/jquery.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/jquery-migrate-3.0.1.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/popper.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/bootstrap.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/jquery.easing.1.3.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/jquery.waypoints.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/jquery.stellar.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/owl.carousel.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/jquery.magnific-popup.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/jquery.animateNumber.min.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/bootstrap-datepicker.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/scrollax.min.js") }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="{{ asset("assets/Client/js/google-map.js") }}"></script>
+    <script src="{{ asset("assets/Client/js/main.js") }}"></script>
 </html>

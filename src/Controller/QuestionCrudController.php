@@ -18,7 +18,8 @@ class QuestionCrudController extends AbstractController
     public function index(QuestionRepository $questionRepository): Response
     {
         return $this->render('Client/questionslist.html.twig', [
-            'questions' => $questionRepository->findByOrder(),
+            'questions' => $questionRepository->findByOrder()
+            ,'user'=>$this->getuser()
         ]);
     }
 
@@ -36,12 +37,13 @@ class QuestionCrudController extends AbstractController
             $entityManager->persist($question);
             $entityManager->flush();
 
-            return $this->redirectToRoute('question_crud_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('question_crud_index', ['user'=>$this->getuser()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('Client/addquestion.html.twig', [
             'question' => $question,
-            'form' => $form,
+            'form' => $form
+            ,'user'=>$this->getuser()
         ]);
     }
 
@@ -49,7 +51,8 @@ class QuestionCrudController extends AbstractController
     public function show(Question $question): Response
     {
         return $this->render('question_crud/show.html.twig', [
-            'question' => $question,
+            'question' => $question
+            ,'user'=>$this->getuser()
         ]);
     }
 
@@ -67,7 +70,8 @@ class QuestionCrudController extends AbstractController
 
         return $this->renderForm('question_crud/edit.html.twig', [
             'question' => $question,
-            'form' => $form,
+            'form' => $form
+            ,'user'=>$this->getuser()
         ]);
     }
 
@@ -80,6 +84,6 @@ class QuestionCrudController extends AbstractController
        $question=$em->getRepository(Question::class)->find($id);
        $em->remove($question);
        $em->flush();
-       return $this->redirectToRoute('question_crud_index');
+       return $this->redirectToRoute('question_crud_index',['user'=>$this->getuser()]);
    }
 }

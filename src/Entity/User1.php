@@ -131,6 +131,12 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
      */
     private bool $isVerified = false;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="users")
+     */
+    private $Category;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -331,6 +337,20 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
 
     public function unserialize($serialized) { list ( $this->id, $this->email, $this->password, )
         = unserialize($serialized, array('allowed_classes' => false)); }
+
+    public function getCategory(): ?Category
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(?Category $Category): self
+    {
+        $this->Category = $Category;
+
+        return $this;
+    }
+
+
 
 }
 

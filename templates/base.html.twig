@@ -42,7 +42,7 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                {% block home %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/index.html" class="nav-link">Home</a></li>{% endblock %}
+                {% block home %}<li class="nav-item"><a href="{{ path("index") }}"  class="nav-link">Home</a></li>{% endblock %}
                 {% block about %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/about.html" class="nav-link">About</a></li>{% endblock %}
                 {% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link">Certifications</a></li>{% endblock %}
                 {% block instructors %}<li class="nav-item"><a  href="{{ path("listinstructors") }}" class="nav-link">Instructors</a></li>{% endblock %}

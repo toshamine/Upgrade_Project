@@ -26,6 +26,7 @@ class WhiteTestController extends AbstractController
         $certification=$em->getRepository(Certification::class)->findOneBy(['Title'=>$certif]);
         return $this->render('white_test/index.html.twig', [
             'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification]),'certif'=>$certif
+            ,'user'=>$this->getuser()
         ]);
     }
 
@@ -37,21 +38,20 @@ class WhiteTestController extends AbstractController
         $whiteTest = new WhiteTest();
         $form = $this->createForm(WhiteTestType::class, $whiteTest);
         $form->handleRequest($request);
-        $certif="test";
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $certification=$this->getDoctrine()->getManager()->getRepository(Certification::class)->findOneBy(['Title'=>(string)$whiteTest->getCertification()]);
+            $certification=$this->getDoctrine()->getManager()->getRepository(Certification::class)->findOneBy(['Title'=>(string)$whiteTest->getCertification()->getTitle()]);
             $whiteTest->setCertification($certification);
             $entityManager->persist($whiteTest);
             $entityManager->flush();
             $certif=$certification->getTitle();
-            return $this->redirectToRoute('white_test_index', ['certif'=>$certification->getTitle()]);
+            return $this->redirectToRoute('white_test_index', ['certif'=>$certification->getTitle(),'user'=>$this->getuser()]);
         }
 
         return $this->renderForm('Client/AddWhiteTest.html.twig', [
             'white_test' => $whiteTest,
             'form' => $form,
-            'certif'=>$certif
+            'user'=>$this->getuser()
         ]);
     }
 
@@ -62,7 +62,8 @@ class WhiteTestController extends AbstractController
     {
         $whitetest=$this->getDoctrine()->getManager()->getRepository(WhiteTest::class)->find($id);
         return $this->render('white_test/show.html.twig', [
-            'whitetest' => $whitetest,
+            'whitetest' => $whitetest
+            ,'user'=>$this->getuser()
         ]);
     }
 
@@ -81,6 +82,7 @@ class WhiteTestController extends AbstractController
             'white_test' => $whiteTest,
             'form' => $form,
             'certif'=>$certif
+            ,'user'=>$this->getuser()
         ]);
     }
 
@@ -93,7 +95,7 @@ class WhiteTestController extends AbstractController
         $em=$this->getDoctrine()->getManager();
         $em->remove($whitetest);
         $em->flush();
-        return $this->redirectToRoute("white_test_index",['certif'=>$certif]);
+        return $this->redirectToRoute("white_test_index",['certif'=>$certif,'user'=>$this->getuser()]);
     }
 
     /**
@@ -113,7 +115,7 @@ class WhiteTestController extends AbstractController
             }
         }
         while($i != $length){
-        return $this->render("Client/PasserWT.html.twig",['question'=>$questions[$i],'whitetestid'=>$id,'i'=>$i,'score'=>$score,'whitetest'=>$whitetest]);
+        return $this->render("Client/PasserWT.html.twig",['question'=>$questions[$i],'whitetestid'=>$id,'i'=>$i,'score'=>$score,'whitetest'=>$whitetest,'user'=>$this->getuser()]);
         }
         $whitetest=$questions[0]->getWhiteTest();
         $em=$this->getDoctrine()->getManager();
@@ -126,6 +128,6 @@ class WhiteTestController extends AbstractController
         $record->setTotal($whitetest->nbquestion());
         $em->persist($record);
         $em->flush();
-        return $this->render("Client/result.html.twig", ['score' => $score,'nbquestions'=>$whitetest->nbquestion()]);
+        return $this->render("Client/result.html.twig", ['score' => $score,'nbquestions'=>$whitetest->nbquestion(),'user'=>$this->getuser()]);
     }
 }

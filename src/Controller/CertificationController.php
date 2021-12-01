@@ -62,7 +62,7 @@ class CertificationController extends AbstractController
         );
         return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
             "listeCertification"=>$certifications,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
-            'listCompany'=>$company]);
+            'listCompany'=>$company,'user'=>$this->getuser()]);
 
     }
 
@@ -134,7 +134,7 @@ class CertificationController extends AbstractController
             return $this->redirectToRoute('certification');
         }
 
-        return $this->render('Certification/addCertification.html.twig',['formCertification'=>$form->createView()]);
+        return $this->render('Certification/addCertification.html.twig',['formCertification'=>$form->createView(),'user'=>$this->getuser()]);
     }
 
     /**
@@ -152,7 +152,7 @@ class CertificationController extends AbstractController
         else{
             throw new NotFoundHttpException("the certification with ID ".$id."does not exist");
         }
-        return $this->redirectToRoute('certification');
+        return $this->redirectToRoute('certification',['user'=>$this->getuser()]);
     }
 
     /**
@@ -217,11 +217,12 @@ class CertificationController extends AbstractController
             $em=$this->getDoctrine()->getManager();
             $em->persist($certification);
             $em->flush();
-            return $this->redirectToRoute('showcertif',['id'=>$certification->getId()]);
+            return $this->redirectToRoute('showcertif',['id'=>$certification->getId(),'user'=>$this->getuser()]);
         }
         return $this->render('Certification/updateCertification.html.twig',[
             'editformCertification'=>$form->createView(),
             'certification'=>$certification,
+            'user'=>$this->getuser()
         ]);
     }
 
@@ -233,7 +234,7 @@ class CertificationController extends AbstractController
     {
         $certif=$this->getDoctrine()->getManager()->getRepository(Certification::class)->find($id);
 
-        return $this->render("Certification/show.html.twig",["certif"=>$certif]);
+        return $this->render("Certification/show.html.twig",["certif"=>$certif,'user'=>$this->getuser()]);
     }
 
     /**
@@ -256,7 +257,7 @@ class CertificationController extends AbstractController
 
 
 
-        return $this->redirectToRoute('details_document',['id'=>$id]);
+        return $this->redirectToRoute('details_document',['id'=>$id,'user'=>$this->getuser()]);
 
     }
     /**
@@ -292,6 +293,7 @@ class CertificationController extends AbstractController
 
         return $this->render('Certification/documentlist.html.twig',[
             'documents'=>$documents
+            ,'user'=>$this->getuser()
         ]);
 
 
@@ -377,7 +379,7 @@ class CertificationController extends AbstractController
 
         return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
             "listeCertification"=>$certifications,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
-            'listCompany'=>$company]);
+            'listCompany'=>$company,'user'=>$this->getuser()]);
 
     }
 
