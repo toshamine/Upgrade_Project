@@ -78,6 +78,34 @@
                 <li class="nav-item"><a href="#" class="nav-link">Instructors</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Forum</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                {% if  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    {# <li class="nav-item"><a href="#" class="nav-link">
+                            {{ user.Firstname }} {{ user.Lastname }}</a></li> #}
+
+
+                    <li class="nav-item nav-profile dropdown">
+
+
+
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            {{ user.Firstname }} {{ user.Lastname }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="{{ path('profile') }}">
+                                <i class="ti-settings text-primary"></i>
+                                My Profile
+                            </a>
+                            <a class="dropdown-item" href="{{ path('admin') }}">
+                                <i class="ti-settings text-primary"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                                <i class="ti-power-off text-primary"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
@@ -97,6 +125,7 @@
         </div>
     </div>
 </div>
+{% if not  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
 <section class="ftco-section ftco-no-pb ftco-no-pt">
     <div class="container">
@@ -133,7 +162,7 @@
         </div>
     </div>
 </section>
-
+{% endif %}
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center pb-4">
