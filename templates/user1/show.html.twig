@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User1{% endblock %}
+{% block title %}My Profile{% endblock %}
 
 
 
@@ -66,13 +66,16 @@
 {% endblock %}  #}
 
 {% block body %}
+    <h1>My Profile</h1>
+
 
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                     <img class="rounded-circle mt-5" width="150px" src="{{ pic }}"><span class="font-weight-bold">{{ user1.firstname }} {{ user1.lastname}} </span>
-                    <span> </span></div>
+                    <span> </span>
+                </div>
             </div>
             <div class="col-md-5 border-right">
                 <div class="p-3 py-5">

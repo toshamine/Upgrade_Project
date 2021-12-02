@@ -4,43 +4,171 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+    <center>
+
+        <div class="login-wrap p-4 p-md-5" style="margin-top: 5px;">
+
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <label for="inputPassword">Password</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
+                <div class="checkbox mb-3">
+                    <label>
+                        <a href="{{ path('app_forgot_password_request') }}" >Reset Password</a>
+                    </label>
+                </div>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+
+
+
+
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Sign in
+                </button>
+            </form>
+
+            <a href="{{ path('app_register') }}" class="nav-link">Register</a>
+
+
         </div>
-    {% endif %}
+    </center>
+    <style>
+        /*       Just setting CSS for the page   */
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    <a href="{{ path('app_forgot_password_request') }}" >Reset Password</a>
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+        html,
+        css {
+            width: 100%;
+            height: 100%;
+        }
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
+        .position {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-top: 15%;
+        }
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+        #workarea {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #1e1a3e;
+            font-family: Raleway;
+        }
 
-    <a href="{{ path('app_register') }}" class="nav-link">Register</a>
+        #personal {
+            color:white;
+            text-decoration:none;
+            position:absolute;
+            bottom:15px;
+            right:2%;
+        }
+        /*    start code for the actual button:         */
 
+
+        /*
+            Spot is the span on the inside of the href that
+            fills the parent and makes the hover and link work
+            for the entire div
+        */
+
+        .spot {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        /*
+            This is the outer svg wrapper that the SVG itself will
+            fill. Multiple svg-wrapper classes can be put side by side.
+        */
+
+        .svg-wrapper {
+            margin-top: 0;
+            position: relative;
+            width: 150px;
+            /*make sure to use same height/width as in the html*/
+            height: 40px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-left: 5px;
+            margin-right: 5px
+        }
+        /*
+          This is where we define the fill, color, thickness,
+          and stroke pattern of the SVG when there is no hover.
+          The dasharray and offset together define the line position
+          under the words. Here's also where the transition speed is set.
+        */
+
+        #shape {
+            stroke-width: 6px;
+            fill: transparent;
+            stroke: #009FFD;
+            stroke-dasharray: 85 400;
+            stroke-dashoffset: -220;
+            transition: 1s all ease;
+        }
+        /*
+            Pushing the text up into the SVG. Without this the
+            text would be below the div's.
+        */
+
+        #text {
+            margin-top: -35px;
+            text-align: center;
+        }
+
+        #text a {
+            color: white;
+            text-decoration: none;
+            font-weight: 100;
+            font-size: 1.1em;
+        }
+        /*
+            Changing the shape on hover. I change the color of the stroke,
+        make it thinner, then set it to again wrap around the entire parent element.
+        */
+
+        .svg-wrapper:hover #shape {
+            stroke-dasharray: 50 0;
+            stroke-width: 3px;
+            stroke-dashoffset: 0;
+            stroke: #06D6A0;
+        }
+    </style>
 {% endblock %}
+
+
+
+{#
+{% block contenu %}
+
+{% endblock %} #}

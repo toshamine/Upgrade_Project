@@ -38,19 +38,24 @@ class User1Controller extends AbstractController
     #[Route('/{id}/edit', name: 'user1_edit', methods: ['GET','POST'])]
     public function edit(Request $request, User1 $user1): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User1::class)->findOneBy(['email'=>$this->getUser()->getUserIdentifier()]);
+        $picture = $this->getParameter("app.path.product_images").'/'.$user->getPicture();
+
         $form = $this->createForm(User1Type::class, $user1);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user1_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('profile', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user1/edit.html.twig', [
             'user1' => $user1,
             'form' => $form,
             'user'=>$this->getUser(),
+            'pic'=>$picture
         ]);
     }
 
