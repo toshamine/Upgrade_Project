@@ -6,6 +6,7 @@ use App\Entity\User1;
 use App\Security\EmailVerifier;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -47,6 +48,7 @@ class User1CrudController extends AbstractCrudController
             //TextField::new('roles'),
             TextField::new('Lastname'),
             DateField::new('birthdate'),
+            AssociationField::new('Category')->onlyWhenUpdating(),
             TextareaField::new('imageFile')->hideOnIndex()
             ->setFormType(VichImageType::class)
                 ->setLabel('Image'),
