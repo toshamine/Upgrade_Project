@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\User1;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use function Sodium\add;
 
 class User1Type extends AbstractType
 {
@@ -16,10 +19,16 @@ class User1Type extends AbstractType
             //->add('roles')
            // ->add('password')
             ->add('CIN')
+           // ->add('imageFile', VichImageType::class,[
+            //    'attr' => ['class' => 'rounded-circle mt-5','width'=>'150px'],
+           // ])
             ->add('FirstName')
             ->add('LastName')
-            ->add('Birthdate')
-            //->add('picture')
+            ->add('Birthdate',  DateType::class, [
+                'widget' => 'single_text'
+            ])
+
+
             //->add('updatedAt')
             //->add('isVerified')
         ;
