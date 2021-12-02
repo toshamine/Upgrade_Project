@@ -137,22 +137,35 @@
                     <h3 class="mb-4">Register Now</h3>
 
 
-
                     {{ form_start(registrationForm) }}
-                    {{ form_row(registrationForm.email) }}
-                    {{ form_row(registrationForm.plainPassword, {
-                        label: 'Password'
-                    }) }}
+                    <div class="form-group">
+                        {{ form_row(registrationForm.email,{'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registrationForm.plainPassword,{'attr': {'class': 'form-control'}}, {
+                            label: 'Password'
 
-                    {{ form_row(registrationForm.CIN) }}
-                    {{ form_row(registrationForm.Lastname) }}
+                        }) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registrationForm.CIN,{'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registrationForm.Lastname,{'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registrationForm.Firstname,{'attr': {'class': 'form-control'}}) }}
+                    </div>
 
-                    {{ form_row(registrationForm.Firstname) }}
+
                     {{ form_row(registrationForm.Birthdate) }}
                     {{ form_row(registrationForm.agreeTerms) }}
 
-                    <button type="submit" class="btn">Register</button>
+                    <div class="form-group d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary submit">Register<span class="fa fa-paper-plane"></span></button>
+                    </div>
                     {{ form_end(registrationForm) }}
+
 
 
 
