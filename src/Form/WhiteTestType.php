@@ -16,11 +16,11 @@ class WhiteTestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Title')
+            ->add('Title',TextType::class)
             ->add('Certification',EntityType::class ,[
         'class' => Certification::class,
-        'choice_label' => 'Title',])
-
+        'choice_label' => 'Title',
+            ])
         ;
     }
 

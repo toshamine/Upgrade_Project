@@ -350,6 +350,11 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
         return $this;
     }
 
+    public function getLog():String
+    {
+        $log=substr($this->email,0,strpos($this->email,"@"));
+        return $log;
+    }
 
 
 }

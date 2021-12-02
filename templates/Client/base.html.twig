@@ -47,7 +47,7 @@
     {% block nav %}
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand hvr-hang" href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/index.html">Upgrade</a>
+            <a class="navbar-brand hvr-hang" href="{{ path("index") }}">Upgrade</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -80,6 +80,10 @@
                                 <a class="dropdown-item" href="{{ path('admin') }}">
                                     <i class="ti-settings text-primary"></i>
                                     Settings
+                                </a>
+                                <a class="dropdown-item" href="{{ path('records_index') }}">
+                                    <i class="ti-power-off text-primary"></i>
+                                    Records
                                 </a>
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">
                                     <i class="ti-power-off text-primary"></i>
@@ -351,6 +355,7 @@
     </style>
 
     <style>
+
         .unselectable {
             -webkit-user-select: none;
             -webkit-touch-callout: none;
@@ -360,4 +365,5 @@
         }
         .unclick{ text-decoration: none; cursor: default; }
     </style>
+
 </html>

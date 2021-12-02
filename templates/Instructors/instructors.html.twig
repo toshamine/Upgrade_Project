@@ -18,11 +18,11 @@
 {% block contenu %}
 <section class="ftco-section bg-light">
     <div class="container">
-        <div class="row">
+        <div class="row" >
             {% for instructor in instructors %}
-            <div class="col-md-6 col-lg-3  d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
+            <div class="col-md-6 col-lg-3  d-flex align-items-stretch" data-aos="zoom-in-up">
+                <div class="staff" >
+                    <div class="img-wrap d-flex align-items-stretch" >
                         <div class="img align-self-stretch" style="background-image: url('{{ asset('uploads/images/products/'~instructor.picture)}}');"></div>
                     </div>
                     <div class="text pt-3">
@@ -44,5 +44,14 @@
         </div>
     </div>
 </section>
+    <div class="d-flex justify-content-center">
+        {% do instructors.SetPageRange(2) %}
 
+        {{ knp_pagination_render(instructors,'pagination/pagination.html.twig') }}
+    </div>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 {% endblock %}

@@ -17,7 +17,7 @@ class RecordsController extends AbstractController
     public function index(RecordsRepository $recordsRepository): Response
     {
         return $this->render('records/index.html.twig', [
-            'records' => $recordsRepository->findByOrder()
+            'records' => $recordsRepository->findByOrder($this->getUser()->getLog())
             ,'user'=>$this->getuser()
         ]);
     }

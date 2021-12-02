@@ -18,13 +18,30 @@
 
 {% block contenu %}
     <center>
-    <table >
-    <tr><h1>Create new WhiteTest</h1></tr>
+
+        <div class="login-wrap p-4 p-md-5" style="margin-top: 5px;">
+            <h1 class="unselectable hvr-hang-auto">Create A WhiteTest</h1>
 
 
-    <tr>{{ include('white_test/_form.html.twig') }}</tr>
+        {{ form_start(form) }}
 
-    </table>
+            <div class="form-group hvr-grow" style="width: 800px;">
+            <label class="label" for="Title">Title</label>
+             {{ form_widget(form.Title, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+
+            <div class="form-group hvr-grow" style="width: 800px;">
+            <label class="label" for="Certification">Certification</label>
+            {{ form_widget(form.Certification, {'attr': {'class': 'form-control form-select'}}) }}
+            </div>
+
+
+            <div class="form-group d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary submit"><span class="fa fa-paper-plane"></span></button>
+            </div>
+        {{ form_end(form) }}
+
         <div class="svg-wrapper" style="float: left;">
             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                 <rect id="shape" height="40" width="150" />
@@ -33,7 +50,7 @@
                 </div>
             </svg>
         </div>
-
+        </div>
     </center>
     <style>
         /*       Just setting CSS for the page   */

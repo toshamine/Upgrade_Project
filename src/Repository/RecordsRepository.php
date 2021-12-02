@@ -23,9 +23,11 @@ class RecordsRepository extends ServiceEntityRepository
     //  * @return Records[] Returns an array of Records objects
     //  */
 
-    public function findByOrder()
+    public function findByOrder($user)
     {
         return $this->createQueryBuilder('r')
+            ->where('r.User = :user')
+            ->setParameter('user',$user)
             ->orderBy('r.id', 'DESC')
             ->getQuery()
             ->getResult()

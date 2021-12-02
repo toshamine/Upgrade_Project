@@ -28,15 +28,13 @@
 
 
         {{ form_start(form)}}
-        {{ form_widget(form)}}
+        {{ form_widget(form,{'attr': {'class': 'form-control'}}) }}
 
-        <button class="btn"><span class="icon fa fa-search"></span></button>
 
-        <input type="text" class="form-control">{{ button_label|default(' ') }}</input>
         {{ form_end(form) }}
 
-
-        <div >
+</br>
+        <div class="sidebar-box bg-white p-4 ftco-animate">
             <h3 class="heading-sidebar ">Category</h3>
             <form action="#" class="browse-form" id="filters">
 
@@ -52,7 +50,8 @@
 
             </form>
         </div>
-        <div >
+
+        <div class="sidebar-box bg-white p-4 ftco-animate">
             <h3 class="heading-sidebar">Company</h3>
             <form action="#" class="browse-form">
                 {% for c in listCompany %}
@@ -67,9 +66,8 @@
 
             </form>
         </div>
-        <div>
 
-
+        <div class="sidebar-box bg-white p-4 ftco-animate">
             <h3 class="heading-sidebar">Difficulty</h3>
             <form action="#" class="browse-form">
                 {% for c in listDifficulty %}
@@ -83,7 +81,7 @@
 
             </form>
         </div>
-        <div class="heading-sidebar">
+        <div class="heading-sidebar ftco-animate">
           <center>
             <div class="svg-wrapper-red">
                 <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
@@ -104,11 +102,12 @@
 
     <div class="col-lg-9" id="content">
         {% if  is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')%}
+
        <table>
            <tr>
 
                <td>
-                   <div class="svg-wrapper-green" style="margin-left: -1px;">
+                   <div class="svg-wrapper-green ftco-animate" style="margin-left: -1px;">
                        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                            <rect id="shape-green" height="40" width="150" />
                            <div id="text" >
@@ -122,7 +121,7 @@
 
          <td>
 
-        <div class="svg-wrapper-green" style="margin-left: 176px;">
+        <div class="svg-wrapper-green ftco-animate" style="margin-left: 176px;">
             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                 <rect id="shape-green" height="40" width="150" />
                 <div id="text" >
@@ -134,7 +133,7 @@
 
 <td>
 
-    <div class="svg-wrapper-green" style="margin-left: 190px;">
+    <div class="svg-wrapper-green ftco-animate" style="margin-left: 190px;">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
             <rect id="shape-green" height="40" width="150" />
             <div id="text" >
@@ -142,14 +141,13 @@
             </div>
         </svg>
     </div>
-
 </td>
-
-
            </tr>
        </table>
         {% endif %}
     </br>
+
+
         <div class="row">
             {% for v in listeCertification %}
                 <div class="col-md-6 d-flex align-items-stretch " data-aos="flip-down">
@@ -166,7 +164,7 @@
                                 <li class="price unselectable">{{ v.Difficulty.name}}</li>
 
                             </ul>
-                            {% if  (is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')) and user.Category.name==v.Category.name%}
+                            {% if  (is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')) and (user.Category.name==v.Category.name or user.Category.name=="admin")%}
                             <ul>
                             <div class="svg-wrapper-red" style="margin-left: -1px;">
                                 <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
@@ -202,7 +200,7 @@
 
 {% if listeCertification!=null %}
 <center>
-        <div class="row mt-5" style="margin-left: 590px;">
+        <div class="row mt-5 ftco-animate" style="margin-left: 590px;">
             {% do listeCertification.SetPageRange(4) %}
             {{ knp_pagination_render(listeCertification,'pagination/pagination.html.twig') }}
         </div>
