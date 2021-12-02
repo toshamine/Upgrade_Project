@@ -40,7 +40,6 @@ class User1CrudController extends AbstractCrudController
                 ->setFormType(VichImageType::class)
                 ->setLabel('Image'),
             TextField::new('CIN'),
-
             ArrayField::new('roles'),
             EmailField::new('email'),
             TextField::new('password')->hideOnIndex()->hideWhenUpdating(),
