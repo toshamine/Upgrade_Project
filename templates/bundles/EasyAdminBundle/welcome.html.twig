@@ -36,23 +36,44 @@
                     <h3> charts soon... </h3>
 
                     <ul class="list-group">
-                        {#
-                        {% for city in cities %}
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span class="display-4">
-                                <i class="fa fa-map"></i>
-                                {{ city.name }}
-                            </span>
-                                <span class="badge badge-pill">
-                                <img class="img-thumbnail" src="{{ vich_uploader_asset(city, 'imageFile') }}" style="width: 150px;">
-                            </span>
-                            </li>
-                        {% endfor %}#}
+                        <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+
+
                     </ul>
+
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Work',     11],
+                ['Eat',      2],
+                ['Commute',  2],
+                ['Watch TV', 2],
+                ['Sleep',    7]
+            ]);
+
+            var options = {
+                title: 'My Daily Activities',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+            chart.draw(data, options);
+            }
+        </script>
+    </script>
+
+
+
 {% endblock content %}
 
 {#
