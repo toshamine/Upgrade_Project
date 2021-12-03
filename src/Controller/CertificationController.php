@@ -134,7 +134,7 @@ class CertificationController extends AbstractController
             return $this->redirectToRoute('certification');
         }
 
-        return $this->render('Certification/addCertification.html.twig',['formCertification'=>$form->createView(),'user'=>$this->getuser()]);
+        return $this->render('Certification/addCertification.html.twig',['form'=>$form->createView(),'user'=>$this->getuser()]);
     }
 
     /**

@@ -406,7 +406,7 @@
                     }
                     async function valid() {
                         let id=document.getElementById("cid").value;
-                        let link="http://localhost/UpgradeProject/public/index.php/deleteCertification/"+id;
+                        let link="http://localhost:8000/deleteCertification/"+id;
                         await sleep(3000);
                         window.location.replace(link);
                     }
