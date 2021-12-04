@@ -1,0 +1,56 @@
+{%  extends "Client/base.html.twig" %}
+
+{% block title %}Exams Requests{% endblock %}
+
+
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} Exam {% endblock %}
+{% block sectionmenu %} Exam Requests {% endblock %}
+
+
+{% block contenu %}
+    <h1>RDV index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for r_d_v in r_d_vs %}
+            <tr>
+                <td>{{ r_d_v.id }}</td>
+                <td>{{ r_d_v.Date ? r_d_v.Date|date('Y-m-d') : '' }}</td>
+                <td>{{ r_d_v.User }}</td>
+                <td>{{ r_d_v.Status }}</td>
+                <td>
+                    <a href="{{ path('r_d_v_show', {'id': r_d_v.id}) }}">show</a>
+                    <a href="{{ path('r_d_v_edit', {'id': r_d_v.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('r_d_v_new') }}">Create new</a>
+{% endblock %}

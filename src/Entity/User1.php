@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\User1Repository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use PhpParser\Node\Scalar\String_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -87,7 +88,15 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RDV::class, mappedBy="User",cascade={"All"})
+     */
+    private $rDVs;
 
+    public function __construct()
+    {
+        $this->rDVs = new ArrayCollection();
+    }
 
     public function setImageFile( $image = null)
     {
@@ -135,6 +144,11 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="users")
      */
     private $Category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=RDV::class, inversedBy="User")
+     */
+    private $rDV;
 
 
     public function getId(): ?int
@@ -354,6 +368,23 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
     {
         $log=substr($this->email,0,strpos($this->email,"@"));
         return $log;
+    }
+
+    public function getRDV(): ?RDV
+    {
+        return $this->rDV;
+    }
+
+    public function setRDV(?RDV $rDV): self
+    {
+        $this->rDV = $rDV;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getLog();
     }
 
 

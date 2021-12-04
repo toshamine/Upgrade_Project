@@ -17,11 +17,34 @@
 {% block sectionmenu %} Category {% endblock %}
 {% block contenu %}
 <center>
-<h1> Add a new Category</h1>
 
-<form action =""  method="post">
-    {{ form_widget(formCategory) }}
-    <input type="submit" value="Add Category" >
-</form>
+
+        <div class="login-wrap p-4 p-md-5" style="margin-top: 5px;">
+            <h1 class="unselectable hvr-hang-auto">Add A New Category</h1>
+
+
+            {{ form_start(form) }}
+
+            <div class="form-group hvr-grow" style="width: 800px;">
+                <label class="label" for="Title">Title</label>
+                {{ form_widget(form.Name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+
+            <div class="form-group d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary submit"><span class="fa fa-paper-plane"></span></button>
+            </div>
+            {{ form_end(form) }}
+
+            <div class="svg-wrapper-green ftco-animate" style="margin-left: -1px;">
+                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                    <rect id="shape-green" height="40" width="150" />
+                    <div id="text" >
+                        &nbsp;<a href="{{ path("add_certification") }}"><span class="spot"></span><span style="color: #0b7dfd;">Go Back</span> </a>
+                    </div>
+                </svg>
+            </div>
+
+        </div>
 </center>
 {% endblock  %}

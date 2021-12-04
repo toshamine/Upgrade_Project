@@ -51,8 +51,8 @@
 
     <div class="row no-gutters slider-text align-items-end justify-content-center" >
         <div class="col-md-9 text-center">
-            <p class="breadcrumbs"><span class="mr-2"><a href="">Home <i class="fa fa-chevron-right"></i></a></span> <span>{% block sectionmenu %} {{ whitetest }} {% endblock %}<i class="fa fa-chevron-right"></i></span></p>
-            <h1 class="mb-0 bread" >{% block sectionname %}Question Number {{ i+1 }}{% endblock %}</h1>
+            <h1>{{ whitetest }}</h1>
+            <h2 class="mb-0 bread" style="color: white;">{% block sectionname %}Question Number {{ i+1 }}{% endblock %}</h2>
         </div>
     </div>
 </div>
@@ -86,7 +86,7 @@
 
 </table>
 
-    <div class="svg-wrapper" style="float: left;margin-top: 500px">
+    <div class="svg-wrapper" style="float: left;margin-top: 400px">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
             <rect id="shape"  height="40" width="150" />
             <div id="text" >
@@ -646,6 +646,52 @@
     }
 
 </style>
+
+<script>
+    $(window).blur(function() {
+        cheated();
+    });
+    function cheated(){
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'You Tried To Cheat ?',
+            text: "Changing Tab Or Clicking Outside During The Test Is Forbidden !",
+            icon: 'warning',
+            confirmButtonText: 'OK!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire(
+                    'Test Canceled !',
+                    'A Notification Has Been Sent To The Admin',
+                );
+                function sleep(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                }
+                async function valid() {
+                    await sleep(3000);
+                    window.location.replace("{{ path('cheater',{'whitetest':whitetest} ) }}");
+                }
+                valid();
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Be Sure Before You Cancel The Test Please :)'
+                )
+            }
+        });
+    }
+</script>
 
 
 

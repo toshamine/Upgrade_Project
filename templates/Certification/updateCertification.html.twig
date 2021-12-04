@@ -17,24 +17,71 @@
 {% block sectionmenu %} Certification {% endblock %}
 
 {% block contenu  %}
+    <div class="login-wrap p-4 p-md-5" style="margin-top: 5px;">
     <center>
-    <h1> Update of a Certification </h1>
 
-    {{ form_start(editformCertification) }}
-    {{ form_widget(editformCertification) }}
+    <h1 class="unselectable hvr-hang-auto"> Update A Certification </h1>
+
+    {{ form_start(form) }}
+
+    <div class="form-group hvr-grow" style="width: 800px;">
+        <label class="label" for="Title">Title</label>
+        {{ form_widget(form.Title, {'attr': {'class': 'form-control','required':'false'}}) }}
+    </div>
 
 
-    <button class="btn">{{ button_label|default('Update Certification') }}</button>
-    {{ form_end(editformCertification) }}
+    <div class="form-group hvr-grow" style="width: 800px;">
+        <label class="label" for="Certification">Company</label>
+        {{ form_widget(form.Company, {'attr': {'class': 'form-control form-select'}}) }}
+    </div>
+
+    <div class="form-group hvr-grow" style="width: 800px;">
+        <label class="label" for="Certification">Difficulty</label>
+        {{ form_widget(form.Difficulty, {'attr': {'class': 'form-control form-select'}}) }}
+    </div>
+
+    <div class="form-group hvr-grow" style="width: 800px;">
+        <label class="label" for="Certification">Category</label>
+        {{ form_widget(form.Category, {'attr': {'class': 'form-control form-select'}}) }}
+    </div>
+
+
+    <div class="form-group hvr-grow " style="width: 800px;">
+
+        {{ form_widget(form.Picture, {'attr': {'class': 'form-control file'}}) }}
+        <label>Select A Picture</label>
+    </div>
+
+
+
+
+
+
+    <div class="form-group hvr-grow " style="width: 800px;">
+        {{ form_widget(form.documents, {'attr': {'class': 'form-control file'}}) }}
+        <label>Select Documents</label>
+    </div>
+
+
+    <div class="form-group d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-primary submit"><span class="fa fa-paper-plane"></span></button></div>
+
+    {{ form_end(form) }}
+
     </center>
 
-    <div class="svg-wrapper-green">
-        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-            <rect id="shape-green" height="40" width="150" />
-            <div id="text" >
-                &nbsp;<a href="{{ path("certification") }}"><span class="spot"></span><span style="color: #0b7dfd;">Certifications</span> </a>
+
+    </br>
+
+            <div class="svg-wrapper-green">
+                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                    <rect id="shape-green" height="40" width="150" />
+                    <div id="text" >
+                        &nbsp;<a href="{{ path("certification") }}"><span class="spot"></span><span style="color: #0b7dfd;">Back To List</span> </a>
+                    </div>
+                </svg>
             </div>
-        </svg>
+
     </div>
 
     <style>
@@ -198,5 +245,15 @@
             stroke: greenyellow;
         }
     </style>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+
 
 {% endblock %}

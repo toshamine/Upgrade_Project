@@ -7,6 +7,7 @@ use App\Entity\Certification;
 use App\Form\CertificationForm;
 use App\Form\CertificationType;
 use App\Entity\Document;
+use App\Form\CertificationUpdateFormForm;
 use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -160,7 +161,7 @@ class CertificationController extends AbstractController
      */
     public function UpdateCertififcation(Request $request,Certification  $certification):Response
     {
-        $form=$this->createForm(CertificationForm::class,$certification);
+        $form=$this->createForm(CertificationUpdateFormForm::class,$certification);
         $form->handleRequest($request);
         if($form->isSubmitted() and $form->isValid()){
 
@@ -220,7 +221,7 @@ class CertificationController extends AbstractController
             return $this->redirectToRoute('showcertif',['id'=>$certification->getId(),'user'=>$this->getuser()]);
         }
         return $this->render('Certification/updateCertification.html.twig',[
-            'editformCertification'=>$form->createView(),
+            'form'=>$form->createView(),
             'certification'=>$certification,
             'user'=>$this->getuser()
         ]);
@@ -292,7 +293,8 @@ class CertificationController extends AbstractController
         $documents = $repo->findByOrder($id);
 
         return $this->render('Certification/documentlist.html.twig',[
-            'documents'=>$documents
+            'documents'=>$documents,
+            'certif'=>$id
             ,'user'=>$this->getuser()
         ]);
 

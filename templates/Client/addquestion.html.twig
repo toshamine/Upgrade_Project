@@ -17,14 +17,61 @@
 {% block sectionmenu %} Question {% endblock %}
 
 {% block contenu %}
+    <div class="login-wrap p-4 p-md-5" style="margin-top: 5px;">
     <center>
-        <table >
-            <h1>Create new Question</h1>
 
-            {{ include('question_crud/_form.html.twig') }}
 
-        </table>
+
+            <h1 class="unselectable hvr-hang-auto">Add A New Question</h1>
+
+
+            {{ form_start(form) }}
+
+            <div class="form-group hvr-grow" style="width: 800px;">
+                <label class="label" for="Title">Answer</label>
+                {{ form_widget(form.Answer, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+        <div class="form-group hvr-grow" style="width: 800px;">
+            <label class="label" for="Title">Question</label>
+            {{ form_widget(form.Question, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group hvr-grow" style="width: 800px;">
+            <label class="label" for="Title">ChoiceA</label>
+            {{ form_widget(form.ChoiceA, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group hvr-grow" style="width: 800px;">
+            <label class="label" for="Title">ChoiceB</label>
+            {{ form_widget(form.ChoiceB, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group hvr-grow" style="width: 800px;">
+            <label class="label" for="Title">ChoiceC</label>
+            {{ form_widget(form.ChoiceC, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group hvr-grow" style="width: 800px;">
+            <label class="label" for="Title">Duration</label>
+            {{ form_widget(form.Duration, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group hvr-grow" style="width: 800px;">
+            <label class="label" for="Title">WhiteTest</label>
+            {{ form_widget(form.whiteTest, {'attr': {'class': 'form-control select'}}) }}
+        </div>
+
+            <div class="form-group d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary submit"><span class="fa fa-paper-plane"></span></button>
+            </div>
+            {{ form_end(form) }}
+
     </center>
+
+
+
+
         <div class="svg-wrapper" style="float: left;">
             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                 <rect id="shape" height="40" width="150" />
@@ -33,6 +80,11 @@
                 </div>
             </svg>
         </div>
+
+
+    </div>
+
+
     <style>
         /*       Just setting CSS for the page   */
 
@@ -194,4 +246,8 @@
             stroke: greenyellow;
         }
     </style>
+
+
+
+
 {% endblock %}

@@ -42,7 +42,7 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('add_certification');
         }
 
-        return $this->render('category/addCategory.html.twig',['formCategory'=>$form->createView(),'user'=>$this->getuser()]);
+        return $this->render('category/addCategory.html.twig',['form'=>$form->createView(),'user'=>$this->getuser()]);
     }
 
     /**

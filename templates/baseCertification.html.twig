@@ -64,7 +64,7 @@
                     {% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link">Certifications</a></li>{% endblock %}
                     {% block instructors %}<li class="nav-item"><a  href="{{ path("listinstructors") }}" class="nav-link">Instructors</a></li>{% endblock %}
                     <!-- Here you need to give the attribute the class nav-item active to make active it depends where you are -->
-                    {% block forum%} <li class="nav-item"><a href="" class="nav-link">Forum</a></li>{% endblock %}
+                    {% block forum%} <li class="nav-item"><a href="{{ path("r_d_v_new") }}" class="nav-link">Exams</a></li>{% endblock %}
                     {% block contact %}<li class="nav-item"><a href="../../../../../Users/Administrateur/Desktop/Upgrade/Upgarde/contact.html" class="nav-link">Contact</a></li>{% endblock %}
                     {% if  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <li class="nav-item nav-profile dropdown">
@@ -79,10 +79,12 @@
                                     <i class="ti-settings text-primary"></i>
                                     My Profile
                                 </a>
-                                <a class="dropdown-item" href="{{ path('admin') }}">
-                                    <i class="ti-settings text-primary"></i>
-                                    Settings
-                                </a>
+                                {% if  is_granted('ROLE_ADMIN') %}
+                                    <a class="dropdown-item" href="{{ path('admin') }}">
+                                        <i class="ti-settings text-primary"></i>
+                                        Settings
+                                    </a>
+                                {% endif %}
                                 <a class="dropdown-item" href="{{ path('records_index') }}">
                                     <i class="ti-power-off text-primary"></i>
                                     Records
@@ -112,7 +114,7 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-end justify-content-center">
                 <div class="col-md-9 text-center">
-                    <p class="breadcrumbs"><span class="mr-2"><a href="">Home <i class="fa fa-chevron-right"></i></a></span> <span>{% block sectionmenu %} Section Name Here {% endblock %}<i class="fa fa-chevron-right"></i></span></p>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{{ path("index") }}">Home <i class="fa fa-chevron-right"></i></a></span> <span>{% block sectionmenu %} Section Name Here {% endblock %}<i class="fa fa-chevron-right"></i></span></p>
                     <h1 class="mb-0 bread">{% block sectionname %}Section Name Here{% endblock %}</h1>
                 </div>
             </div>

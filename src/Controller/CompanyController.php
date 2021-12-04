@@ -41,7 +41,7 @@ class CompanyController extends AbstractController
             return $this->redirectToRoute('add_certification');
         }
 
-        return $this->render('company/addCompany.html.twig',['formCompany'=>$form->createView(),'user'=>$this->getuser()]);
+        return $this->render('company/addCompany.html.twig',['form'=>$form->createView(),'user'=>$this->getuser()]);
     }
 
 

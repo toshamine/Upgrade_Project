@@ -55,11 +55,17 @@ class Certification
      */
     private $difficulty;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RDV::class, mappedBy="Certification",cascade={"All"})
+     */
+    private $rDVs;
+
 
     public function __construct()
     {
         $this->documents = new ArrayCollection();
         $this->whitetests = new ArrayCollection();
+        $this->rDVs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -189,5 +195,35 @@ class Certification
 
     public function __toString() {
         return $this->getTitle()." ".$this->getTitle();
+    }
+
+    /**
+     * @return Collection|RDV[]
+     */
+    public function getRDVs(): Collection
+    {
+        return $this->rDVs;
+    }
+
+    public function addRDV(RDV $rDV): self
+    {
+        if (!$this->rDVs->contains($rDV)) {
+            $this->rDVs[] = $rDV;
+            $rDV->setCertification($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRDV(RDV $rDV): self
+    {
+        if ($this->rDVs->removeElement($rDV)) {
+            // set the owning side to null (unless already changed)
+            if ($rDV->getCertification() === $this) {
+                $rDV->setCertification(null);
+            }
+        }
+
+        return $this;
     }
 }

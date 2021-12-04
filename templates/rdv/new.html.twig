@@ -1,5 +1,7 @@
-{% extends "baseCertification.html.twig" %}
-{% block title %}{{ parent() }}{% endblock %}
+{%  extends "Client/base.html.twig" %}
+
+
+{% block title %}Request An Exam Date{% endblock %}
 
 
 {%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
@@ -13,29 +15,34 @@
 {% block contact %} {{ parent() }} {% endblock %}
 
 
-{%  block sectionname %} Add Company {% endblock %}
-{% block sectionmenu %} Company {% endblock %}
+{%  block sectionname %} Exam {% endblock %}
+{% block sectionmenu %} Request An Exam Date {% endblock %}
+
+
 {% block contenu %}
+
     <center>
 
 
         <div class="login-wrap p-4 p-md-5" style="margin-top: 5px;">
-            <h1 class="unselectable hvr-hang-auto">Add A New Company</h1>
+            <h1 class="unselectable hvr-hang-auto">Request To Pass An Exam</h1>
 
 
             {{ form_start(form) }}
 
             <div class="form-group hvr-grow" style="width: 800px;">
                 <label class="label" for="Title">Title</label>
-                {{ form_widget(form.Name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.Date, {'attr': {'class': 'form-control'}}) }}
             </div>
 
-            <center>
-            <div class="form-group d-flex justify-content-end mt-4" >
-                <button type="submit" class="btn btn-primary"> <span class="fa fa-paper-plane"></span></button>
+            <div class="form-group hvr-grow" style="width: 800px;">
+                <label class="label" for="Title">Title</label>
+                {{ form_widget(form.Certification, {'attr': {'class': 'form-control'}}) }}
             </div>
-            </center>
 
+            <div class="form-group d-flex justify-content-end mt-4">
+                <button type="submit" class="btn btn-primary submit"><span class="fa fa-paper-plane"></span></button>
+            </div>
             {{ form_end(form) }}
 
             <div class="svg-wrapper-green ftco-animate" style="margin-left: -1px;">
@@ -49,4 +56,5 @@
 
         </div>
     </center>
-{% endblock  %}
+
+{% endblock %}

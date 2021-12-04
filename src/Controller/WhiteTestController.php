@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Certification;
+use App\Entity\Cheaters;
 use App\Entity\Question;
 use App\Entity\Records;
 use App\Entity\WhiteTest;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/whitetest')]
 class WhiteTestController extends AbstractController
+
 {
     #[Route('/{certif}', name: 'white_test_index', methods: ['GET'])]
     public function index(WhiteTestRepository $whiteTestRepository,string $certif): Response
@@ -26,6 +28,7 @@ class WhiteTestController extends AbstractController
         $certification=$em->getRepository(Certification::class)->findOneBy(['Title'=>$certif]);
         return $this->render('white_test/index.html.twig', [
             'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification]),'certif'=>$certif
+            ,'idcertif'=>$certification->getId()
             ,'user'=>$this->getuser()
         ]);
     }
@@ -123,11 +126,28 @@ class WhiteTestController extends AbstractController
         $record->setUser($this->getuser()->getLog());
         $record->setScore((string)$score);
         $record->setWhiteTest((string)$whitetest);
-        $record->setCertification((string)$whitetest->getCertification());
+        $record->setCertification((string)$whitetest->getCertification()->getTitle());
         $record->setDate(new \DateTime('now'));
         $record->setTotal($whitetest->nbquestion());
         $em->persist($record);
         $em->flush();
         return $this->render("Client/result.html.twig", ['score' => $score,'nbquestions'=>$whitetest->nbquestion(),'user'=>$this->getuser()]);
+    }
+
+    /**
+     * @Route("/cheater/{whitetest}",name="cheater")
+     */
+    public function cheater(string $whitetest):Response
+    {
+        $user=$this->getUser()->getLog();
+        $cheater=new Cheaters();
+        $cheater->setUser($user);
+        $cheater->setDate(new \DateTime('now'));
+        $cheater->setWhitestest($whitetest);
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($cheater);
+        $em->flush();
+
+        return $this->redirectToRoute("certification");
     }
 }
