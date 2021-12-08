@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\User1Repository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use PhpParser\Node\Scalar\String_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -96,6 +97,9 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
     public function __construct()
     {
         $this->rDVs = new ArrayCollection();
+        $this->records = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function setImageFile( $image = null)
@@ -149,6 +153,21 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
      * @ORM\ManyToOne(targetEntity=RDV::class, inversedBy="User")
      */
     private $rDV;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Records::class, mappedBy="User1",cascade={"All"})
+     */
+    private $records;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="User",cascade={"All"})
+     */
+    private $notifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="User",cascade={"All"})
+     */
+    private $contacts;
 
 
     public function getId(): ?int
@@ -385,6 +404,96 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
     public function __toString(): string
     {
         return $this->getLog();
+    }
+
+    /**
+     * @return Collection|Records[]
+     */
+    public function getRecords(): Collection
+    {
+        return $this->records;
+    }
+
+    public function addRecord(Records $record): self
+    {
+        if (!$this->records->contains($record)) {
+            $this->records[] = $record;
+            $record->setUser1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecord(Records $record): self
+    {
+        if ($this->records->removeElement($record)) {
+            // set the owning side to null (unless already changed)
+            if ($record->getUser1() === $this) {
+                $record->setUser1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notification[]
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): self
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications[] = $notification;
+            $notification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): self
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getUser() === $this) {
+                $contact->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
 

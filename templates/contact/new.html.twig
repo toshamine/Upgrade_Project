@@ -1,0 +1,124 @@
+{%  extends "Client/base.html.twig" %}
+
+
+{% block title %}Request An Exam Date{% endblock %}
+
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+
+
+{%  block sectionname %} Contact {% endblock %}
+{% block sectionmenu %} Send A Message {% endblock %}
+
+
+{% block contenu %}
+
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="wrapper">
+                        <div class="row no-gutters">
+                            <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+                                <div class="contact-wrap w-100 p-md-5 p-4">
+                                    <h3 class="mb-4">Get in touch</h3>
+                                    {{ form_start(form) }}
+                                    <div class="contactForm">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="label" for="name">Full Name</label>
+                                                    {{ form_widget(form.Fullname, {'attr': {'class': 'form-control','placeholder':'Fullname'}}) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="label" for="email">Email Address</label>
+                                                    {{ form_widget(form.Email, {'attr': {'class': 'form-control','placeholder':'Email'}}) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="label" for="subject">Subject</label>
+                                                    {{ form_widget(form.Subject, {'attr': {'class': 'form-control','placeholder':'Subject'}}) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="label" for="#">Message</label>
+                                                    {{ form_widget(form.Text, {'attr': {'class': 'form-control','placeholder':'Message'}}) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <button type="submit"  value="Send Message" class="btn btn-primary" id="submit">Send Message</button>
+                                                    <div class="submitting"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{ form_end(form) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+                                <div class="info-wrap bg-primary w-100 p-md-5 p-4">
+                                    <h3>Let's get in touch</h3>
+                                    <p class="mb-4">We're open for any suggestion or just to have a chat</p>
+                                    <div class="dbox w-100 d-flex align-items-start">
+                                        <div class="icon d-flex align-items-center justify-content-center">
+                                            <span class="fa fa-map-marker"></span>
+                                        </div>
+                                        <div class="text pl-3">
+                                            <p><span>Address:</span> Ariana, Tunisia</p>
+                                        </div>
+                                    </div>
+                                    <div class="dbox w-100 d-flex align-items-center">
+                                        <div class="icon d-flex align-items-center justify-content-center">
+                                            <span class="fa fa-phone"></span>
+                                        </div>
+                                        <div class="text pl-3">
+                                            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="dbox w-100 d-flex align-items-center">
+                                        <div class="icon d-flex align-items-center justify-content-center">
+                                            <span class="fa fa-paper-plane"></span>
+                                        </div>
+                                        <div class="text pl-3">
+                                            <p><span>Email:</span> <a href="mailto:info@yoursite.com">Upgrade@gmail.com</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="dbox w-100 d-flex align-items-center">
+                                        <div class="icon d-flex align-items-center justify-content-center">
+                                            <span class="fa fa-globe"></span>
+                                        </div>
+                                        <div class="text pl-3">
+                                            <p><span>Website</span> <a href="#">upgrade.com</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-5">
+                    <div id="map" class="bg-white">
+                        <iframe width="1110" height="397" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=1110&amp;height=397&amp;hl=en&amp;q=Ariana%20Ghazala+(Ghazala)&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                        <a href='http://mapswebsite.net/fr'>Intégration de Google Maps</a>
+                        <script type='text/javascript' src='https://embedmaps.com/google-maps-authorization/script.js?id=ab869807a79f849f074bad233c58f6b441218b7c'></script></div>
+                </div>
+            </div>
+        </div>
+
+
+
+{% endblock %}

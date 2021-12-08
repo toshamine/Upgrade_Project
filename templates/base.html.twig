@@ -51,7 +51,7 @@
                 {% block instructors %}<li class="nav-item"><a  href="{{ path("listinstructors") }}" class="nav-link">Instructors</a></li>{% endblock %}
                 <!-- Here you need to give the attribute the class nav-item active to make active it depends where you are -->
                 {% block forum%} <li class="nav-item"><a href="{{ path("r_d_v_new") }}" class="nav-link">Exams</a></li>{% endblock %}
-                {% block contact %}<li class="nav-item"><a href="#" class="nav-link">Contact</a></li>{% endblock %}
+                {% block contact %}<li class="nav-item"><a href="{{ path("contact_new") }}" class="nav-link">Contact</a></li>{% endblock %}
                 {% if  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     {# <li class="nav-item"><a href="#" class="nav-link">
                             {{ user.Firstname }} {{ user.Lastname }}</a></li> #}

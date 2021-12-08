@@ -47,6 +47,11 @@ class Records
      */
     private $Total;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User1::class, inversedBy="records")
+     */
+    private $User1;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class Records
     public function setTotal(int $Total): self
     {
         $this->Total = $Total;
+
+        return $this;
+    }
+
+    public function getUser1(): ?User1
+    {
+        return $this->User1;
+    }
+
+    public function setUser1(?User1 $User1): self
+    {
+        $this->User1 = $User1;
 
         return $this;
     }

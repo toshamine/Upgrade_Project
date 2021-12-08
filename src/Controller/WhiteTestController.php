@@ -124,6 +124,7 @@ class WhiteTestController extends AbstractController
         $em=$this->getDoctrine()->getManager();
         $record = new Records();
         $record->setUser($this->getuser()->getLog());
+        $record->setUser($this->getuser());
         $record->setScore((string)$score);
         $record->setWhiteTest((string)$whitetest);
         $record->setCertification((string)$whitetest->getCertification()->getTitle());
