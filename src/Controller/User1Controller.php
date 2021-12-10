@@ -32,6 +32,21 @@ class User1Controller extends AbstractController
     }
 
 
+    /**
+     * @Route("/{id}",name="user1_show")
+     */
+    public function show(User1 $user1):Response
+    {
+
+        // $user1 = $this->getUser();
+        $picture = $this->getParameter("app.path.product_images").'/'.$user1->getPicture();
+        return $this->render('user1/show.html.twig', [
+            'user1' => $this->getUser(),'user' => $this->getUser(),
+            'pic'=>$picture,
+        ]);
+    }
+
+
 
 
 
