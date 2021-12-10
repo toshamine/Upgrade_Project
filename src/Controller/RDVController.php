@@ -19,9 +19,11 @@ class RDVController extends AbstractController
     #[Route('/', name: 'r_d_v_index', methods: ['GET'])]
     public function index(RDVRepository $rDVRepository): Response
     {
+        $picture = $this->getParameter("app.path.product_images").'/' ;
         return $this->render('rdv/index.html.twig', [
             'user'=>$this->getUser(),
             'r_d_vs' => $rDVRepository->findAll(),
+            'picture'=>$picture
         ]);
     }
 
@@ -95,7 +97,9 @@ class RDVController extends AbstractController
     #[Route('/accept/{id}', name: 'accept', methods: ['GET'])]
     public function accept(RDV $rDV): Response
     {
-         $rDVRepository = $this->getDoctrine()->getRepository(RDV::class) ;
+        $picture = $this->getParameter("app.path.product_images").'/' ;
+
+        $rDVRepository = $this->getDoctrine()->getRepository(RDV::class) ;
 
          $rDV ->setStatus('accepted');
         $notification = new Notification();
@@ -113,14 +117,17 @@ class RDVController extends AbstractController
         return $this->redirectToRoute('r_d_v_index', [
             'user'=>$this->getUser(),
             'r_d_vs' => $rDVRepository->findAll(),
+            'picture'=>$picture
         ]);
     }
 
     #[Route('/refuse/{id}', name: 'refuse', methods: ['GET'])]
     public function refuse(RDV $rDV): Response
     {
+        $picture = $this->getParameter("app.path.product_images").'/' ;
 
-         $rDVRepository = $this->getDoctrine()->getRepository(RDV::class) ;
+
+        $rDVRepository = $this->getDoctrine()->getRepository(RDV::class) ;
         $rDV ->setStatus('Refused');
 
         $notification = new Notification();
@@ -134,6 +141,7 @@ class RDVController extends AbstractController
         return $this->redirectToRoute('r_d_v_index', [
             'user'=>$this->getUser(),
             'r_d_vs' => $rDVRepository->findAll(),
+            'picture'=>$picture
         ]);
     }
 
