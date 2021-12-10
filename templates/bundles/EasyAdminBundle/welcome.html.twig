@@ -30,10 +30,11 @@
                 <div class="col-6 alert-dark">
                     <span class="display-3"> {{ countWT }} </span> White tests
                 </div>
+
             </div>
             <div class="row mt-5">
                 <div class="col-12">
-                    <h3> charts soon... </h3>
+                    <h3> charts  </h3>
 
                     <ul class="list-group">
                         <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
@@ -43,6 +44,11 @@
 
                 </div>
             </div>
+            {% for stat in stats %}
+
+                [ '{{ stat.nameCompany  | trans  }} oracle' , {{ stat.nbCompany|number_format }}],
+
+            {% endfor %}
         </div>
     </div>
 
@@ -54,15 +60,17 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
-                ['Work',     11],
-                ['Eat',      2],
-                ['Commute',  2],
-                ['Watch TV', 2],
-                ['Sleep',    7]
+                {% for stat in stats %}
+
+                [ '{{ stat.company.id }}  oracle' , {{ stat.nbCompany|number_format }}],
+
+                {% endfor %}
+
+
             ]);
 
             var options = {
-                title: 'My Daily Activities',
+                title: 'Certification by Company',
                 is3D: true,
             };
 

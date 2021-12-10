@@ -42,6 +42,8 @@ class CertificationRepository extends ServiceEntityRepository
 
   }
 
+
+
     public function findByFilter($filter,$nofilter)
     {
         if($filter !=null) {
@@ -54,6 +56,17 @@ class CertificationRepository extends ServiceEntityRepository
         }
 
 
+    }
+
+
+    public function CountCertifByCompany($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(u.id)')
+            ->andWhere('u.company = '.$id)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
     }
     /*public function findByCategory($filters)
     {

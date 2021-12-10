@@ -4,8 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Certification;
+use App\Entity\Cheaters;
+use App\Entity\Company;
+use App\Entity\Difficulty;
 use App\Entity\Document;
+use App\Entity\Notification;
 use App\Entity\Question;
+use App\Entity\RDV;
+use App\Entity\Records;
 use App\Entity\User1;
 use App\Entity\WhiteTest;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -59,6 +65,14 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Documents', 'fa fa-object-group', Document::class);
         yield MenuItem::linkToCrud('White Test', 'fas fa-list', WhiteTest::class);
         yield MenuItem::linkToCrud('Questions', 'fas fa-list', Question::class);
+        yield MenuItem::linkToCrud('Cheaters', 'fa fa-graduation-cap', Cheaters::class);
+        yield MenuItem::linkToCrud('Difficulty', 'fa fa-graduation-cap', Difficulty::class);
+        yield MenuItem::linkToCrud('RDV', 'fa fa-graduation-cap', RDV::class);
+        yield MenuItem::linkToCrud('Company', 'fa fa-graduation-cap', Company::class);
+        yield MenuItem::linkToCrud('Records', 'fa fa-graduation-cap', Records::class);
+        yield MenuItem::linkToCrud('Notification', 'fa fa-graduation-cap', Notification::class);
+
+
 
 
 

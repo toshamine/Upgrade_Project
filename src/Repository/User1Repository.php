@@ -51,6 +51,7 @@ class User1Repository extends ServiceEntityRepository implements PasswordUpgrade
             ;
     }
 
+
     // /**
     //  * @return User1[] Returns an array of User1 objects
     //  */

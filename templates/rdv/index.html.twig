@@ -40,8 +40,8 @@
                 <td>{{ r_d_v.User }}</td>
                 <td>{{ r_d_v.Status }}</td>
                 <td>
-                    <a href="{{ path('r_d_v_show', {'id': r_d_v.id}) }}">show</a>
-                    <a href="{{ path('r_d_v_edit', {'id': r_d_v.id}) }}">edit</a>
+                    <a href="{{ path('accept', {'id': r_d_v.id}) }}">Accept</a>
+                    <a href="{{ path('refuse', {'id': r_d_v.id}) }}">Refuse</a>
                 </td>
             </tr>
         {% else %}
