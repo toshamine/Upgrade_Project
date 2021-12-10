@@ -1,0 +1,102 @@
+{#  {% extends 'base.html.twig' %}  #}
+{%  extends "Client/base.html.twig" %}
+
+
+{%  block comment  %}<!--Menu just replace the parent with the link here and add the word "active" to the class= for the current page name-->
+    <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
+
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+{% block user %} <li class="nav-item"><a href="#" class="nav-link">  {{ app.user.Firstname }} {{ app.user.Lastname }}</a></li>{% endblock %}
+
+
+{% block sectionmenu %} Certification {% endblock %}
+
+
+{% block title %}Comment index{% endblock %}
+
+{% block body %}
+    <h1>Comment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>user_name</th>
+                <th>Comment</th>
+
+
+            </tr>
+
+
+
+        </thead>
+        <tbody>
+
+        {% for comment in comments %}
+            <tr>
+                <div class="grix xs2 sm3 gutter-0 card">
+
+
+                <td>{{ comment.user.LastName }}  {{ comment.user.FirstName }}</td>
+                <td>{{ comment.content }}</td>
+                </div>
+                <td>
+                    {% if (comment.user.id==app.user.id) %}
+
+                    <a href="{{ path('commentDelete', {'id': comment.id}) }}">Delete</a>
+                    <a href="{{ path('UpdateCom', {'id': comment.id}) }}"> edit</a>
+                        <p> <a href=" {{ path('CreateNewResp', {'id': comment.id}) }}" data-reply data-id="{{ comment.id }}"  class="btn primary press">Repondre</a> </p>
+
+                        {#  {{ path('CreateNewCom', {'id': certifID}) }}  #}
+
+                    {% else %}
+                        <p> <a href=" {{ path('CreateNewResp', {'id': comment.id}) }}" data-reply data-id="{{ comment.id }}"  class="btn primary press">Repondre</a> </p>
+
+
+                    {% endif %}
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="col-xs2 col-sm3"id="ajout-commentaire">
+
+<a href="{{ path('CreateNewCom', {'id': certifID}) }}">Create new</a>
+    {% if comments!=null %}
+        <center>
+            <div class="row mt-5" style="margin-left: 590px;">
+                {% do comments.SetPageRange(5) %}
+                {{ knp_pagination_render(comments,'pagination/pagination.html.twig') }}
+            </div>
+        </center>
+    {% endif %}
+
+
+
+
+
+
+</div>
+{% endblock %}
+
+
+        {% block javascripts %}
+            <script>
+                window.onload = () => {
+                    // On met un écouteur d'évènements sur tous les boutons répondre
+                    document.querySelectorAll("[data-reply]").forEach(element => {
+                        element.addEventListener("click", function(){
+                            console.log(this);
+                          //document.querySelector("#comments_parentid").value = this.dataset.id;
+                        });
+                    });
+                }
+
+            </script>
+        {% endblock %}
+

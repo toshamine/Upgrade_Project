@@ -1,0 +1,184 @@
+{%  extends "Client/base.html.twig" %}
+
+{% block title %}Comments{% endblock %}
+{% block home %} {{ parent() }} {% endblock %}
+{% block about %} {{ parent() }} {% endblock %}
+{% block certifications %} {{ parent() }} {% endblock %}
+{% block instructors %} {{ parent() }} {% endblock %}
+{% block forum %}  {{ parent() }} {% endblock %}
+{% block contact %} {{ parent() }} {% endblock %}
+{% block sectionmenu %} Certification {% endblock %}
+{% block sectionname %}Comments{% endblock %}
+{% block user %} <li class="nav-item"><a href="#" class="nav-link">  {{ app.user.Firstname }} {{ app.user.Lastname }}</a></li>{% endblock %}
+
+{% block contenu %}
+    <div class="container mb-5 mt-5">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12">
+                    {#       <h3 class="text-center mb-5"> Nested comment section </h3>  #}
+                    <div class="row">
+                        <div class="col-md-12">
+
+
+                            <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                                {#              <img class="img-fluid img-responsive rounded-circle mr-2" src={{ pic }} width="38">
+                                #}
+                                <div class="media mt-4"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src={{ pic }}  width="38" />  </div>
+
+
+
+
+                                    {#         <input type="text"  class="form-control mr-3" placeholder="Add comment"><a href="#">Comment</a>
+                       #}
+                                {{ form_start(form) }}
+                                <div class="form-group " style="width: 800px;">
+                                    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                    {#             {{ form_widget(form.content,{'attr': {'class': 'form-control'}}) }}
+                    #}       <button class="btn text-primary">{{ button_label|default('  Comment') }}</button>
+                                {{ form_end(form) }}
+
+
+
+                            </div>
+                            {% for comment in comments %}
+                                {% if comment.parent == null %}
+
+
+
+                                    <div class="media mt-4"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src={{ asset('uploads/images/products/'~comment.user.picture) }} />
+                                    <div class="media-body">
+                                    <div class="row">
+                                        <div class="col-8 d-flex">
+                                            <h5>{{ comment.user.LastName }}  {{ comment.user.FirstName }}</h5>
+                                            <p class="text-muted text-sm">    {{ comment.createdat|date("d/m/Y H:i") }}</p>
+
+                                        </div>
+                                        <div class="col-4">
+                                             <div class="pull-right reply"> <a href=" {{ path('CreateNewResp', {'id': comment.id}) }}"><span><i class="fa fa-reply"></i> reply</span></a> </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <p class="text-dark">   {{ comment.content }} </p>
+
+
+                                    <div class="pad-ver">
+                                        <div class="btn-group">
+
+                                            {% if (comment.user.id==app.user.id) %}
+                                            <a class="btn btn-sm btn-def-hover-primary ml-1" href="{{ path('commentDelete', {'id': comment.id}) }}">  <p class="text-primary"> delete</p>
+                                            </a>
+
+
+                                            <a class="btn btn-sm btn-default btn-hover-primary ml-1" href="{{ path('UpdateCom', {'id': comment.id}) }}"><p class="text-primary"> edit</p></a>
+                                           {% endif %}
+                                        </div>
+                                    </div>
+
+                                    {# On affiche les réponses #}
+
+                                    {% for reply in comment.replies %}
+
+                                        <div class="media mt-4"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src={{ asset('uploads/images/products/'~reply.user.picture) }} /></a>
+                                            <div class="media-body">
+                                                <div class="row">
+                                                    <div class="col-12 d-flex">
+
+                                                        <h5>{{ reply.user.LastName }}  {{ reply.user.FirstName }}</h5>
+                                                        <span>{{ reply.createdat|date("d/m/Y H:i") }}</span>
+                                                    </div>
+
+
+                                                </div>
+                                                {{ reply.content }}
+                                                <div class="pad-ver">
+                                                    <div class="btn-group">
+
+                                                        {% if (reply.user.id==app.user.id) %}
+                                                        <a class="btn btn-sm btn-default btn-hover-primary ml-1" href="{{ path('commentDelete', {'id': reply.id}) }}">delete</a>
+
+
+
+                                                        <a class="btn btn-sm btn-default btn-hover-primary ml-1" href="{{ path('UpdateCom', {'id': reply.id}) }}">edit</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+                                {% endif %}
+
+                                </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            display: grid;
+            font-family: Arial, Poppins ,sans-serif;
+            background: #9C27B0
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            padding: 20px;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid #d2d2dc;
+            border-radius: 11px;
+            -webkit-box-shadow: 0px 0px 5px 0px rgb(249, 249, 250);
+            -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1);
+            box-shadow: 0px 0px 5px 0px rgb(161, 163, 164)
+        }
+
+        .media img {
+            width: 60px;
+            height: 60px
+        }
+
+        .reply a {
+            text-decoration: none
+        }
+    </style>
+
+
+
+
+{% endblock %}
+
+      {% block javascripts %}
+
+<script type="text/javascript" >
+
+    document.getElementById('test_form').onclick = function(){
+        if(document.getElementById('formulaire').style.display == ""){
+            document.getElementById('formulaire').style.display = "block";
+        }
+    }
+
+</script>
+      {% endblock %}

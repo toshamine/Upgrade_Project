@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+<div class="form-group " style="width: 800px;">
+    {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+</div>
+
+    <button class="btn">{{ button_label|default('Comment') }}</button>
+{{ form_end(form) }}
