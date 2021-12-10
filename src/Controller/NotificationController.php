@@ -17,29 +17,8 @@ class NotificationController extends AbstractController
     public function index(NotificationRepository $notificationRepository): Response
     {
         return $this->render('notification/index.html.twig', [
-            'notifications' => $notificationRepository->findAll(),
+            'notifications' => $notificationRepository->findByUser($this->getUser()),
             'user'=>$this->getUser()
-        ]);
-    }
-
-    #[Route('/new', name: 'notification_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
-    {
-        $notification = new Notification();
-        $form = $this->createForm(NotificationType::class, $notification);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($notification);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('notification_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('notification/new.html.twig', [
-            'notification' => $notification,
-            'form' => $form,
         ]);
     }
 
@@ -48,36 +27,39 @@ class NotificationController extends AbstractController
     {
         return $this->render('notification/show.html.twig', [
             'notification' => $notification,
+            'user'=>$this->getUser()
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'notification_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Notification $notification): Response
+
+
+    /**
+     * @Route("deletenotif/{id}" ,name="notification_delete")
+     */
+    public function delete($id): Response
     {
-        $form = $this->createForm(NotificationType::class, $notification);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('notification_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('notification/edit.html.twig', [
-            'notification' => $notification,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'notification_delete', methods: ['POST'])]
-    public function delete(Request $request, Notification $notification): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$notification->getId(), $request->request->get('_token'))) {
+        $notif=$this->getDoctrine()->getRepository(Notification::class)->find($id);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($notification);
+            $entityManager->remove($notif);
             $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('notification_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('notification_index');
+    }
+
+    /**
+     * @Route ("/deleteall/notif",name="deleteallnotif")
+     */
+    public function deleteall(): Response
+    {
+        $em=$this->getDoctrine()->getManager();
+        $notif=$em->getRepository(Notification::class)->findByUser($this->getUser());
+        $i=0;
+        while($i!=count($notif)){
+            $em->remove($notif[$i]);
+            $em->flush();
+            $i++;
+        }
+        return $this->redirectToRoute('notification_index',['user'=>$this->getuser()]);
     }
 }

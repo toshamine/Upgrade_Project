@@ -24,6 +24,7 @@
                 <th>Message</th>
                 <th>Date</th>
                 <th></th>
+                <th></th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -38,7 +39,17 @@
                         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                             <rect id="shape-red" height="40" width="150" />
                             <div id="text" >
-                                &nbsp;<a href="#"><span class="spot"></span><span style="color: black;">Delete</span></a>
+                                &nbsp;<a href="{{ path('notification_delete',{id:notification.Id}) }}"><span class="spot"></span><span style="color: black;">Delete</span></a>
+                            </div>
+                        </svg>
+                    </div>
+                </td>
+                <td>
+                    <div class="svg-wrapper" style="float: left;">
+                        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                            <rect id="shape" height="40" width="150" />
+                            <div id="text" >
+                                &nbsp;<a href="{{ path('notification_show',{id:notification.Id}) }}"><span class="spot"></span><span style="color: black;">Read</span></a>
                             </div>
                         </svg>
                     </div>
@@ -211,7 +222,7 @@
                 if (result.isConfirmed) {
                     swalWithBootstrapButtons.fire(
                         'Deleted!',
-                        'All Record Are Deleted.',
+                        'All Notifications Are Deleted.',
                         'Success'
                     );
                     function sleep(ms) {
@@ -219,7 +230,7 @@
                     }
                     async function valid() {
                         await sleep(3000);
-                        window.location.replace("{{ path('deleteallrec') }}");
+                        window.location.replace("{{ path('deleteallnotif') }}");
                     }
                     valid();
                 } else if (

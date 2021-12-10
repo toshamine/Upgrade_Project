@@ -233,9 +233,12 @@ class CertificationController extends AbstractController
      */
     public function showcertif(int $id):Response
     {
-        $certif=$this->getDoctrine()->getManager()->getRepository(Certification::class)->find($id);
+        if($this->getUser()!=null) {
+            $certif = $this->getDoctrine()->getManager()->getRepository(Certification::class)->find($id);
+            return $this->render("Certification/show.html.twig",["certif"=>$certif,'user'=>$this->getuser()]);
+        }
+        return $this->redirectToRoute("app_login");
 
-        return $this->render("Certification/show.html.twig",["certif"=>$certif,'user'=>$this->getuser()]);
     }
 
     /**

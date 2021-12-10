@@ -25,25 +25,28 @@ class RDVController extends AbstractController
     #[Route('/new', name: 'r_d_v_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
-        $rDV = new RDV();
-        $form = $this->createForm(RDVType::class, $rDV);
-        $form->handleRequest($request);
+        if($this->getUser()!=null) {
+            $rDV = new RDV();
+            $form = $this->createForm(RDVType::class, $rDV);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $rDV->setStatus("Pending");
-            $rDV->setUser($this->getUser());
-            $entityManager->persist($rDV);
-            $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $rDV->setStatus("Pending");
+                $rDV->setUser($this->getUser());
+                $entityManager->persist($rDV);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('r_d_v_index', ['user'=>$this->getUser()], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('r_d_v_index', ['user' => $this->getUser()], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('rdv/new.html.twig', [
+                'user' => $this->getUser(),
+                'r_d_v' => $rDV,
+                'form' => $form,
+            ]);
         }
-
-        return $this->renderForm('rdv/new.html.twig', [
-            'user'=>$this->getUser(),
-            'r_d_v' => $rDV,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute("app_login");
     }
 
     #[Route('/{id}', name: 'r_d_v_show', methods: ['GET'])]
