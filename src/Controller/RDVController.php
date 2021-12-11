@@ -19,10 +19,12 @@ class RDVController extends AbstractController
     #[Route('/', name: 'r_d_v_index', methods: ['GET'])]
     public function index(RDVRepository $rDVRepository): Response
     {
+
+
         $picture = $this->getParameter("app.path.product_images").'/' ;
         return $this->render('rdv/index.html.twig', [
             'user'=>$this->getUser(),
-            'r_d_vs' => $rDVRepository->findAll(),
+            'r_d_vs' => $rDVRepository->findBy(['Status'=>'Pending']),
             'picture'=>$picture
         ]);
     }
