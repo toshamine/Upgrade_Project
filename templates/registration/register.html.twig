@@ -262,101 +262,26 @@
         <div class="row justify-content-center pb-4">
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <span class="subheading">Get Certified Today</span>
-                <h2 class="mb-4">Pick Your Certification</h2>
+                <h2 class="mb-4 hvr-float-shadow unselectable">Pick Your Certification</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-1.jpg") }}');">
-                        <span class="price">Software</span>
+            {% for c in certifications %}
+            <div class="col-md-4 ftco-animate ">
+                <div class="project-wrap hvr-grow-shadow">
+                    <a href="{{ path("showcertif",{'id':c.id}) }}" class="img" style="background-image: url('{{ asset('uploads/'~c.Picture) }}');
+                            background-size: 200px 200px;">
+                        <span class="price">{{ c.company.Name }}</span>
                     </a>
                     <div class="text p-4">
                         <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
+                        <p class="advisor">{{ c.category.Name }}</p>
                         <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-2.jpg") }}');">
-                        <span class="price">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-3.jpg") }}');">
-                        <span class="price">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-4.jpg") }}');">
-                        <span class="price">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-5.jpg") }}');">
-                        <span class="price">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <a href="#" class="img" style="background-image: url('{{ asset("assets/Client/images/work-6.jpg") }}');">
-                        <span class="price">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
-                        <p class="advisor">Advisor <span>Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+           {% endfor %}
         </div>
     </div>
 </section>
@@ -424,7 +349,7 @@
                                 <span class="subheading">Enhanced Your Skills</span>
                                 <h2 class="mb-4">Learn Anything You Want Today</h2>
                                 <p>Upgrade a world wide ceritifcation platform that gives the chance to learn and get certified from IT leader companies like Amazon,Microsoft,Oracle and alot more...</p>
-                                <p><a href="#" class="btn btn-primary">Get in touch with us</a></p>
+                                <p><a href="{{ path("contact_new") }}" class="btn btn-primary">Get in touch with us</a></p>
                             </div>
                         </div>
                     </div>
@@ -571,13 +496,24 @@
                     <h2 class="mb-4">We Are Upgrade An Online Certification Platform</h2>
                     <p>Upgrade yourself get certified today !</p>
                     <p>Here you have the access to get any certification in the world just by passing the white tests</p>
-                    <div class="d-flex video-image align-items-center mt-md-4">
-                        <a href="#" class="video img d-flex align-items-center justify-content-center" style="background-image: url('{{ asset("assets/Client/images/about.jpg") }}');">
-                            <span class="fa fa-play-circle"></span>
-                        </a>
-                        <h4 class="ml-4">Learn anything from Upgrade, Watch video</h4>
+
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h1 class="text-center display-4 mt-5 hvr-buzz-auto">
+                                        Upgrade Trailer
+                                    </h1>
+                                    <p class="text-center mt-5">
+                                        <a href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal video img d-flex align-items-center justify-content-center"><img style="height: 255px;" src="{{ asset("assets/Trailer.png") }}"></a>
+                                    </p>
+                                    <div id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9">
+                                        <iframe class="embed-responsive-item" width="854" height="480" src="https://www.youtube.com/embed/vI78KhYQBnc?autoplay=1" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
             </div>
             <div class="col-md-6">
                 <div class="row">
@@ -599,7 +535,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate" style="margin-top: 120px;">
                         <div class="services">
                             <div class="icon icon-3 d-flex align-items-center justify-content-center"><span class="flaticon-quiz"></span></div>
                             <div class="media-body">
@@ -608,7 +544,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate" style="margin-top: 120px;">
                         <div class="services">
                             <div class="icon icon-4 d-flex align-items-center justify-content-center"><span class="flaticon-browser"></span></div>
                             <div class="media-body">
@@ -628,66 +564,28 @@
     <div class="container">
         <div class="row justify-content-center pb-4">
             <div class="col-md-12 heading-section text-center ftco-animate">
-                <span class="subheading">Our Blog</span>
-                <h2 class="mb-4">Recent Post</h2>
+                <span class="subheading">Who Will Guide Us ?</span>
+                <h2 class="mb-4">Our Instructors</h2>
             </div>
         </div>
         <div class="row d-flex">
-            <div class="col-lg-4 ftco-animate">
-                <div class="blog-entry">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset("assets/Client/images/image_1.jpg") }}');">
+            {% for i in instructors %}
+            <div class="col-lg-4 ftco-animate ">
+                <div class="blog-entry hvr-float-shadow">
+                    <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset('uploads/images/products/'~i.picture)}}');">
                     </a>
                     <div class="text d-block">
                         <div class="meta">
                             <p>
-                                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
+                                <a href="#"><span class="fa fa-user mr-2"></span>{{ i.Category.Name }}</a>
                             </p>
                         </div>
-                        <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-                        <p><a href="blog.html" class="btn btn-secondary py-2 px-3">Read more</a></p>
+                        <h3 class="heading"><a href="#">{{ i.FirstName }} {{ i.LastName }}</a></h3>
+                        <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4 ftco-animate">
-                <div class="blog-entry">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset("assets/Client/images/image_2.jpg") }}');">
-                    </a>
-                    <div class="text d-block">
-                        <div class="meta">
-                            <p>
-                                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
-                            </p>
-                        </div>
-                        <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-                        <p><a href="blog.html" class="btn btn-secondary py-2 px-3">Read more</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 ftco-animate">
-                <div class="blog-entry">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('{{ asset("assets/Client/images/image_3.jpg") }}');">
-                    </a>
-                    <div class="text d-block">
-                        <div class="meta">
-                            <p>
-                                <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
-                                <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
-                                <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
-                            </p>
-                        </div>
-                        <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p>
-                        <p><a href="blog.html" class="btn btn-secondary py-2 px-3">Read more</a></p>
-                    </div>
-                </div>
-            </div>
+          {% endfor %}
         </div>
     </div>
 </section>
@@ -779,6 +677,25 @@
 <script src="{{ asset("assets/Client/js/google-map.js") }}"></script>
 <script src="{{ asset("assets/Client/js/main.js") }}"></script>
 
+<style>
+    #headerPopup{
+        width:75%;
+        margin:0 auto;
+    }
+
+    #headerPopup iframe{
+        width:100%;
+        margin:0 auto;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        $('#headerVideoLink').magnificPopup({
+            type:'inline',
+            midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        });
+    });
+</script>
 </body>
 </html>
 

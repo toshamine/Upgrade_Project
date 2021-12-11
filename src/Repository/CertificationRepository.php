@@ -31,6 +31,16 @@ class CertificationRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByLimit()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findBycat($id)
     {
         return $this->createQueryBuilder('c')

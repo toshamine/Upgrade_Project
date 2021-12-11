@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Certification;
 use App\Entity\User1;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
@@ -92,8 +93,20 @@ class TestController extends AbstractController
                     return $this->redirectToRoute('app_logout');
                 }
 
-
-            return $this->render("/registration/register.html.twig",['user'=>$this->getUser()]);
+                $certifications=$entityManager->getRepository(Certification::class)->findByLimit();
+                $instructors=$entityManager->getRepository(User1::class)->findAll();
+            $finalist=array();
+            $i=0;
+                foreach ($instructors as $in) {
+                    if (in_array("ROLE_MANAGER", $in->getRoles()) && $in->getFirstName() != "Mohamed Amine") {
+                        array_push($finalist, $in);
+                        $i++;
+                    }
+                    if($i==3){
+                        break;
+                    }
+                }
+            return $this->render("/registration/register.html.twig",['user'=>$this->getUser(),'certifications'=>$certifications,'instructors'=>$finalist]);
         }else{
 
 

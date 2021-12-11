@@ -51,6 +51,15 @@ class User1Repository extends ServiceEntityRepository implements PasswordUpgrade
             ;
     }
 
+    public function findByLimit()
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     // /**
     //  * @return User1[] Returns an array of User1 objects
