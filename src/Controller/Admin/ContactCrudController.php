@@ -2,19 +2,21 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Notification;
+use App\Entity\Contact;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class NotificationCrudController extends AbstractCrudController
+class ContactCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Notification::class;
+        return Contact::class;
     }
 
 
@@ -22,9 +24,14 @@ class NotificationCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
-            TextEditorField::new('Text'),
             AssociationField::new('User'),
+            TextEditorField::new('Text'),
             DateField::new('Date'),
+            TextField::new('Fullname'),
+            TextField::new('Email'),
+            TextField::new('Subject'),
+
+
         ];
     }
 

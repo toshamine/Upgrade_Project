@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Certification;
 use App\Entity\User1;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
@@ -26,8 +27,24 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $certifications=$entityManager->getRepository(Certification::class)->findByLimit();
+        $instructors=$entityManager->getRepository(User1::class)->findAll();
+        $finalist=array();
+        $i=0;
+        foreach ($instructors as $in) {
+            if (in_array("ROLE_MANAGER", $in->getRoles()) && $in->getFirstName() != "Mohamed Amine") {
+                array_push($finalist, $in);
+                $i++;
+            }
+            if($i==3){
+                break;
+            }
+        }
+
         if($this->getUser()){
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('index',['user'=>$this->getUser(),'certifications'=>$certifications,'instructors'=>$finalist]);
         }
         $user = new User1();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -61,6 +78,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'user'=>$this->getUser(),'certifications'=>$certifications,'instructors'=>$finalist
         ]);
     }
 

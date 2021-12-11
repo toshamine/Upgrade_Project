@@ -77,14 +77,26 @@ class TestController extends AbstractController
         /* if ($this->isGranted('ROLE_ADMIN')){
                         echo 'yess';die;
                     }*/
+        $entityManager = $this->getDoctrine()->getManager();
 
-
+        $certifications=$entityManager->getRepository(Certification::class)->findByLimit();
+        $instructors=$entityManager->getRepository(User1::class)->findAll();
+        $finalist=array();
+        $i=0;
+        foreach ($instructors as $in) {
+            if (in_array("ROLE_MANAGER", $in->getRoles()) && $in->getFirstName() != "Mohamed Amine") {
+                array_push($finalist, $in);
+                $i++;
+            }
+            if($i==3){
+                break;
+            }
+        }
 
 
 
         if($this->getUser()){
 
-            $entityManager = $this->getDoctrine()->getManager();
             $userV = $entityManager->getRepository(User1::class)->findOneBy(['email'=>$this->getUser()->getUserIdentifier(),
                 'isVerified'=>false]);
 
@@ -93,19 +105,7 @@ class TestController extends AbstractController
                     return $this->redirectToRoute('app_logout');
                 }
 
-                $certifications=$entityManager->getRepository(Certification::class)->findByLimit();
-                $instructors=$entityManager->getRepository(User1::class)->findAll();
-            $finalist=array();
-            $i=0;
-                foreach ($instructors as $in) {
-                    if (in_array("ROLE_MANAGER", $in->getRoles()) && $in->getFirstName() != "Mohamed Amine") {
-                        array_push($finalist, $in);
-                        $i++;
-                    }
-                    if($i==3){
-                        break;
-                    }
-                }
+
             return $this->render("/registration/register.html.twig",['user'=>$this->getUser(),'certifications'=>$certifications,'instructors'=>$finalist]);
         }else{
 
@@ -141,7 +141,7 @@ class TestController extends AbstractController
             }
 
             return $this->render('registration/register.html.twig', [
-                'registrationForm' => $form->createView(),
+                'registrationForm' => $form->createView(),'user'=>$this->getUser(),'certifications'=>$certifications,'instructors'=>$finalist
             ]);
 
         }
