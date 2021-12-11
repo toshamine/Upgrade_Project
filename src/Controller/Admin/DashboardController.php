@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Certification;
 use App\Entity\Cheaters;
 use App\Entity\Company;
+use App\Entity\Contact;
 use App\Entity\Difficulty;
 use App\Entity\Document;
 use App\Entity\Notification;
@@ -70,7 +71,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('RDV', 'fa fa-graduation-cap', RDV::class);
         yield MenuItem::linkToCrud('Company', 'fa fa-graduation-cap', Company::class);
         yield MenuItem::linkToCrud('Records', 'fa fa-graduation-cap', Records::class);
-        yield MenuItem::linkToCrud('Notification', 'fa fa-graduation-cap', Notification::class);
+        yield MenuItem::linkToCrud('Contact', 'fa fa-graduation-cap', Contact::class);
 
 
 

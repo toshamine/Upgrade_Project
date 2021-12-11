@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class NotificationCrudController extends AbstractCrudController
@@ -21,7 +22,7 @@ class NotificationCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
-            TextField::new('Text'),
+            TextEditorField::new('Text'),
             AssociationField::new('User'),
             DateField::new('Date'),
         ];

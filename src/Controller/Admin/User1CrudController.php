@@ -22,6 +22,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\Choice;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+
 class User1CrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -32,6 +34,7 @@ class User1CrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+
 
         return [
             IntegerField::new('id')->onlyOnIndex(),
@@ -58,6 +61,27 @@ class User1CrudController extends AbstractCrudController
 
 
         ];
+    }
+
+
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // the labels used to refer to this entity in titles, buttons, etc.
+            ->setEntityLabelInSingular('User')
+            ->setEntityLabelInPlural('Users')
+
+            // in addition to a string, the argument of the singular and plural label methods
+            // can be a closure that defines two nullable arguments: entityInstance (which will
+            // be null in 'index' and 'new' pages) and the current page name
+            ->setPaginatorPageSize(5)
+            ->setSearchFields(['email', 'Birthdate','CIN','FirstName','LastName'])
+
+
+
+
+            ;
     }
 
 }

@@ -496,6 +496,16 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
         return $this;
     }
 
+    public function getLabel()
+    {
+        return 'User';
+    }
+
+    public function toString(): string
+    {
+        return $this->getFirstName().' '.$this->getLastName() ;
+    }
+
 
 }
 
