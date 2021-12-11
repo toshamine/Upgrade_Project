@@ -34,8 +34,16 @@ class RDVRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
+    */
+    public function findByOrder()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     /*
     public function findOneBySomeField($value): ?RDV
     {

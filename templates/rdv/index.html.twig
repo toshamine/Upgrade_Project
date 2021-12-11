@@ -15,8 +15,8 @@
 {% block contact %} {{ parent() }} {% endblock %}
 
 
-{%  block sectionname %} Exam {% endblock %}
-{% block sectionmenu %} Exam Requests {% endblock %}
+{%  block sectionname %}  Requests {% endblock %}
+{% block sectionmenu %}  Exam {% endblock %}
 
 
 {% block contenu %}
@@ -31,29 +31,28 @@
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Date Created</th>
-
+                        <th>User</th>
+                        <th>Requested Date</th>
+                        <th>Certificate</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th></th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for r_d_v in r_d_vs %}
 
-
-
-
                         <tr>
-                        <td>{{ r_d_v.User.id }}</td>
-                        <td><a href="{{ path('user1_show', {'id': r_d_v.User.id}) }}"><div id="yourContainer">
-                                    <img src="{{ picture }}{{ r_d_v.User.picture }}" class="avatar" alt="Avatar">
-                                </div>{{ r_d_v.User }}</a></td>
-                        <td>{{ r_d_v.Date ? r_d_v.Date|date('Y-m-d') : '' }}</td>
-
                         <td>
-                            {% if r_d_v.Status == 'accepted' %}
+                            <a href="{{ path('user1_show', {'id': r_d_v.User.id}) }}" class="hvr-float-shadow">
+
+                                    <img src="{{ picture }}{{ r_d_v.User.picture }}"  width="60px" height="60px" class="avatar" alt="Avatar">
+                                {{ r_d_v.User }}</a></td>
+
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ r_d_v.Date ? r_d_v.Date|date('Y-m-d') : '' }}</td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ r_d_v.certification.Title }}</td>
+                        <td>
+                            {% if r_d_v.Status == 'Accepted' %}
                             <span class="status text-success">&bull;</span>
                             {% endif %}
                             {% if r_d_v.Status == 'Refused' %}
@@ -63,13 +62,12 @@
                                 <span class="status text-warning">&bull;</span>
                             {% endif %}
                             {{ r_d_v.Status }}</td>
+                            <td></td>
                         <td>
-
-
-                            <a href="{{ path('accept', {'id': r_d_v.id}) }}" class="settings" title="Accept" data-toggle="tooltip"><span class="material-icons">
+                            <a href="{{ path('accept', {'id': r_d_v.id}) }}" class="settings hvr-float-shadow" title="Accept" data-toggle="tooltip"><span class="material-icons">
 check_circle
 </span></a>
-                            <a href="{{ path('refuse', {'id': r_d_v.id}) }}" class="delete" title="Refuse" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                            <a href="{{ path('refuse', {'id': r_d_v.id}) }}" class="delete hvr-float-shadow" title="Refuse" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
                         </td>
                     </tr>
                     {% else %}
@@ -82,6 +80,36 @@ check_circle
 
             </div>
         </div>
+
+        <div class="svg-wrapper-red" style="margin-left: -1px;">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape-red" height="40" width="150" />
+                <div id="text" >
+                    &nbsp;<a href="{{ path("refusedrdv") }}"><span ></span><span style="color: black;">Refused</span> </a>
+                </div>
+            </svg>
+        </div>
+
+
+        <div class="svg-wrapper" style="margin-left: 300px;">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape" height="40" width="150" />
+                <div id="text" >
+                    &nbsp;<a href="{{ path("allrdv") }}"><span ></span><span style="color: black;">History</span> </a>
+                </div>
+            </svg>
+        </div>
+
+        <div class="svg-wrapper-green" style="margin-left: 309px;">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape-green" height="40" width="150" />
+                <div id="text" >
+                    &nbsp;<a href="{{ path("acceptedrdv") }}"><span ></span><span style="color: black;">Accepted</span> </a>
+                </div>
+            </svg>
+        </div>
+
+
     </div>
 
 
@@ -103,7 +131,6 @@ check_circle
         body {
             color: #566787;
             background: #f5f5f5;
-            font-family: 'Varela Round', sans-serif;
             font-size: 13px;
         }
         .table-responsive {

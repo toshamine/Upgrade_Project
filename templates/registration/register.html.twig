@@ -74,7 +74,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 {% block home %}<li class="nav-item active"><a href="{{ path("index") }}"  class="nav-link">Home</a></li>{% endblock %}
-                {% block about %}<li class="nav-item"><a href="#" class="nav-link">About</a></li>{% endblock %}
+                {% block about %}<li class="nav-item"><a href="{{ path("about") }}" class="nav-link">About</a></li>{% endblock %}
                 {% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link">Certifications</a></li>{% endblock %}
                 {% block instructors %}<li class="nav-item"><a href="{{ path("listinstructors") }}" class="nav-link">Instructors</a></li>{% endblock %}
                 <!-- Here you need to give the attribute the class nav-item active to make active it depends where you are -->
@@ -111,10 +111,17 @@
                                 <i class="ti-power-off text-primary"></i>
                                 Records
                             </a>
-                            <a class="dropdown-item" href="{{ path('notification_index') }}">
-                                <i class="ti-power-off text-primary"></i>
-                                Notifications
-                            </a>
+                            {% if user.notifsize !=0 %}
+                                <a class="dropdown-item" style="font-weight: bold;" href="{{ path('notification_index') }}">
+                                    <i class="ti-power-off text-primary"></i>
+                                    <span style="color: red;">°</span>Notifications
+                                </a>
+                            {% else %}
+                                <a class="dropdown-item" href="{{ path('notification_index') }}">
+                                    <i class="ti-power-off text-primary"></i>
+                                    Notifications
+                                </a>
+                            {% endif %}
                             <a class="dropdown-item" href="{{ path('app_logout') }}">
                                 <i class="ti-power-off text-primary"></i>
                                 Logout
@@ -136,7 +143,7 @@
                 <span class="subheading" style="color:black;">Welcome to Upgrade</span>
                 <h1 class="mb-4" style="color:black;">Get Certified , Upgrade Yourself !</h1>
                 <p class="caps" style="color:black;">We Are A Worldwife Online Platform To Get You Certified</p>
-                <p class="mb-0"><a href="#Certifications" class="btn btn-primary">Ceritifcations</a> <a href="#More" class="btn btn-white">Learn More</a></p>
+                <p class="mb-0"><a href="{{ path('certification') }}" class="btn btn-primary">Ceritifcations</a> <a href="{{ path("about") }}" class="btn btn-white">Learn More</a></p>
             </div>
         </div>
     </div>
@@ -197,7 +204,7 @@
         <div class="row justify-content-center pb-4">
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <span class="subheading">Get Certified Today</span>
-                <h2 class="mb-4">Browse Certifications With Category</h2>
+                <h2 class="mb-4 hvr-float-shadow">Our Certifications Categories</h2>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -206,7 +213,7 @@
                    style="background-image: url('{{ asset("assets/Client/images/work-1.jpg") }}');">
                     <div class="text w-100 text-center">
                         <h3>IT &amp; Software</h3>
-                        <span>100 course</span>
+                        <span>150 course</span>
                     </div>
                 </a>
             </div>
@@ -214,7 +221,7 @@
                 <a href="#" class="course-category img d-flex align-items-center justify-content-center" style="background-image: url('{{ asset("assets/Client/images/work-9.jpg") }}');">
                     <div class="text w-100 text-center">
                         <h3>Music</h3>
-                        <span>100 course</span>
+                        <span>120 course</span>
                     </div>
                 </a>
             </div>
@@ -222,7 +229,7 @@
                 <a href="#" class="course-category img d-flex align-items-center justify-content-center" style="background-image: url('{{ asset("assets/Client/images/work-3.jpg") }}');">
                     <div class="text w-100 text-center">
                         <h3>Photography</h3>
-                        <span>100 course</span>
+                        <span>300 course</span>
                     </div>
                 </a>
             </div>
@@ -230,7 +237,7 @@
                 <a href="#" class="course-category img d-flex align-items-center justify-content-center" style="background-image: url('{{ asset("assets/Client/images/work-5.jpg") }}');">
                     <div class="text w-100 text-center">
                         <h3>Marketing</h3>
-                        <span>100 course</span>
+                        <span>50 course</span>
                     </div>
                 </a>
             </div>
@@ -238,7 +245,7 @@
                 <a href="#" class="course-category img d-flex align-items-center justify-content-center" style="background-image: url('{{ asset("assets/Client/images/work-8.jpg") }}');">
                     <div class="text w-100 text-center">
                         <h3>Health</h3>
-                        <span>100 course</span>
+                        <span>190 course</span>
                     </div>
                 </a>
             </div>
@@ -246,12 +253,12 @@
                 <a href="#" class="course-category img d-flex align-items-center justify-content-center" style="background-image: url('{{ asset("assets/Client/images/work-6.jpg") }}');">
        <span class="text w-100 text-center">
           <h3>Audio Video</h3>
-          <span>100 course</span>
+          <span>300 course</span>
       </span>
                 </a>
             </div>
             <div class="col-md-12 text-center mt-5">
-                <a href="#" class="btn btn-secondary">See All Certifications</a>
+                <a href="{{ path("certification") }}" class="btn btn-secondary hvr-float-shadow">See All Certifications</a>
             </div>
         </div>
     </div>
@@ -274,7 +281,6 @@
                         <span class="price">{{ c.company.Name }}</span>
                     </a>
                     <div class="text p-4">
-                        <h3><a href="#">Design for the web with adobe photoshop</a></h3>
                         <p class="advisor">{{ c.category.Name }}</p>
                         <ul class="d-flex justify-content-between">
                         </ul>
@@ -349,7 +355,7 @@
                                 <span class="subheading">Enhanced Your Skills</span>
                                 <h2 class="mb-4">Learn Anything You Want Today</h2>
                                 <p>Upgrade a world wide ceritifcation platform that gives the chance to learn and get certified from IT leader companies like Amazon,Microsoft,Oracle and alot more...</p>
-                                <p><a href="{{ path("contact_new") }}" class="btn btn-primary">Get in touch with us</a></p>
+                                <p><a href="{{ path("contact_new") }}" class="btn btn-primary hvr-float-shadow">Get in touch with us</a></p>
                             </div>
                         </div>
                     </div>
@@ -565,7 +571,7 @@
         <div class="row justify-content-center pb-4">
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <span class="subheading">Who Will Guide Us ?</span>
-                <h2 class="mb-4">Our Instructors</h2>
+                <h2 class="mb-4 hvr-float-shadow">Our Instructors</h2>
             </div>
         </div>
         <div class="row d-flex">

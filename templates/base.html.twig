@@ -46,7 +46,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 {% block home %}<li class="nav-item"><a href="{{ path("index") }}"  class="nav-link">Home</a></li>{% endblock %}
-                {% block about %}<li class="nav-item"><a href="#" class="nav-link">About</a></li>{% endblock %}
+                {% block about %}<li class="nav-item"><a href="{{ path("about") }}" class="nav-link">About</a></li>{% endblock %}
                 {% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link">Certifications</a></li>{% endblock %}
                 {% block instructors %}<li class="nav-item"><a  href="{{ path("listinstructors") }}" class="nav-link">Instructors</a></li>{% endblock %}
                 <!-- Here you need to give the attribute the class nav-item active to make active it depends where you are -->
@@ -78,10 +78,17 @@
                                 <i class="ti-power-off text-primary"></i>
                                 Records
                             </a>
-                            <a class="dropdown-item" href="{{ path('notification_index') }}">
-                                <i class="ti-power-off text-primary"></i>
-                                Notifications
-                            </a>
+                            {% if user.notifsize !=0 %}
+                                <a class="dropdown-item" style="font-weight: bold;" href="{{ path('notification_index') }}">
+                                    <i class="ti-power-off text-primary"></i>
+                                    <span style="color: red;">°</span>Notifications
+                                </a>
+                            {% else %}
+                                <a class="dropdown-item" href="{{ path('notification_index') }}">
+                                    <i class="ti-power-off text-primary"></i>
+                                    Notifications
+                                </a>
+                            {% endif %}
                             <a class="dropdown-item" href="{{ path('app_logout') }}">
                                 <i class="ti-power-off text-primary"></i>
                                 Logout

@@ -164,7 +164,7 @@
                                 <li class="price unselectable">{{ v.Difficulty.name}}</li>
 
                             </ul>
-                            {% if  (is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN')) and (user.Category.name==v.Category.name or user.Category.name=="admin")%}
+                            {% if  (is_granted('ROLE_MANAGER') and (user.Category.name==v.Category.name or user.Category.name=="admin")) or is_granted('ROLE_ADMIN')%}
                             <ul>
                             <div class="svg-wrapper-red" style="margin-left: -1px;">
                                 <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">

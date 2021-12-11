@@ -32,6 +32,11 @@ class Notification
      */
     private $Date;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $Opened;
+
     public function __construct()
     {
         $this->Date = new \DateTime();
@@ -75,6 +80,18 @@ class Notification
     public function setDate(\DateTimeInterface $Date): self
     {
         $this->Date = $Date;
+
+        return $this;
+    }
+
+    public function getOpened(): ?bool
+    {
+        return $this->Opened;
+    }
+
+    public function setOpened(bool $Opened): self
+    {
+        $this->Opened = $Opened;
 
         return $this;
     }

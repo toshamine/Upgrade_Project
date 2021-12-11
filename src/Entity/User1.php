@@ -496,6 +496,17 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
         return $this;
     }
 
+    public function notifsize():?int
+    {
+        $result=0;
+        foreach ($this->notifications as $n){
+            if($n->getOpened()==false)
+            {
+                $result=1;
+            }
+        }
+        return $result;
+    }
 
 }
 

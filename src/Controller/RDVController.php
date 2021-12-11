@@ -39,7 +39,46 @@ class RDVController extends AbstractController
         $picture = $this->getParameter("app.path.product_images").'/' ;
         return $this->render('rdv/index.html.twig', [
             'user'=>$this->getUser(),
-            'r_d_vs' => $rDVRepository->findBy(['Status'=>'Pending']),
+            'r_d_vs' => array_reverse($rDVRepository->findBy(['Status'=>'Pending'])),
+            'picture'=>$picture
+        ]);
+    }
+
+    /**
+     * @Route("/allrdv",name="allrdv")
+     */
+    public function allrdv():Response
+    {
+        $picture = $this->getParameter("app.path.product_images").'/' ;
+        return $this->render('rdv/index.html.twig', [
+            'user'=>$this->getUser(),
+            'r_d_vs' => array_reverse($this->getDoctrine()->getManager()->getRepository(RDV::class)->findByOrder()),
+            'picture'=>$picture
+        ]);
+    }
+
+    /**
+     * @Route("/acceptedrdv",name="acceptedrdv")
+     */
+    public function acceptedrdv():Response
+    {
+        $picture = $this->getParameter("app.path.product_images").'/' ;
+        return $this->render('rdv/index.html.twig', [
+            'user'=>$this->getUser(),
+            'r_d_vs' => array_reverse($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>'Accepted'])),
+            'picture'=>$picture
+        ]);
+    }
+
+    /**
+     * @Route("/refuseddrdv",name="refusedrdv")
+     */
+    public function refusedrdv():Response
+    {
+        $picture = $this->getParameter("app.path.product_images").'/' ;
+        return $this->render('rdv/index.html.twig', [
+            'user'=>$this->getUser(),
+            'r_d_vs' => array_reverse($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>'Refused'])),
             'picture'=>$picture
         ]);
     }
@@ -118,10 +157,12 @@ class RDVController extends AbstractController
 
         $rDVRepository = $this->getDoctrine()->getRepository(RDV::class) ;
 
-         $rDV ->setStatus('accepted');
+        $rDV ->setStatus('Accepted');
         $notification = new Notification();
+        $notification->setOpened(false);
         $notification->setUser($rDV->getUser());
-        $notification->setText('your request has been accepted');
+        $notification->setText('Hi '.$rDV->getUser()->getFirstName().' ,Your request to pass '.$rDV->getCertification()->getTitle().' certificate has been accepted
+        we will contact soon to give you your vochar stay tuned !');
         $entityManager = $this->getDoctrine()->getManager();
 
         $entityManager->persist($notification);
@@ -148,8 +189,10 @@ class RDVController extends AbstractController
         $rDV ->setStatus('Refused');
 
         $notification = new Notification();
+        $notification->setOpened(false);
         $notification->setUser($rDV->getUser());
-        $notification->setText('your request has been Refused');
+        $notification->setText('Hi '.$rDV->getUser()->getFirstName().' ,Your request to pass '.$rDV->getCertification()->getTitle().' certificate has been refused 
+        , try to practice more and then try again see you later.');
         $entityManager = $this->getDoctrine()->getManager();
 
         $entityManager->persist($notification);

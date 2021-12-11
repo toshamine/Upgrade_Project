@@ -31,7 +31,11 @@
         <tbody>
         {% for notification in notifications %}
             <tr>
-                <td>{{ notification.Text }}</td>
+                {% if notification.opened==false %}
+                <td ><span style="font-weight: bold;">{{notification.Text|slice(0,30)}}...</span></td>
+                {% else %}
+                    <td ><span>{{notification.Text|slice(0,30)}}...</span></td>
+                    {% endif %}
                 <td>{{ notification.Date ? notification.Date|date('Y-m-d') : '' }}</td>
                 <td></td>
                 <td>

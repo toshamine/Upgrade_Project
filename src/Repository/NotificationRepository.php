@@ -28,7 +28,7 @@ class NotificationRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('n')
             ->andWhere('n.User = :user')
             ->setParameter('user', $user)
-            ->orderBy('n.id', 'ASC')
+            ->orderBy('n.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;

@@ -25,6 +25,10 @@ class NotificationController extends AbstractController
     #[Route('/{id}', name: 'notification_show', methods: ['GET'])]
     public function show(Notification $notification): Response
     {
+        $notification->setOpened(true);
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($notification);
+        $em->flush();
         return $this->render('notification/show.html.twig', [
             'notification' => $notification,
             'user'=>$this->getUser()
