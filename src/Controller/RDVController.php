@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Notification;
 use App\Entity\RDV;
+use App\Entity\User1;
 use App\Form\RDVType;
 use App\Repository\RDVRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,10 +20,26 @@ class RDVController extends AbstractController
     #[Route('/', name: 'r_d_v_index', methods: ['GET'])]
     public function index(RDVRepository $rDVRepository): Response
     {
+
+        if($this->getUser()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $userV = $entityManager->getRepository(User1::class)->findOneBy(['email'=>$this->getUser()->getUserIdentifier(),
+                'isVerified'=>false]);
+
+
+            if(!$this->isGranted('ROLE_ADMIN')){
+                return $this->redirectToRoute('index');
+            }
+
+        }else{
+            return $this->redirectToRoute('index');
+        }
+
+
         $picture = $this->getParameter("app.path.product_images").'/' ;
         return $this->render('rdv/index.html.twig', [
             'user'=>$this->getUser(),
-            'r_d_vs' => $rDVRepository->findAll(),
+            'r_d_vs' => $rDVRepository->findBy(['Status'=>'Pending']),
             'picture'=>$picture
         ]);
     }
