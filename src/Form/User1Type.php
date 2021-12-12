@@ -49,7 +49,25 @@ class User1Type extends AbstractType
            ])
             ->add('FirstName')
             ->add('LastName')
-            ->add('password',PasswordType::class)
+            ->add('Password', PasswordType::class, [
+                // instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'mapped' => false,
+
+                'attr' => ['autocomplete' => 'new-password'],
+                'required'   => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+            ])
             ->add('Birthdate',  DateType::class, [
                 'widget' => 'single_text'
             ])

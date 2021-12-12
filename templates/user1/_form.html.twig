@@ -19,12 +19,13 @@
                         <div class="col-md-12"><label class="labels">Email</label>{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
                         </div>
 
+                        <div class="col-md-12"><label class="labels" >Password</label>{{ form_widget(form.Password, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
                         <div class="col-md-12"><label class="labels">CIN</label>{{ form_widget(form.CIN, {'attr': {'class': 'form-control'}}) }}
                         </div>
 
-                        <div class="col-md-12"><label class="labels">Password</label>{{ form_widget(form.password, {'attr': {'class': 'form-control','id':'myInput','placeholer':'New Password','value':''}}) }}
 
-                        </div>
 
                     </div>
 
@@ -59,6 +60,9 @@
 
 
     {{ form_end(form) }}
+
+
+
 
 
 {% endblock %}
