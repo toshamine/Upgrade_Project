@@ -37,6 +37,11 @@ class Notification
      */
     private $Opened;
 
+    /**
+     * @ORM\Column(type="integer",nullable=true)
+     */
+    private $Certification;
+
     public function __construct()
     {
         $this->Date = new \DateTime();
@@ -95,4 +100,18 @@ class Notification
 
         return $this;
     }
+
+    public function getCertification(): ?int
+    {
+        return $this->Certification;
+    }
+
+    public function setCertification(int $Certification): self
+    {
+        $this->Certification = $Certification;
+
+        return $this;
+    }
+
+
 }

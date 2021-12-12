@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\RDV;
 use App\Form\CompanyForm;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Company;
@@ -22,7 +23,9 @@ class CompanyController extends AbstractController
         $companies=$em->getRepository("App\Entity\Company")->findAll();
 
 
-        return $this->render('company/listCompany.html.twig',["listCompany"=>$companies]);
+        return $this->render('company/listCompany.html.twig',["listCompany"=>$companies,
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
     }
 
     /**
@@ -41,7 +44,9 @@ class CompanyController extends AbstractController
             return $this->redirectToRoute('add_certification');
         }
 
-        return $this->render('company/addCompany.html.twig',['form'=>$form->createView(),'user'=>$this->getuser()]);
+        return $this->render('company/addCompany.html.twig',['form'=>$form->createView(),'user'=>$this->getuser()
+        , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
     }
 
 

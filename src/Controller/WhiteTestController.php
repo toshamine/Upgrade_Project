@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Certification;
 use App\Entity\Cheaters;
 use App\Entity\Question;
+use App\Entity\RDV;
 use App\Entity\Records;
 use App\Entity\WhiteTest;
 use App\Form\WhiteTestType;
@@ -25,11 +26,12 @@ class WhiteTestController extends AbstractController
     public function index(WhiteTestRepository $whiteTestRepository,string $certif): Response
     {
         $em=$this->getDoctrine()->getManager();
-        $certification=$em->getRepository(Certification::class)->findOneBy(['Title'=>$certif]);
+        $certification=$em->getRepository(Certification::class)->findOneBy(['Title'=>substr($certif,0,strpos($certif,' '))]);
         return $this->render('white_test/index.html.twig', [
             'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification]),'certif'=>$certif
             ,'idcertif'=>$certification->getId()
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -55,6 +57,7 @@ class WhiteTestController extends AbstractController
             'white_test' => $whiteTest,
             'form' => $form,
             'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -67,6 +70,7 @@ class WhiteTestController extends AbstractController
         return $this->render('white_test/show.html.twig', [
             'whitetest' => $whitetest
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -86,6 +90,7 @@ class WhiteTestController extends AbstractController
             'form' => $form,
             'certif'=>$certif
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -118,7 +123,9 @@ class WhiteTestController extends AbstractController
             }
         }
         while($i != $length){
-        return $this->render("Client/PasserWT.html.twig",['question'=>$questions[$i],'whitetestid'=>$id,'i'=>$i,'score'=>$score,'whitetest'=>$whitetest,'user'=>$this->getuser()]);
+        return $this->render("Client/PasserWT.html.twig",['question'=>$questions[$i],'whitetestid'=>$id,'i'=>$i,'score'=>$score,'whitetest'=>$whitetest,'user'=>$this->getuser()
+        , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
         }
         $whitetest=$questions[0]->getWhiteTest();
         $em=$this->getDoctrine()->getManager();
@@ -132,7 +139,9 @@ class WhiteTestController extends AbstractController
         $record->setTotal($whitetest->nbquestion());
         $em->persist($record);
         $em->flush();
-        return $this->render("Client/result.html.twig", ['score' => $score,'nbquestions'=>$whitetest->nbquestion(),'user'=>$this->getuser()]);
+        return $this->render("Client/result.html.twig", ['score' => $score,'nbquestions'=>$whitetest->nbquestion(),'user'=>$this->getuser()
+        , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
     }
 
     /**

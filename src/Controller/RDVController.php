@@ -41,6 +41,7 @@ class RDVController extends AbstractController
             'user'=>$this->getUser(),
             'r_d_vs' => array_reverse($rDVRepository->findBy(['Status'=>'Pending'])),
             'picture'=>$picture
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -54,6 +55,7 @@ class RDVController extends AbstractController
             'user'=>$this->getUser(),
             'r_d_vs' => array_reverse($this->getDoctrine()->getManager()->getRepository(RDV::class)->findByOrder()),
             'picture'=>$picture
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -67,6 +69,7 @@ class RDVController extends AbstractController
             'user'=>$this->getUser(),
             'r_d_vs' => array_reverse($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>'Accepted'])),
             'picture'=>$picture
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -80,6 +83,7 @@ class RDVController extends AbstractController
             'user'=>$this->getUser(),
             'r_d_vs' => array_reverse($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>'Refused'])),
             'picture'=>$picture
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -105,6 +109,7 @@ class RDVController extends AbstractController
                 'user' => $this->getUser(),
                 'r_d_v' => $rDV,
                 'form' => $form,
+                'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
             ]);
         }
         return $this->redirectToRoute("app_login");
@@ -135,6 +140,7 @@ class RDVController extends AbstractController
             'user'=>$this->getUser(),
             'r_d_v' => $rDV,
             'form' => $form,
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 

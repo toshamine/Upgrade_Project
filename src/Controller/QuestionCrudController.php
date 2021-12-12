@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Entity\RDV;
 use App\Entity\WhiteTest;
 use App\Form\Question1Type;
 use App\Repository\QuestionRepository;
@@ -20,6 +21,7 @@ class QuestionCrudController extends AbstractController
         return $this->render('Client/questionslist.html.twig', [
             'questions' => $questionRepository->findByOrder()
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -44,6 +46,7 @@ class QuestionCrudController extends AbstractController
             'question' => $question,
             'form' => $form
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -53,6 +56,7 @@ class QuestionCrudController extends AbstractController
         return $this->render('question_crud/show.html.twig', [
             'question' => $question
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -72,6 +76,7 @@ class QuestionCrudController extends AbstractController
             'question' => $question,
             'form' => $form
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 

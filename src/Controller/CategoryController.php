@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\RDV;
 use App\Form\CategoryForm;
 use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,9 @@ class CategoryController extends AbstractController
         $categories=$em->getRepository("App\Entity\Category")->findAll();
 
 
-        return $this->render('category/listCategory.html.twig',["listCategory"=>$categories]);
+        return $this->render('category/listCategory.html.twig',["listCategory"=>$categories
+        , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
     }
 
     /**
@@ -42,7 +45,9 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('add_certification');
         }
 
-        return $this->render('category/addCategory.html.twig',['form'=>$form->createView(),'user'=>$this->getuser()]);
+        return $this->render('category/addCategory.html.twig',['form'=>$form->createView(),'user'=>$this->getuser(),
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+            ]);
     }
 
     /**

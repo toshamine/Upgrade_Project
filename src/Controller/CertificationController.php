@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Certification;
+use App\Entity\RDV;
 use App\Form\CertificationForm;
 use App\Form\CertificationType;
 use App\Entity\Document;
@@ -63,7 +64,9 @@ class CertificationController extends AbstractController
         );
         return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
             "listeCertification"=>$certifications,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
-            'listCompany'=>$company,'user'=>$this->getuser()]);
+            'listCompany'=>$company,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
 
     }
 
@@ -135,7 +138,9 @@ class CertificationController extends AbstractController
             return $this->redirectToRoute('certification');
         }
 
-        return $this->render('Certification/addCertification.html.twig',['form'=>$form->createView(),'user'=>$this->getuser()]);
+        return $this->render('Certification/addCertification.html.twig',['form'=>$form->createView(),'user'=>$this->getuser()
+        , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
     }
 
     /**
@@ -224,6 +229,7 @@ class CertificationController extends AbstractController
             'form'=>$form->createView(),
             'certification'=>$certification,
             'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -235,7 +241,9 @@ class CertificationController extends AbstractController
     {
         if($this->getUser()!=null) {
             $certif = $this->getDoctrine()->getManager()->getRepository(Certification::class)->find($id);
-            return $this->render("Certification/show.html.twig",["certif"=>$certif,'user'=>$this->getuser()]);
+            return $this->render("Certification/show.html.twig",["certif"=>$certif,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+            ]);
         }
         return $this->redirectToRoute("app_login");
 
@@ -299,6 +307,7 @@ class CertificationController extends AbstractController
             'documents'=>$documents,
             'certif'=>$id
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
 
 
@@ -384,7 +393,9 @@ class CertificationController extends AbstractController
 
         return $this->render("Certification/listCertification.html.twig",['form' => $form->createView(),
             "listeCertification"=>$certifications,"listCategory"=>$categories,"listDifficulty"=>$difficulty,
-            'listCompany'=>$company,'user'=>$this->getuser()]);
+            'listCompany'=>$company,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
 
     }
 

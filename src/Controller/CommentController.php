@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Notification;
+use App\Entity\RDV;
 use App\Entity\User1;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -17,24 +19,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentController extends AbstractController
 
 {
-
-
     /**
      * @Route("/certificationCommentDetails/{id}", name="details_comment")
      */
     public function listComment(Request $request,$id, CommentRepository $repo,PaginatorInterface $paginator): Response
-
 
     {
 
         $em = $this->getDoctrine()->getManager();
         $user1 = $em->getRepository(User1::class)->findOneBy(['email'=>$this->getUser()->getUserIdentifier()]);
         $picture = $this->getParameter("app.path.product_images").'/'.$user1->getPicture();
-
-
-
-
-
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -51,13 +45,9 @@ class CommentController extends AbstractController
             $em->persist($comment);
             $em->flush();
 
-            return $this->redirectToRoute('details_comment', ['id'=>$id,'user'=>$this->getUser()]);
+            return $this->redirectToRoute('details_comment', ['id'=>$id,'user'=>$this->getUser()]
+            );
         }
-
-
-
-
-
 
         $commentlist = $repo->findByOrder($id);
         $comments=$paginator->paginate(
@@ -66,9 +56,12 @@ class CommentController extends AbstractController
         return $this->render('comment/testbootstrap.html.twig', [
             'comments' => $comments,'certifID'=>$id, 'pic'=>$picture,'comment' => $comment,
             'form' => $form->createView(),
-            'user'=>$this->getUser()
+            'user'=>$this->getUser(),
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
+
+
 
     /**
      * @Route ("/deletecomment/{id}",name="commentDelete")
@@ -125,7 +118,8 @@ class CommentController extends AbstractController
             'comment' => $comment,
             'form' => $form,
             'id'=>$id,
-            'user'=>$this->getUser()
+            'user'=>$this->getUser(),
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
 
     }
@@ -159,10 +153,17 @@ class CommentController extends AbstractController
             $comment->setCertification($certification);
             $comment->setParent($parentComment);
             $comment->setCreatedat(new \DateTime('now'));
-
             $content= $request->request->get('content');
             $comment->getContent($content);
 
+            $notif=new Notification();
+            $notif->setUser($comment->getParent()->getUser());
+            $notif->setOpened(false);
+            $notif->setDate(new \DateTime('now'));
+            $notif->setText($comment->getUser()->getFirstName().' Replied To Your Comment On '.$certification->getTitle().' Certificate');
+            $notif->setCertification($certification->getId());
+            $em->persist($notif);
+            $em->flush();
             $em->persist($comment);
             $em->flush();
 
@@ -173,7 +174,8 @@ class CommentController extends AbstractController
             'comment' => $comment,
             'form' => $form,
             'id'=>$id,
-            'user'=>$this->getUser()
+            'user'=>$this->getUser(),
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
 
     }
@@ -209,7 +211,8 @@ class CommentController extends AbstractController
             'comment' => $comment,
             'form' => $form,
             'id'=>$certifid,
-            'user'=>$this->getUser()
+            'user'=>$this->getUser(),
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
 
         ]);
 

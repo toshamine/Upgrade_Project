@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\RDV;
 use App\Entity\User1;
 use ContainerEZrCWmn\getErrorHandler_ErrorRenderer_HtmlService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,7 +38,9 @@ class SecurityController extends AbstractController
 
 
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'user' => $this->getUser(),'error' => $error]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'user' => $this->getUser(),'error' => $error
+        , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+        ]);
     }
 
     /**

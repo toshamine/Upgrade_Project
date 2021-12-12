@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\RDV;
 use App\Entity\Records;
 use App\Form\RecordsType;
 use App\Repository\RecordsRepository;
@@ -19,6 +20,7 @@ class RecordsController extends AbstractController
         return $this->render('records/index.html.twig', [
             'records' => $recordsRepository->findByOrder($this->getUser()->getLog())
             ,'user'=>$this->getuser()
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
     #[Route('/deleteallrec', name: 'deleteallrec', methods: ['GET','POST'])]

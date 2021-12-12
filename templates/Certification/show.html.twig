@@ -36,6 +36,9 @@
         </tr>
         </tbody>
     </table>
+
+    <table>
+        <td>
     <div class="svg-wrapper" style="float: left;">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
             <rect id="shape" height="40" width="150" />
@@ -44,7 +47,8 @@
             </div>
         </svg>
     </div>
-
+        </td>
+        <td>
     <div class="svg-wrapper" style="float: right;">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
             <rect id="shape" height="40" width="150" />
@@ -53,17 +57,19 @@
             </div>
         </svg>
     </div>
-
-    <center><div class="svg-wrapper">
-        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+        </td>
+        <td>
+    <center><div class="svg-wrapper" style="margin-left: 480px;">
+        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg" >
             <rect id="shape" height="40" width="150" />
             <div id="text" >
                 &nbsp;<a href="{{ path("white_test_index",{"certif":certif.Title}) }}"><span class="spot"></span><span style="color: #0b7dfd;">WhiteTests</span></a>
             </div>
         </svg>
     </div></center>
+        </td>
 
-
+   <td>
     <div class="svg-wrapper" style="float: right;">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
             <rect id="shape" height="40" width="150" />
@@ -72,7 +78,8 @@
             </div>
         </svg>
     </div>
-
+   </td>
+    </table>
     <style>
         .unselectable {
             -webkit-user-select: none;

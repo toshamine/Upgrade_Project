@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Notification;
+use App\Entity\RDV;
 use App\Form\NotificationType;
 use App\Repository\NotificationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,8 @@ class NotificationController extends AbstractController
     {
         return $this->render('notification/index.html.twig', [
             'notifications' => $notificationRepository->findByUser($this->getUser()),
-            'user'=>$this->getUser()
+            'user'=>$this->getUser(),
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -31,7 +33,8 @@ class NotificationController extends AbstractController
         $em->flush();
         return $this->render('notification/show.html.twig', [
             'notification' => $notification,
-            'user'=>$this->getUser()
+            'user'=>$this->getUser(),
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 

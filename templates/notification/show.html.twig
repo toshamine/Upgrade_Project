@@ -22,7 +22,11 @@
         <tbody class="thead-dark">
         <tr>
             <th>Text</th>
+            {% if notification.Certification!=0 %}
+            <td><a  class="hvr-buzz-out" style="color: black;" href="{{ path('details_comment',{'id':notification.Certification}) }}">{{ notification.Text }}</a></td>
+            {% else %}
             <td>{{ notification.Text }}</td>
+            {% endif %}
         </tr>
         <tr>
             <th>Date</th>

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\RDV;
 use App\Entity\User1;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +28,8 @@ class InstructorsController extends AbstractController
            $finalist,
            $request->query->getInt('page',1),4
        );
-       return $this->render("Instructors/instructors.html.twig",['instructors'=>$pglist,'user'=>$this->getuser()]);
+       return $this->render("Instructors/instructors.html.twig",['instructors'=>$pglist,'user'=>$this->getuser()
+       , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+           ]);
    }
 }

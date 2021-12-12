@@ -9,9 +9,10 @@
 
 {% block home %} {{ parent() }} {% endblock %}
 {% block about %} {{ parent() }} {% endblock %}
-{% block certifications %} {{ parent() }} {% endblock %}
+{% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link hvr-float">Certifications</a></li>{% endblock %}
 {% block instructors %} {{ parent() }} {% endblock %}
-{% block forum %}  {{ parent() }} {% endblock %}
+{% block forum%} <li class="nav-item active hvr-float"><a href="{{ path("r_d_v_new") }}" class="nav-link hvr-float">Exams</a></li>{% endblock %}
+
 {% block contact %} {{ parent() }} {% endblock %}
 
 
@@ -45,9 +46,10 @@
                         <tr>
                         <td>
                             <a href="{{ path('user1_show', {'id': r_d_v.User.id}) }}" class="hvr-float-shadow">
-
-                                    <img src="{{ picture }}{{ r_d_v.User.picture }}"  width="60px" height="60px" class="avatar" alt="Avatar">
-                                {{ r_d_v.User }}</a></td>
+                                   <span class="circle-image">
+                                    <img src="{{ picture }}{{ r_d_v.User.picture }}"  alt="Avatar">
+                                   </span>
+                                <span style="margin-left: -10px;">{{ r_d_v.User }}</span></a></td>
 
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ r_d_v.Date ? r_d_v.Date|date('Y-m-d') : '' }}</td>
                             <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ r_d_v.certification.Title }}</td>
@@ -292,4 +294,19 @@ check_circle
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+
+    <style>
+        .circle-image{
+            display: inline-block;
+            border-radius: 50%;
+            overflow: hidden;
+            width: 50px;
+            height: 50px;
+        }
+        .circle-image img{
+            width:100%;
+            height:100%;
+            object-fit: cover;
+        }
+    </style>
 {% endblock %}

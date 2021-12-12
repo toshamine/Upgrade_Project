@@ -6,8 +6,8 @@
     <!-- <li class="nav-item active"><a href="" class="nav-link">Forum</a></li> -->{% endblock %}
 
 {% block home %} {{ parent() }} {% endblock %}
-{% block about %} {{ parent() }} {% endblock %}
-{% block certifications %} {{ parent() }} {% endblock %}
+{% block about %}<li class="nav-item active"><a href="{{ path("about") }}" class="nav-link hvr-float">About</a></li>{% endblock %}
+{% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link hvr-float">Certifications</a></li>{% endblock %}
 {% block instructors %} {{ parent() }} {% endblock %}
 {% block forum %}  {{ parent() }} {% endblock %}
 {% block contact %} {{ parent() }} {% endblock %}

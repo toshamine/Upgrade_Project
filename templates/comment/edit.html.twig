@@ -1,18 +1,9 @@
-{% extends 'base.html.twig' %}
+{%  extends "Client/base.html.twig" %}
 
-{% block title %}Edit your Comment{% endblock %}
-{#
-{% block body %}
 
-    {{ include('comment/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('details_comment','id':id) }}">back to list</a>
-
-    {{ include('comment/_delete_form.html.twig') }}
-
-{% endblock %}
-#}
-
+{% block sectionmenu %} Certification {% endblock %}
+{% block sectionname %}Comments{% endblock %}
 
 
 {% block contenu %}
@@ -20,32 +11,101 @@
         <div class="card">
             <div class="row">
                 <div class="col-md-12">
-                    {#       <h3 class="text-center mb-5"> Nested comment section </h3>  #}
                     <div class="row">
                         <div class="col-md-12">
 
 
                             <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                                {#              <img class="img-fluid img-responsive rounded-circle mr-2" src={{ pic }} width="38">
-                                #}
+                                <div class="media mt-4"> <img class="mr-3 rounded-circle" style="margin-top: -28px;" alt="Bootstrap Media Preview" src={{ pic }}  width="38" />  </div>
 
 
 
 
-                                {#         <input type="text"  class="form-control mr-3" placeholder="Add comment"><a href="#">Comment</a>
-                                #}
+
+
                                 {{ form_start(form) }}
                                 <div class="form-group " style="width: 800px;">
                                     {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
                                 </div>
-                                {#             {{ form_widget(form.content,{'attr': {'class': 'form-control'}}) }}
-                                #}       <button class="btn text-primary">{{ button_label|default('  Comment') }}</button>
+                                <button class="btn btn-light">{{ button_label|default('  Comment') }}</button>
                                 {{ form_end(form) }}
 
 
 
                             </div>
+                            {% for comment in comments %}
+                                {% if comment.parent == null %}
 
+
+
+                                    <div class="media mt-4"> <img class="mr-3 rounded-circle" alt="Bootstrap Media Preview" src={{ asset('uploads/images/products/'~comment.user.picture) }} />
+                                    <div class="media-body">
+                                    <div class="row">
+                                        <div class="col-8 d-flex">
+                                            <h5>{{ comment.user.FirstName }} {{ comment.user.LastName }} </h5>
+                                            &nbsp;&nbsp;<p class="text-muted text-sm">    {{ comment.createdat|date("d/m/Y H:i") }}</p>
+
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="pull-right reply hvr-float-shadow"> <a href=" {{ path('CreateNewResp', {'id': comment.id}) }}"><span><i class="fa fa-reply"></i> Reply</span></a> </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <p class="text-dark">   {{ comment.content }} </p>
+
+
+                                    <div class="pad-ver">
+                                        <div class="btn-group">
+
+                                            {% if (comment.user.id==app.user.id) %}
+                                                <a class="btn btn-light" href="{{ path('commentDelete', {'id': comment.id}) }}">Delete</a>
+
+
+                                                <a class="btn btn-light" href="{{ path('UpdateCom', {'id': comment.id}) }}">Edit</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    {# On affiche les réponses #}
+
+                                    {% for reply in comment.replies %}
+
+                                        <div class="media mt-4"> <a class="pr-3" href="#"><img class="rounded-circle" alt="Bootstrap Media Another Preview" src={{ asset('uploads/images/products/'~reply.user.picture) }} /></a>
+                                            <div class="media-body">
+                                                <div class="row">
+                                                    <div class="col-12 d-flex">
+
+                                                        <h5>{{ reply.user.FirstName }} {{ reply.user.LastName }}  </h5>
+                                                        &nbsp;&nbsp;<span>{{ reply.createdat|date("d/m/Y H:i") }}</span>
+                                                    </div>
+
+
+                                                </div>
+                                                {{ reply.content }}
+                                                <div class="pad-ver">
+                                                    <div class="btn-group">
+
+                                                        {% if (reply.user.id==app.user.id) %}
+                                                            <a class="btn btn-light" href="{{ path('commentDelete', {'id': reply.id}) }}">Delete</a>
+
+
+
+                                                            <a class="btn btn-light" href="{{ path('UpdateCom', {'id': reply.id}) }}">Edit</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+                                {% endif %}
+
+                                </div>
+                                </div>
+                            {% endfor %}
 
                         </div>
                     </div>
@@ -100,3 +160,15 @@
 
 {% endblock %}
 
+      {% block javascripts %}
+
+          <script type="text/javascript" >
+
+              document.getElementById('test_form').onclick = function(){
+                  if(document.getElementById('formulaire').style.display == ""){
+                      document.getElementById('formulaire').style.display = "block";
+                  }
+              }
+
+          </script>
+      {% endblock %}

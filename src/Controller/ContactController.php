@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\RDV;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use DateTime;
@@ -19,6 +20,7 @@ class ContactController extends AbstractController
     {
         return $this->render('contact/index.html.twig', [
             'contacts' => $contactRepository->findAll(),
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -42,7 +44,8 @@ class ContactController extends AbstractController
         return $this->renderForm('contact/new.html.twig', [
             'contact' => $contact,
             'form' => $form,
-            'user'=>$this->getUser()
+            'user'=>$this->getUser(), 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+
         ]);
     }
 
@@ -51,6 +54,7 @@ class ContactController extends AbstractController
     {
         return $this->render('contact/show.html.twig', [
             'contact' => $contact,
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -69,6 +73,7 @@ class ContactController extends AbstractController
         return $this->renderForm('contact/edit.html.twig', [
             'contact' => $contact,
             'form' => $form,
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 

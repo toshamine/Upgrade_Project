@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\RDV;
 use App\Entity\User1;
 use App\Form\User1Type;
 use App\Repository\User1Repository;
@@ -28,6 +29,7 @@ class User1Controller extends AbstractController
         return $this->render('user1/show.html.twig', [
             'user1' => $this->getUser(),'user' => $this->getUser(),
             'pic'=>$picture,
+             'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -43,6 +45,7 @@ class User1Controller extends AbstractController
         return $this->render('user1/show.html.twig', [
             'user1' => $this->getUser(),'user' => $this->getUser(),
             'pic'=>$picture,
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
@@ -70,7 +73,8 @@ class User1Controller extends AbstractController
             'user1' => $user1,
             'form' => $form,
             'user'=>$this->getUser(),
-            'pic'=>$picture
+            'pic'=>$picture,
+            'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 

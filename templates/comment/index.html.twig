@@ -49,12 +49,12 @@
 
                     <a href="{{ path('commentDelete', {'id': comment.id}) }}">Delete</a>
                     <a href="{{ path('UpdateCom', {'id': comment.id}) }}"> edit</a>
-                        <p> <a href=" {{ path('CreateNewResp', {'id': comment.id}) }}" data-reply data-id="{{ comment.id }}"  class="btn primary press">Repondre</a> </p>
+                        <p> <a  href=" {{ path('CreateNewResp', {'id': comment.id}) }}" data-reply data-id="{{ comment.id }}"  class="btn primary press ">Repondre</a> </p>
 
                         {#  {{ path('CreateNewCom', {'id': certifID}) }}  #}
 
                     {% else %}
-                        <p> <a href=" {{ path('CreateNewResp', {'id': comment.id}) }}" data-reply data-id="{{ comment.id }}"  class="btn primary press">Repondre</a> </p>
+                        <p> <a href=" {{ path('CreateNewResp', {'id': comment.id}) }}" data-reply data-id="{{ comment.id }}"  class="btn primary press hvr-float-shadow">Repondre</a> </p>
 
 
                     {% endif %}

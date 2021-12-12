@@ -9,9 +9,9 @@
 
 {% block home %} {{ parent() }} {% endblock %}
 {% block about %} {{ parent() }} {% endblock %}
-{% block certifications %} {{ parent() }} {% endblock %}
+{% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link hvr-float">Certifications</a></li>{% endblock %}
 {% block instructors %} {{ parent() }} {% endblock %}
-{% block forum %}  {{ parent() }} {% endblock %}
+{% block forum%} <li class="nav-item active"><a href="{{ path("r_d_v_new") }}" class="nav-link hvr-float">Exams</a></li>{% endblock %}
 {% block contact %} {{ parent() }} {% endblock %}
 
 

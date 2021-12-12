@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Certification;
+use App\Entity\RDV;
 use App\Entity\User1;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
@@ -106,7 +107,9 @@ class TestController extends AbstractController
                 }
 
 
-            return $this->render("/registration/register.html.twig",['user'=>$this->getUser(),'certifications'=>$certifications,'instructors'=>$finalist]);
+            return $this->render("/registration/register.html.twig",['user'=>$this->getUser(),'certifications'=>$certifications,'instructors'=>$finalist
+            , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
+            ]);
         }else{
 
 
@@ -142,6 +145,7 @@ class TestController extends AbstractController
 
             return $this->render('registration/register.html.twig', [
                 'registrationForm' => $form->createView(),'user'=>$this->getUser(),'certifications'=>$certifications,'instructors'=>$finalist
+                , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
             ]);
 
         }

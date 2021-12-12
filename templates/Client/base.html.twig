@@ -54,13 +54,13 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    {% block home %}<li class="nav-item"><a href="{{ path("index") }}"  class="nav-link">Home</a></li>{% endblock %}
-                    {% block about %}<li class="nav-item"><a href="{{ path("about") }}" class="nav-link">About</a></li>{% endblock %}
-                    {% block certifications %}<li class="nav-item"><a href="{{ path("certification") }}" class="nav-link">Certifications</a></li>{% endblock %}
-                    {% block instructors %}<li class="nav-item"><a href="{{ path("listinstructors") }}" class="nav-link">Instructors</a></li>{% endblock %}
+                    {% block home %}<li class="nav-item "><a href="{{ path("index") }}"  class="nav-link hvr-float">Home</a></li>{% endblock %}
+                    {% block about %}<li class="nav-item"><a href="{{ path("about") }}" class="nav-link hvr-float">About</a></li>{% endblock %}
+                    {% block certifications %}<li class="nav-item active"><a href="{{ path("certification") }}" class="nav-link hvr-float">Certifications</a></li>{% endblock %}
+                    {% block instructors %}<li class="nav-item"><a href="{{ path("listinstructors") }}" class="nav-link hvr-float">Instructors</a></li>{% endblock %}
                     <!-- Here you need to give the attribute the class nav-item active to make active it depends where you are -->
-                    {% block forum%} <li class="nav-item"><a href="{{ path("r_d_v_new") }}" class="nav-link">Exams</a></li>{% endblock %}
-                    {% block contact %}<li class="nav-item"><a href="{{ path("contact_new") }}" class="nav-link">Contact</a></li>{% endblock %}
+                    {% block forum%} <li class="nav-item"><a href="{{ path("r_d_v_new") }}" class="nav-link hvr-float">Exams</a></li>{% endblock %}
+                    {% block contact %}<li class="nav-item"><a href="{{ path("contact_new") }}" class="nav-link hvr-float">Contact</a></li>{% endblock %}
                     {% if  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         {# <li class="nav-item"><a href="#" class="nav-link">
                             {{ user.Firstname }} {{ user.Lastname }}</a></li> #}
@@ -82,17 +82,24 @@
                                         <i class="ti-settings text-primary"></i>
                                         Settings
                                     </a>
-                                    <a class="dropdown-item" href="{{ path('r_d_v_index') }}">
+                                    {% if alertrdv!=0 %}
+                                    <a class="dropdown-item hvr-buzz-auto" style="font-weight: bold;" href="{{ path('r_d_v_index') }}">
                                         <i class="ti-settings text-primary"></i>
-                                        Gestion RDV
+                                        <span style="color: red;">°</span>Exam Requests
                                     </a>
+                                    {% else%}
+                                        <a class="dropdown-item"  href="{{ path('r_d_v_index') }}">
+                                            <i class="ti-settings text-primary"></i>
+                                            Exam Requests
+                                        </a>
+                                        {% endif %}
                                 {% endif %}
                                 <a class="dropdown-item" href="{{ path('records_index') }}">
                                     <i class="ti-power-off text-primary"></i>
                                     Records
                                 </a>
                                 {% if user.notifsize !=0 %}
-                                    <a class="dropdown-item" style="font-weight: bold;" href="{{ path('notification_index') }}">
+                                    <a class="dropdown-item hvr-buzz-auto" style="font-weight: bold;" href="{{ path('notification_index') }}">
                                         <i class="ti-power-off text-primary"></i>
                                         <span style="color: red;">°</span>Notifications
                                     </a>
