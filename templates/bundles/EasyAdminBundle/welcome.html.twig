@@ -57,7 +57,7 @@
                 ['Task', 'Hours per Day'],
                 {% for stat in stats %}
 
-                [ '{{ stat.company.id }}' , {{ stat.nbCompany|number_format }}],
+                [ 'ID Company = {{ stat.company.id }}' , {{ stat.nbCompany|number_format }}],
 
                 {% endfor %}
 
