@@ -8,56 +8,57 @@ use phpDocumentor\Reflection\Types\Integer;
 class Stat
 {
     public  $nbCompany ;
-    public string $nameCompany ;
-    public Company $company ;
+    public  $nameCompany ;
+    public  $company ;
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getNbCompany(): int
+    public function getNbCompany()
     {
         return $this->nbCompany;
     }
 
     /**
-     * @param int $nbCompany
+     * @param mixed $nbCompany
      */
-    public function setNbCompany(int $nbCompany): void
+    public function setNbCompany($nbCompany): void
     {
         $this->nbCompany = $nbCompany;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getNameCompany(): string
+    public function getNameCompany()
     {
         return $this->nameCompany;
     }
 
     /**
-     * @param string $nameCompany
+     * @param mixed $nameCompany
      */
-    public function setNameCompany(string $nameCompany): void
+    public function setNameCompany($nameCompany): void
     {
         $this->nameCompany = $nameCompany;
     }
 
     /**
-     * @return Company
+     * @return mixed
      */
-    public function getCompany(): Company
+    public function getCompany()
     {
         return $this->company;
     }
 
     /**
-     * @param Company $company
+     * @param mixed $company
      */
-    public function setCompany(Company $company): void
+    public function setCompany($company): void
     {
         $this->company = $company;
     }
+
 
 
 
