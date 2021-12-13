@@ -23,13 +23,13 @@ class WhiteTestController extends AbstractController
 
 {
     #[Route('/{certif}', name: 'white_test_index', methods: ['GET'])]
-    public function index(WhiteTestRepository $whiteTestRepository,string $certif): Response
+    public function index(WhiteTestRepository $whiteTestRepository, $certif): Response
     {
         $em=$this->getDoctrine()->getManager();
-        $certification=$em->getRepository(Certification::class)->findOneBy(['Title'=>substr($certif,0,strpos($certif,' '))]);
+        $certification=$em->getRepository(Certification::class)->find($certif);
         return $this->render('white_test/index.html.twig', [
-            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification]),'certif'=>$certif
-            ,'idcertif'=>$certification->getId()
+            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certif]),'certif'=>$certif
+            ,'idcertif'=>$certif
             ,'user'=>$this->getuser()
             , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
