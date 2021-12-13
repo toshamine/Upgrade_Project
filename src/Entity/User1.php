@@ -512,10 +512,26 @@ class User1 implements UserInterface, PasswordAuthenticatedUserInterface , \Seri
         foreach ($this->notifications as $n){
             if($n->getOpened()==false)
             {
-                $result=1;
+                $result++;
             }
         }
         return $result;
+    }
+
+    public function commentname():?string
+    {
+        $r=null;
+        if($this->getId()==11){
+            $r="( Admin )";
+        }
+        else {
+            foreach ($this->getRoles() as $role) {
+                if ($role == 'ROLE_MANAGER') {
+                    $r = "( Instructor )";
+                }
+            }
+        }
+        return $r.' '.$this->getFirstName();
     }
 
 }

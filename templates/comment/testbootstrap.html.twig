@@ -42,7 +42,7 @@
                                     <div class="media-body">
                                     <div class="row">
                                         <div class="col-8 d-flex">
-                                            <h5>{{ comment.user.FirstName }} {{ comment.user.LastName }} </h5>
+                                            <h5>{{ comment.user.commentname }} {{ comment.user.LastName }} </h5>
                                             &nbsp;&nbsp;<p class="text-muted text-sm">    {{ comment.createdat|date("d/m/Y H:i") }}</p>
 
                                         </div>
@@ -77,7 +77,7 @@
                                                 <div class="row">
                                                     <div class="col-12 d-flex">
 
-                                                        <h5>{{ reply.user.FirstName }} {{ reply.user.LastName }}  </h5>
+                                                        <h5>{{ reply.user.commentname }} {{ reply.user.LastName }}  </h5>
                                                         &nbsp;&nbsp;<span>{{ reply.createdat|date("d/m/Y H:i") }}</span>
                                                     </div>
 

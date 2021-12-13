@@ -85,7 +85,7 @@
                                     {% if alertrdv!=0 %}
                                     <a class="dropdown-item hvr-buzz-auto" style="font-weight: bold;" href="{{ path('r_d_v_index') }}">
                                         <i class="ti-settings text-primary"></i>
-                                        <span style="color: red;">°</span>Exam Requests
+                                        <span style="color: red;">{{ alertrdv }}°</span>Exam Requests
                                     </a>
                                     {% else%}
                                         <a class="dropdown-item"  href="{{ path('r_d_v_index') }}">
@@ -101,7 +101,7 @@
                                 {% if user.notifsize !=0 %}
                                     <a class="dropdown-item hvr-buzz-auto" style="font-weight: bold;" href="{{ path('notification_index') }}">
                                         <i class="ti-power-off text-primary"></i>
-                                        <span style="color: red;">°</span>Notifications
+                                        <span style="color: red;">{{ user.notifsize }}°</span>Notifications
                                     </a>
                                 {% else %}
                                     <a class="dropdown-item" href="{{ path('notification_index') }}">

@@ -116,5 +116,31 @@ class User1Controller extends AbstractController
     }
 
 
+    /**
+     * @Route("/block/user/{id}",name="blockuser")
+     */
+    public function block($id):Response
+    {
+        $em=$this->getDoctrine()->getManager();
+        $user=new User1();
+        $user=$em->getRepository(User1::class)->find($id);
+        $user->setIsVerified(false);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('user1_show',['id'=>$id]);
+    }
 
+    /**
+     * @Route("/unblock/us/er/{id}",name="unblockuser")
+     */
+    public function unblock($id):Response
+    {
+        $em=$this->getDoctrine()->getManager();
+        $user=new User1();
+        $user=$em->getRepository(User1::class)->find($id);
+        $user->setIsVerified(true);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('user1_show',['id'=>$id]);
+    }
 }

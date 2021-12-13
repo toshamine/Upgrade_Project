@@ -42,6 +42,11 @@ class Notification
      */
     private $Certification;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cheater;
+
     public function __construct()
     {
         $this->Date = new \DateTime();
@@ -109,6 +114,18 @@ class Notification
     public function setCertification(int $Certification): self
     {
         $this->Certification = $Certification;
+
+        return $this;
+    }
+
+    public function getCheater(): ?int
+    {
+        return $this->cheater;
+    }
+
+    public function setCheater(?int $cheater): self
+    {
+        $this->cheater = $cheater;
 
         return $this;
     }

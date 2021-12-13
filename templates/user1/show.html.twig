@@ -6,8 +6,12 @@
 
 
 {% block body %}
-   <center><h1 class="hvr-float-shadow">My Profile</h1></center>
 
+    {% if  is_granted('ROLE_ADMIN') %}
+    <center><h1 class="hvr-float-shadow">{{ user1.FirstName }} Profile</h1></center>
+    {% else %}
+   <center><h1 class="hvr-float-shadow">My Profile</h1></center>
+    {% endif %}
 
     <div class="container rounded bg-white mt-5 mb-5" style="margin-right: -150px;">
         <div class="row">
@@ -17,6 +21,9 @@
                 <div class="p-3 py-5" >
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">Profile Settings</h4>
+                        {% if user1.IsVerified==false %}
+                        <h4 class="hvr-buzz-auto" style="color: red">Blocked</h4>
+                        {% endif %}
                     </div>
                     <div class="row mt-2">
                         <div class="col-md-6"><label class="labels">FirstName</label><input type="text" class="form-control" placeholder="first name" value="{{ user1.firstname }}" disabled></div>
@@ -32,7 +39,7 @@
                     <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Birthdate</label><input type="text" class="form-control" placeholder="education" value="{{ user1.Birthdate | date('m/d/Y') }}"disabled></div>
                     </div>
-                {% if user1.id == user.id%}
+                {% if user1.id == user.id and is_granted('ROLE_ADMIN') %}
                     <form action="{{ path('user1_edit', {'id': user1.id}) }}">
 
                         <div class="mt-5 text-center"><input  class="btn btn-primary profile-button" type="submit" value="Edit" >  </div>
@@ -40,10 +47,32 @@
                     </form>
                     {% endif %}
 
-
-
+               <center>
+                </br>
+                   {% if user1.IsVerified==true and is_granted('ROLE_ADMIN') %}
+                    <div class="svg-wrapper-red">
+                        <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                            <rect id="shape-red" height="40" width="150" />
+                            <div id="text" >
+                                &nbsp;<a href="{{ path("blockuser",{'id':user1.id}) }}"><span class="spot"></span><span style="color: black;">Block</span> </a>
+                            </div>
+                        </svg>
+                    </div>
+                       {% elseif  is_granted('ROLE_ADMIN')%}
+                           <div class="svg-wrapper-green">
+                               <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                                   <rect id="shape-green" height="40" width="150" />
+                                   <div id="text" >
+                                       &nbsp;<a href="{{ path("unblockuser",{'id':user1.id}) }}"><span class="spot"></span><span style="color: black;">Unblock</span> </a>
+                                   </div>
+                               </svg>
+                           </div>
+                   {% endif %}
+               </center>
 
                 </div>
+
+
 
             <div class="col-md-3 border-left">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5 img-hover-zoom--zoom-n-rotate hvr-wobble-to-top-right" style="z-index: -1;">

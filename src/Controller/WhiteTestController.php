@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Certification;
 use App\Entity\Cheaters;
+use App\Entity\Notification;
 use App\Entity\Question;
 use App\Entity\RDV;
 use App\Entity\Records;
+use App\Entity\User1;
 use App\Entity\WhiteTest;
 use App\Form\WhiteTestType;
 use App\Repository\WhiteTestRepository;
@@ -23,12 +25,12 @@ class WhiteTestController extends AbstractController
 
 {
     #[Route('/{certif}', name: 'white_test_index', methods: ['GET'])]
-    public function index(WhiteTestRepository $whiteTestRepository, $certif): Response
+    public function index(WhiteTestRepository $whiteTestRepository,$certif): Response
     {
         $em=$this->getDoctrine()->getManager();
         $certification=$em->getRepository(Certification::class)->find($certif);
         return $this->render('white_test/index.html.twig', [
-            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certif]),'certif'=>$certif
+            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification->getId()]),'certif'=>$certification->getTitle()
             ,'idcertif'=>$certif
             ,'user'=>$this->getuser()
             , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
@@ -50,7 +52,7 @@ class WhiteTestController extends AbstractController
             $entityManager->persist($whiteTest);
             $entityManager->flush();
             $certif=$certification->getTitle();
-            return $this->redirectToRoute('white_test_index', ['certif'=>$certification->getTitle(),'user'=>$this->getuser()]);
+            return $this->redirectToRoute('white_test_index', ['certif'=>$certification->getId(),'user'=>$this->getuser()]);
         }
 
         return $this->renderForm('Client/AddWhiteTest.html.twig', [
@@ -157,7 +159,14 @@ class WhiteTestController extends AbstractController
         $em=$this->getDoctrine()->getManager();
         $em->persist($cheater);
         $em->flush();
-
+        $notification=new Notification();
+        $notification->setDate(new \DateTime('now'));
+        $notification->setOpened(false);
+        $notification->setUser($em->getRepository(User1::class)->find(11));
+        $notification->setText("The User ".$this->getUser()->getLog()." Tried To Cheat In ".$whitetest." Test But We've Got Him !");
+        $notification->setCheater($this->getUser()->getId());
+        $em->persist($notification);
+        $em->flush();
         return $this->redirectToRoute("certification");
     }
 }
