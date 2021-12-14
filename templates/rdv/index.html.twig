@@ -74,7 +74,9 @@ check_circle
                     </tr>
                     {% else %}
                         <tr>
-                            <td colspan="4">no records found</td>
+                            <td> </td>
+                            <td colspan="4"><center>No Exam Requests Found...</center></td>
+                            <td> </td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -294,7 +296,6 @@ check_circle
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
-
     <style>
         .circle-image{
             display: inline-block;

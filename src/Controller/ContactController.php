@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\Notification;
 use App\Entity\RDV;
+use App\Entity\User1;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use DateTime;
@@ -34,8 +36,14 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $contact->setUser($this->getUser());
-
             $entityManager->persist($contact);
+            $entityManager->flush();
+            $notification=new Notification();
+            $notification->setOpened(false);
+            $notification->setUser($entityManager->getRepository(User1::class)->find(11));
+            $notification->setDate(new \DateTime('now'));
+            $notification->setText($this->getUser()." Sent You A Message : ".$contact->getText());
+            $entityManager->persist($notification);
             $entityManager->flush();
 
             return $this->redirectToRoute('contact_new', [], Response::HTTP_SEE_OTHER);

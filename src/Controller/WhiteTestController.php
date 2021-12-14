@@ -30,7 +30,7 @@ class WhiteTestController extends AbstractController
         $em=$this->getDoctrine()->getManager();
         $certification=$em->getRepository(Certification::class)->find($certif);
         return $this->render('white_test/index.html.twig', [
-            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certification->getId()]),'certif'=>$certification->getTitle()
+            'white_tests' => $whiteTestRepository->findBy(['Certification'=>$certif]),'certif'=>$certif
             ,'idcertif'=>$certif
             ,'user'=>$this->getuser()
             , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
@@ -64,20 +64,21 @@ class WhiteTestController extends AbstractController
     }
 
     /**
-     * @Route ("/show/{id}",name="showwh")
+     * @Route ("/show/{id}/{certif}",name="showwh")
      */
-    public function show(int $id): Response
+    public function show(int $id,$certif): Response
     {
         $whitetest=$this->getDoctrine()->getManager()->getRepository(WhiteTest::class)->find($id);
         return $this->render('white_test/show.html.twig', [
             'whitetest' => $whitetest
+            ,'certif'=>$certif
             ,'user'=>$this->getuser()
             , 'alertrdv'=>count($this->getDoctrine()->getManager()->getRepository(RDV::class)->findBy(['Status'=>"Pending"]))
         ]);
     }
 
     #[Route('/{id}/{certif}/edit', name: 'white_test_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, WhiteTest $whiteTest,string $certif): Response
+    public function edit(Request $request, WhiteTest $whiteTest,$certif): Response
     {
         $form = $this->createForm(WhiteTestType::class, $whiteTest);
         $form->handleRequest($request);
@@ -99,7 +100,7 @@ class WhiteTestController extends AbstractController
     /**
      * @Route("/deletewh/{id}/{certif}",name="deletewh")
      */
-    public function delete(int $id,string $certif):Response
+    public function delete(int $id,$certif):Response
     {
         $whitetest=$this->getDoctrine()->getManager()->getRepository(WhiteTest::class)->find($id);
         $em=$this->getDoctrine()->getManager();

@@ -134,11 +134,14 @@ class WhiteTest
         return $this;
     }
 
+    public function certifid():?int
+    {
+        return $this->getCertification()->getId();
+    }
     public function certiftitle():?string
     {
-        return (string)$this->getCertification();
+        return (string)$this->getCertification()->getTitle();
     }
-
     public function getTitle(): ?string
     {
         return $this->Title;
