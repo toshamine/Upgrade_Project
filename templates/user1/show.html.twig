@@ -34,12 +34,14 @@
 
                         <div class="col-md-12"><label class="labels">CIN</label><input type="text" class="form-control" placeholder="education" value="{{ user1.cin }}" disabled></div>
 
+                        {% if  user1.Category is not null%}
                         <div class="col-md-12"><label class="labels">Category</label><input type="text" class="form-control" placeholder="education" value="{{ user1.Category.name }}" disabled></div>
+                        {% endif %}
                     </div>
                     <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Birthdate</label><input type="text" class="form-control" placeholder="education" value="{{ user1.Birthdate | date('m/d/Y') }}"disabled></div>
                     </div>
-                {% if user1.id == user.id and is_granted('ROLE_ADMIN') %}
+                {% if user1.id == user.id %}
                     <form action="{{ path('user1_edit', {'id': user1.id}) }}">
 
                         <div class="mt-5 text-center"><input  class="btn btn-primary profile-button" type="submit" value="Edit" >  </div>

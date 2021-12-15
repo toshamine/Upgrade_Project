@@ -47,6 +47,7 @@
                         </td>
 
                 {% endif %}
+
                 <td>
                     <div class="svg-wrapper">
                     <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
@@ -57,6 +58,8 @@
                     </svg>
                     </div>
                 </td>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')  %}
+
                 <td><div class="svg-wrapper">
                         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                             <rect id="shape" height="40" width="150" />
@@ -67,6 +70,7 @@
                     </div>
 
                 </td>
+                {% endif %}
             </tr>
 
         {% else %}
@@ -78,6 +82,8 @@
         </tbody>
     </table>
 
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')  %}
+
     <center>
         <div class="svg-wrapper-green">
             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +94,7 @@
             </svg>
         </div>
     </center>
-
+  {% endif %}
 
     <div class="svg-wrapper" style="float: left;">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">

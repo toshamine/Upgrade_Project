@@ -43,6 +43,7 @@
             </div>
         </svg>
     </div>
+    {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_MANAGER') and user.Category.name==document.certification.getCategory()) %}
 
     <div class="svg-wrapper" style="float: right;">
         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +53,7 @@
             </div>
         </svg>
     </div>
-
+  {% endif %}
     <style>
         /*       Just setting CSS for the page   */
 

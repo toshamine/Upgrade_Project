@@ -7,9 +7,12 @@ use App\Entity\User1;
 use App\Form\ChangePasswordFormType;
 use App\Form\User1Type;
 use App\Repository\User1Repository;
+use App\Security\EmailVerifier;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
@@ -18,14 +21,17 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 #[Route('/user1')]
 class User1Controller extends AbstractController
 {
+    private EmailVerifier $emailVerifier;
+
     use ResetPasswordControllerTrait;
 
     private $resetPasswordHelper;
     private $userPasswordEncoder;
 
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper)
+    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper,EmailVerifier $emailVerifier)
     {
         $this->resetPasswordHelper = $resetPasswordHelper;
+        $this->emailVerifier = $emailVerifier;
     }
 
 
@@ -122,6 +128,15 @@ class User1Controller extends AbstractController
     public function block($id):Response
     {
         $em=$this->getDoctrine()->getManager();
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $em->getRepository(User1::class)->find($id),
+            (new TemplatedEmail())
+                ->from(new Address('Upgrade@gmail.com', 'UpgradeBot'))
+                ->to($em->getRepository(User1::class)->find($id)->getEmail())
+                ->subject('Please Confirm your Email')
+                ->htmlTemplate('registration/blockmail.html.twig')
+        );
+
+
         $user=new User1();
         $user=$em->getRepository(User1::class)->find($id);
         $user->setIsVerified(false);

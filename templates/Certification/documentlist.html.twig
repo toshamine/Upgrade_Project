@@ -36,6 +36,7 @@
                 <span class="position mb-2">{{ document.certification.getTitle() }}</span>
                 <div class="faded">
 
+                    {% if (is_granted('ROLE_ADMIN') or (is_granted('ROLE_MANAGER') and user.Category.name==document.certification.getCategory().name)) %}
                <center>
                     <div class="svg-wrapper-red">
                         <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
@@ -46,6 +47,7 @@
                         </svg>
                     </div>
                </center>
+                    {% endif %}
                 </div>
             </div>
         </div>
